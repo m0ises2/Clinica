@@ -1,0 +1,14 @@
+login:
+    path:    /
+    defaults: { _controller: EAMBundle:Inicio:login }
+
+login_check:
+   path: /login_check
+   defaults: { _controller: EAMBundle:Inicio:loginCheck }
+
+Home:
+    path:    /home
+    defaults: { _controller: EAMBundle:Inicio:iniciar }
+
+logout:
+   path: /logout
