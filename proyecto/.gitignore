@@ -1,5 +1,5 @@
-bin/*
-app/cache/*
-app/logs/*
-vendor/*
+bin/**
+app/cache/**
+app/logs/**
+vendor/**
 app/config/parameters.yml
