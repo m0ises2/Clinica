@@ -12,6 +12,7 @@ class __TwigTemplate_48d7d5febb1033fffc2b774665c5aec30c7f91f8871709fab06123218f7
         $this->blocks = array(
             'title' => array($this, 'block_title'),
             'styles' => array($this, 'block_styles'),
+            'scripts' => array($this, 'block_scripts'),
             'content' => array($this, 'block_content'),
             'javascript' => array($this, 'block_javascript'),
         );
@@ -42,6 +43,11 @@ class __TwigTemplate_48d7d5febb1033fffc2b774665c5aec30c7f91f8871709fab06123218f7
         // line 16
         $this->displayBlock('styles', $context, $blocks);
         // line 31
+        echo "
+    ";
+        // line 32
+        $this->displayBlock('scripts', $context, $blocks);
+        // line 33
         echo "    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -65,7 +71,7 @@ class __TwigTemplate_48d7d5febb1033fffc2b774665c5aec30c7f91f8871709fab06123218f7
                     <span class=\"icon-bar\"></span>
                 </button>
                 <a class=\"navbar-brand\" href=\"";
-        // line 53
+        // line 55
         echo $this->env->getExtension('routing')->getPath("Home");
         echo "\"> Clinica del Dr. Chapatin </a>
             </div>
@@ -80,7 +86,7 @@ class __TwigTemplate_48d7d5febb1033fffc2b774665c5aec30c7f91f8871709fab06123218f7
                     <ul class=\"dropdown-menu dropdown-user\">
                          <li>
                             <a href=\"";
-        // line 65
+        // line 67
         echo $this->env->getExtension('routing')->getPath("logout");
         echo "\"><i class=\"fa fa-sign-out fa-fw\"></i> Cerrar Sesión - ";
         echo twig_escape_filter($this->env, (isset($context["nombre"]) ? $context["nombre"] : $this->getContext($context, "nombre")), "html", null, true);
@@ -108,17 +114,17 @@ class __TwigTemplate_48d7d5febb1033fffc2b774665c5aec30c7f91f8871709fab06123218f7
                             <!-- /input-group -->
                         </li>
                         ";
-        // line 89
+        // line 91
         echo "                        ";
         if ($this->env->getExtension('security')->isGranted("ROLE_ADMIN")) {
-            // line 90
+            // line 92
             echo "                            <li>
                                 <a href=\"#\">
                                     <i class=\"fa fa-users fa-fw\"></i> Empleados <span class=\"fa arrow\"></span></a>
                                 <ul class=\"nav nav-second-level\">
                                     <li>
                                         <a href=\"";
-            // line 95
+            // line 97
             echo $this->env->getExtension('routing')->getPath("Nuevo_empleado");
             echo "\"><i class=\"fa fa-plus-square\"></i> Añadir </a>
                                     </li>
@@ -139,7 +145,7 @@ class __TwigTemplate_48d7d5febb1033fffc2b774665c5aec30c7f91f8871709fab06123218f7
                             </li>
                         ";
         }
-        // line 113
+        // line 115
         echo "                        <li>
                             <a href=\"#\"> !\"#/(=)(/\" </a>
                         </li>
@@ -202,7 +208,7 @@ class __TwigTemplate_48d7d5febb1033fffc2b774665c5aec30c7f91f8871709fab06123218f7
                         </li>
                         <li>
                              <a href=\"";
-        // line 174
+        // line 176
         echo $this->env->getExtension('routing')->getPath("logout");
         echo "\"> <i class=\"fa fa-sign-out\"></i> Cerrar Sesión </a>
                         </li>
@@ -217,10 +223,10 @@ class __TwigTemplate_48d7d5febb1033fffc2b774665c5aec30c7f91f8871709fab06123218f7
         <div id=\"page-wrapper\">
             <div class=\"container-fluid\">
                 ";
-        // line 187
+        // line 189
         echo "                ";
         $this->displayBlock('content', $context, $blocks);
-        // line 196
+        // line 198
         echo "            </div>
             <!-- /.container-fluid -->
         </div>
@@ -230,9 +236,9 @@ class __TwigTemplate_48d7d5febb1033fffc2b774665c5aec30c7f91f8871709fab06123218f7
     <!-- /#wrapper -->
 
     ";
-        // line 204
+        // line 206
         $this->displayBlock('javascript', $context, $blocks);
-        // line 217
+        // line 219
         echo "
 </body>
 
@@ -280,10 +286,16 @@ class __TwigTemplate_48d7d5febb1033fffc2b774665c5aec30c7f91f8871709fab06123218f7
     ";
     }
 
-    // line 187
+    // line 32
+    public function block_scripts($context, array $blocks = array())
+    {
+        echo "  ";
+    }
+
+    // line 189
     public function block_content($context, array $blocks = array())
     {
-        // line 188
+        // line 190
         echo "                    <div class=\"row\">
                         <div class=\"col-lg-12\">
                             <h1 class=\"page-header\"> Aqui va el contenido de cada vista </h1>
@@ -294,31 +306,31 @@ class __TwigTemplate_48d7d5febb1033fffc2b774665c5aec30c7f91f8871709fab06123218f7
                 ";
     }
 
-    // line 204
+    // line 206
     public function block_javascript($context, array $blocks = array())
     {
-        // line 205
+        // line 207
         echo "       <!-- jQuery -->
         <script src=\"";
-        // line 206
+        // line 208
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("bundles/eam/js/jquery.min.js"), "html", null, true);
         echo "\"></script>
 
         <!-- Bootstrap Core JavaScript -->
         <script src=\"";
-        // line 209
+        // line 211
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("bundles/eam/js/bootstrap.min.js"), "html", null, true);
         echo "\"></script>
 
         <!-- Metis Menu Plugin JavaScript -->
         <script src=\"";
-        // line 212
+        // line 214
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("bundles/eam/js/metisMenu.min.js"), "html", null, true);
         echo "\"></script>
 
         <!-- Custom Theme JavaScript -->
         <script src=\"";
-        // line 215
+        // line 217
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("bundles/eam/js/sb-admin-2.js"), "html", null, true);
         echo "\"></script>
     ";
@@ -336,6 +348,6 @@ class __TwigTemplate_48d7d5febb1033fffc2b774665c5aec30c7f91f8871709fab06123218f7
 
     public function getDebugInfo()
     {
-        return array (  322 => 215,  316 => 212,  310 => 209,  304 => 206,  301 => 205,  298 => 204,  287 => 188,  284 => 187,  278 => 29,  272 => 26,  266 => 23,  260 => 20,  253 => 17,  250 => 16,  244 => 13,  236 => 217,  234 => 204,  224 => 196,  221 => 187,  206 => 174,  143 => 113,  122 => 95,  115 => 90,  112 => 89,  84 => 65,  69 => 53,  45 => 31,  43 => 16,  37 => 13,  23 => 1,);
+        return array (  334 => 217,  328 => 214,  322 => 211,  316 => 208,  313 => 207,  310 => 206,  299 => 190,  296 => 189,  290 => 32,  284 => 29,  278 => 26,  272 => 23,  266 => 20,  259 => 17,  256 => 16,  250 => 13,  242 => 219,  240 => 206,  230 => 198,  227 => 189,  212 => 176,  149 => 115,  128 => 97,  121 => 92,  118 => 91,  90 => 67,  75 => 55,  51 => 33,  49 => 32,  46 => 31,  44 => 16,  38 => 13,  24 => 1,);
     }
 }

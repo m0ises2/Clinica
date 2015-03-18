@@ -12,7 +12,13 @@
 
     <div class = "row">
     	<div class = "col-lg-3 col-lg-offset-4">
-    		<form method="POST" action = "{{path('Home')}}" >
+    		{% if error %}
+    			<div class = "alert alert-danger alert-dismissable">
+    				<button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>
+    				<i class="fa fa-exclamation"></i> {{ error }}
+    			</div>
+    		{% endif %}
+    		<form method="POST" action = "{{ path('Nuevo_empleado') }}" >
 	    		<div class = "form-group" >
 		    		{{ form_label(form.nombreUsuario) }}
 		    		{{ form_widget(form.nombreUsuario, {'attr':{'class':'form-control'}}) }}
@@ -21,6 +27,9 @@
 		    		{{ form_widget(form.contrasenha, {'attr':{'class':'form-control'}}) }}
 
 		    		{{ form_label(form.nombre) }}
+		    		{{ form_widget(form.nombre, {'attr':{'class':'form-control'}}) }}
+
+		    		{{ form_label(form.apellido) }}
 		    		{{ form_widget(form.apellido, {'attr':{'class':'form-control'}}) }}
 
 		    		{{ form_label(form.fechaNac) }}
@@ -42,28 +51,29 @@
 
 			    	<div class = "checkbox" >
 			    		<label>
-			    			<input type="checkbox" value=""> Administrativo
+			    			<input name = "administrativo" type="checkbox" value="Administrativo"> Administrativo
 			    		</label>
 			    	</div>
 
 			    	<div class = "checkbox" >
 			    		<label>
-			    			<input type="checkbox" value=""> Médico
+			    			<input name = "medico" type="checkbox" value="Medico"> Médico
 			    		</label>
 			    	</div>
 
 			    	<div class = "checkbox" >
 			    		<label>
-			    			<input type="checkbox" value=""> Enfermera
+			    			<input name = "enfermera" type="checkbox" value="Enfermera"> Enfermera
 			    		</label>
 			    	</div>
 		    	</div>
 
-		    	<div class = "">
+		    	<div>
 		    		{{form_widget(form.Guardar ,{'attr':{'class':'btn btn-primary'}})}}
 		    		{{form_widget(form.Guardar_otro ,{'attr':{'class':'btn btn-success'}})}}
 		    		{{form_widget(form.Cancelar ,{'attr':{'class':'btn btn-danger'}})}}
-		    	<div/>	    		
+		    	<div/>
+		    	{{ form_rest(form) }}	    		
 	    	</form>
     	</div>
     </div>

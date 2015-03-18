@@ -29,7 +29,7 @@ class EmpleadoController extends Controller
 			return $this->redirect($this->generateUrl('login'));
 		}
 		/**************************************************************/
-
+          $error = "";
       	  $user = new Empleado();
       	  $form = $this->createForm(new EmpleadoType(), $user);
 
@@ -38,11 +38,28 @@ class EmpleadoController extends Controller
       	  if ( $request->getMethod() == "POST")
       	  {
       	  		$form->handleRequest($request);
-
+              
       	  		/*Verificar validez del formulario*/
-      	  		if ( $form->isValid() )
+              if ( $form->isValid() )
       	  		{
-      	  			/*agregamos a la base de datos*/
+                
+      	  			/*verificamos que no exista en la base de datos*/
+                $em = $this->getDoctrine()->getRepository('EAMBundle:Empleado')->findBySeguroSocial( $user->getseguroSocial() );
+
+                if( !$em )
+                {
+                 
+                  /*agregamos a la base de datos*/
+                  $em = $this->getDoctrine()->getManager();
+                  $em->persist($user);
+                  $em->flush();
+
+                  return $this->redirect($this->generateUrl('Home'));
+
+                }else
+                {
+                  $error = "Empleado ya registrado.";
+                }
       	  			
       	  		}
       	  		else
@@ -50,12 +67,8 @@ class EmpleadoController extends Controller
 
       	  		}
       	  }
-      	  else
-      	  {
-      	  	
-      	  }
 
-      	  return $this->render('EAMBundle:Empleado:nuevo.html.twig', array('form' => $form->createView() , 'nombre' => $this->getUser()->getnombreUsuario()));
+      	  return $this->render('EAMBundle:Empleado:nuevo.html.twig', array('form' => $form->createView() , 'nombre' => $this->getUser()->getnombreUsuario(), 'error' => $error));
     }
 
 }

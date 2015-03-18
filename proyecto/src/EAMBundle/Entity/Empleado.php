@@ -51,7 +51,7 @@ class Empleado implements UserInterface, \Serializable
     private $apellido;
 
     /**
-     * @var \DateTime
+     * @var \Date
      *
      * @ORM\Column(name="fecha_nac", type="date", nullable=false)
      * @Assert\Date()
@@ -82,7 +82,7 @@ class Empleado implements UserInterface, \Serializable
     private $roles;
 
     /**
-     * @var \DateTime
+     * @var \Date
      *
      * @ORM\Column(name="fecha_inicio", type="date", nullable=false)
      * @Assert\Date()
