@@ -141,14 +141,32 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
             return array (  '_controller' => 'EAMBundle\\Controller\\InicioController::loginCheckAction',  '_route' => 'login_check',);
         }
 
-        // Home
-        if ($pathinfo === '/home') {
-            return array (  '_controller' => 'EAMBundle\\Controller\\InicioController::iniciarAction',  '_route' => 'Home',);
+        if (0 === strpos($pathinfo, '/home')) {
+            // Home
+            if ($pathinfo === '/home') {
+                return array (  '_controller' => 'EAMBundle\\Controller\\InicioController::iniciarAction',  '_route' => 'Home',);
+            }
+
+            // Nuevo_empleado
+            if ($pathinfo === '/home/nuevo') {
+                return array (  '_controller' => 'EAMBundle\\Controller\\EmpleadoController::NuevoAction',  '_route' => 'Nuevo_empleado',);
+            }
+
         }
 
         // logout
         if ($pathinfo === '/logout') {
             return array('_route' => 'logout');
+        }
+
+        // index
+        if ($pathinfo === '/index') {
+            return array (  '_controller' => 'EAMBundle\\Controller\\EmpleadoController::indexAction',  '_route' => 'index',);
+        }
+
+        // _nuevo
+        if ($pathinfo === '/home/nuevo') {
+            return array (  '_controller' => 'EAMBundle\\Controller\\EmpleadoController::NuevoAction',  '_route' => '_nuevo',);
         }
 
         // homepage

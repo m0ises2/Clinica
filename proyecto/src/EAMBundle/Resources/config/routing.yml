@@ -10,5 +10,17 @@ Home:
     path:    /home
     defaults: { _controller: EAMBundle:Inicio:iniciar }
 
+Nuevo_empleado:
+    path:    /home/nuevo
+    defaults: { _controller: EAMBundle:Empleado:Nuevo }
+
 logout:
    path: /logout
+   
+index:
+    path:     /index
+    defaults: { _controller: EAMBundle:Empleado:index }
+
+_nuevo:
+    path:     /home/nuevo
+    defaults: { _controller: EAMBundle:Empleado:Nuevo }
