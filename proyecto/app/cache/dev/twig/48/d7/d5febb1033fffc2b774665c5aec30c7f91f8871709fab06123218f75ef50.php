@@ -31,11 +31,13 @@ class __TwigTemplate_48d7d5febb1033fffc2b774665c5aec30c7f91f8871709fab06123218f7
     <meta name=\"description\" content=\"\">
     <meta name=\"author\" content=\"\">
 
-    ";
-        // line 12
+    
+    <title>Clinica - ";
+        // line 13
         $this->displayBlock('title', $context, $blocks);
-        // line 15
-        echo "
+        echo "</title>
+    
+
     ";
         // line 16
         $this->displayBlock('styles', $context, $blocks);
@@ -115,7 +117,10 @@ class __TwigTemplate_48d7d5febb1033fffc2b774665c5aec30c7f91f8871709fab06123218f7
                                     <i class=\"fa fa-users fa-fw\"></i> Empleados <span class=\"fa arrow\"></span></a>
                                 <ul class=\"nav nav-second-level\">
                                     <li>
-                                        <a href=\"#\"><i class=\"fa fa-plus-square\"></i> Añadir </a>
+                                        <a href=\"";
+            // line 95
+            echo $this->env->getExtension('routing')->getPath("Nuevo_empleado");
+            echo "\"><i class=\"fa fa-plus-square\"></i> Añadir </a>
                                     </li>
                                     <li>
                                         <a href=\"#\"><i class=\"fa fa-refresh\"></i> Actualizar </a>
@@ -235,12 +240,10 @@ class __TwigTemplate_48d7d5febb1033fffc2b774665c5aec30c7f91f8871709fab06123218f7
 ";
     }
 
-    // line 12
+    // line 13
     public function block_title($context, array $blocks = array())
     {
-        // line 13
-        echo "        <title>Clinica - Home</title>
-    ";
+        echo "Home";
     }
 
     // line 16
@@ -333,6 +336,6 @@ class __TwigTemplate_48d7d5febb1033fffc2b774665c5aec30c7f91f8871709fab06123218f7
 
     public function getDebugInfo()
     {
-        return array (  319 => 215,  313 => 212,  307 => 209,  301 => 206,  298 => 205,  295 => 204,  284 => 188,  281 => 187,  275 => 29,  269 => 26,  263 => 23,  257 => 20,  250 => 17,  247 => 16,  242 => 13,  239 => 12,  231 => 217,  229 => 204,  219 => 196,  216 => 187,  201 => 174,  138 => 113,  113 => 90,  110 => 89,  82 => 65,  67 => 53,  43 => 31,  41 => 16,  38 => 15,  36 => 12,  23 => 1,);
+        return array (  322 => 215,  316 => 212,  310 => 209,  304 => 206,  301 => 205,  298 => 204,  287 => 188,  284 => 187,  278 => 29,  272 => 26,  266 => 23,  260 => 20,  253 => 17,  250 => 16,  244 => 13,  236 => 217,  234 => 204,  224 => 196,  221 => 187,  206 => 174,  143 => 113,  122 => 95,  115 => 90,  112 => 89,  84 => 65,  69 => 53,  45 => 31,  43 => 16,  37 => 13,  23 => 1,);
     }
 }

@@ -159,16 +159,6 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
             return array('_route' => 'logout');
         }
 
-        // index
-        if ($pathinfo === '/index') {
-            return array (  '_controller' => 'EAMBundle\\Controller\\EmpleadoController::indexAction',  '_route' => 'index',);
-        }
-
-        // _nuevo
-        if ($pathinfo === '/home/nuevo') {
-            return array (  '_controller' => 'EAMBundle\\Controller\\EmpleadoController::NuevoAction',  '_route' => '_nuevo',);
-        }
-
         // homepage
         if ($pathinfo === '/app/example') {
             return array (  '_controller' => 'AppBundle\\Controller\\DefaultController::indexAction',  '_route' => 'homepage',);

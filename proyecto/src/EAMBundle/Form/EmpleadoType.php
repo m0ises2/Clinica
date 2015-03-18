@@ -15,16 +15,19 @@ class EmpleadoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nombreUsuario', 'text')
-            ->add('contrasenha', 'password', array('block_name'=>'_password'))
-            ->add('nombre','text')
-            ->add('apellido','text')
-            ->add('fechaNac','date')
-            ->add('seguroSocial','integer')
-            ->add('direccion','text')
-            ->add('rol','text')
-            ->add('fechaInicio','date')
-            ->add('telefono','integer')
+            ->add('nombreUsuario')
+            ->add('contrasenha', 'password')
+            ->add('nombre')
+            ->add('apellido')
+            ->add('fechaNac', 'text')
+            ->add('seguroSocial','text')
+            ->add('direccion')
+            ->add('fechaInicio', 'text')
+            ->add('telefono','text',array('label' => 'Teléfono'))
+            //->add('roles')
+            ->add('Guardar','submit', array('label' => 'Guardar'))
+            ->add('Guardar_otro', 'submit', array('label' => 'Guardar y Agregar Otro'))
+            ->add('Cancelar','submit')
         ;
     }
     
@@ -43,6 +46,6 @@ class EmpleadoType extends AbstractType
      */
     public function getName()
     {
-        return NULL;
+        return 'eambundle_empleado';
     }
 }

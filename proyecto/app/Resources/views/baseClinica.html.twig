@@ -9,9 +9,9 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    {% block title %}
-        <title>Clinica - Home</title>
-    {% endblock %}
+    
+    <title>Clinica - {% block title %}Home{% endblock %}</title>
+    
 
     {% block styles %}
         <link href="{{ asset('bundles/eam/images/icon.png') }}" rel='icon' type='image/png'>
@@ -92,7 +92,7 @@
                                     <i class="fa fa-users fa-fw"></i> Empleados <span class="fa arrow"></span></a>
                                 <ul class="nav nav-second-level">
                                     <li>
-                                        <a href="#"><i class="fa fa-plus-square"></i> Añadir </a>
+                                        <a href="{{ path('Nuevo_empleado') }}"><i class="fa fa-plus-square"></i> Añadir </a>
                                     </li>
                                     <li>
                                         <a href="#"><i class="fa fa-refresh"></i> Actualizar </a>
