@@ -42,7 +42,12 @@ class EmpleadoController extends Controller
       	  		/*Verificar validez del formulario*/
       	  		if ( $form->isValid() )
       	  		{
+      	  			/*agregamos a la base de datos*/
       	  			
+      	  		}
+      	  		else
+      	  		{
+
       	  		}
       	  }
       	  else

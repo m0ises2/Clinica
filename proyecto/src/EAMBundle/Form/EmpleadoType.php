@@ -15,13 +15,13 @@ class EmpleadoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nombreUsuario')
-            ->add('contrasenha', 'password')
+            ->add('nombreUsuario','text', array('label' => 'Nombre de usuario'))
+            ->add('contrasenha', 'password', array('label' => 'Contraseña'))
             ->add('nombre')
             ->add('apellido')
-            ->add('fechaNac', 'text')
-            ->add('seguroSocial','text')
-            ->add('direccion')
+            ->add('fechaNac', 'text', array('label' => 'Fecha de nacimiento'))
+            ->add('seguroSocial','text', array('label' => '# Seguro Social'))
+            ->add('direccion', 'text', array('label' => 'Dirección'))
             ->add('fechaInicio', 'text')
             ->add('telefono','text',array('label' => 'Teléfono'))
             //->add('roles')
