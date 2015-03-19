@@ -1,4 +1,4 @@
-bin/*.*
-app/cache/*.*
-app/logs/*.*
-vendor/*.*
+/bin/*.*
+/app/cache/*.*
+/app/logs/*.*
+/vendor/*.*
