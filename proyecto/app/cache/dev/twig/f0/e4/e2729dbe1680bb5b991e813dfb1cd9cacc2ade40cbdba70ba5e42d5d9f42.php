@@ -152,42 +152,31 @@ class __TwigTemplate_f0e4e2729dbe1680bb5b991e813dfb1cd9cacc2ade40cbdba70ba5e42d5
         echo "
 
 \t\t    \t\t<label> Roles de empleado </label>
-
+\t\t    \t\t\t";
+        // line 51
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), "tipo", array()), 'widget');
+        echo "
 \t\t\t    \t<div class = \"checkbox\" >
-\t\t\t    \t\t<label>
-\t\t\t    \t\t\t<input name = \"administrativo\" type=\"checkbox\" value=\"Administrativo\"> Administrativo
-\t\t\t    \t\t</label>
-\t\t\t    \t</div>
 
-\t\t\t    \t<div class = \"checkbox\" >
-\t\t\t    \t\t<label>
-\t\t\t    \t\t\t<input name = \"medico\" type=\"checkbox\" value=\"Medico\"> Médico
-\t\t\t    \t\t</label>
-\t\t\t    \t</div>
-
-\t\t\t    \t<div class = \"checkbox\" >
-\t\t\t    \t\t<label>
-\t\t\t    \t\t\t<input name = \"enfermera\" type=\"checkbox\" value=\"Enfermera\"> Enfermera
-\t\t\t    \t\t</label>
 \t\t\t    \t</div>
 \t\t    \t</div>
 
 \t\t    \t<div>
 \t\t    \t\t";
-        // line 72
+        // line 58
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), "Guardar", array()), 'widget', array("attr" => array("class" => "btn btn-primary")));
         echo "
 \t\t    \t\t";
-        // line 73
+        // line 59
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), "Guardar_otro", array()), 'widget', array("attr" => array("class" => "btn btn-success")));
         echo "
 \t\t    \t\t";
-        // line 74
+        // line 60
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), "Cancelar", array()), 'widget', array("attr" => array("class" => "btn btn-danger")));
         echo "
 \t\t    \t<div/>
 \t\t    \t";
-        // line 76
+        // line 62
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), 'rest');
         echo "\t    \t\t
 \t    \t</form>
@@ -210,6 +199,6 @@ class __TwigTemplate_f0e4e2729dbe1680bb5b991e813dfb1cd9cacc2ade40cbdba70ba5e42d5
 
     public function getDebugInfo()
     {
-        return array (  191 => 76,  186 => 74,  182 => 73,  178 => 72,  151 => 48,  147 => 47,  142 => 45,  138 => 44,  133 => 42,  129 => 41,  124 => 39,  120 => 38,  115 => 36,  111 => 35,  106 => 33,  102 => 32,  97 => 30,  93 => 29,  88 => 27,  84 => 26,  79 => 24,  75 => 23,  69 => 21,  63 => 18,  59 => 16,  57 => 15,  46 => 6,  43 => 5,  37 => 3,  11 => 1,);
+        return array (  180 => 62,  175 => 60,  171 => 59,  167 => 58,  157 => 51,  151 => 48,  147 => 47,  142 => 45,  138 => 44,  133 => 42,  129 => 41,  124 => 39,  120 => 38,  115 => 36,  111 => 35,  106 => 33,  102 => 32,  97 => 30,  93 => 29,  88 => 27,  84 => 26,  79 => 24,  75 => 23,  69 => 21,  63 => 18,  59 => 16,  57 => 15,  46 => 6,  43 => 5,  37 => 3,  11 => 1,);
     }
 }

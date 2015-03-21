@@ -24,7 +24,15 @@ class EmpleadoType extends AbstractType
             ->add('direccion', 'text', array('label' => 'Dirección'))
             ->add('fechaInicio', 'date', array('widget' => 'single_text', 'format' => 'yyyy/MM/dd'))
             ->add('telefono','text',array('label' => 'Teléfono'))
-            //->add('roles')
+            ->add('tipo', 'choice' , array(
+                    'choices' => array(
+                            'Administrativo' => 'Administrativo',
+                            'Medico' => 'Medico',
+                            'Enfermera' => 'Enfermera'
+                        ),
+                    'expanded' => true,
+                    'multiple' => false
+                ))
             ->add('Guardar','submit', array('label' => 'Guardar'))
             ->add('Guardar_otro', 'submit', array('label' => 'Guardar y Agregar Otro'))
             ->add('Cancelar','submit')

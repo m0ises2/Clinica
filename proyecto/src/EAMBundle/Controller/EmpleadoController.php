@@ -6,6 +6,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use EAMBundle\Entity\Empleado;
+use EAMBundle\Entity\EmpleadoRole;
+use EAMBundle\Entity\Role;
+
 use EAMBundle\Form\EmpleadoType;
 
 class EmpleadoController extends Controller
@@ -43,17 +46,55 @@ class EmpleadoController extends Controller
               if ( $form->isValid() )
       	  		{
                 
-      	  			/*verificamos que no exista en la base de datos*/
+      	  			/*verificamos que no exista en la base de datos.
+                  La consulta se realiza basandose en el número de seguro social, que es único.
+                */
                 $em = $this->getDoctrine()->getRepository('EAMBundle:Empleado')->findBySeguroSocial( $user->getseguroSocial() );
-
-                if( !$em )
+                $role = NULL;
+                $role_id = NULL;
+                /*¿Existe el empleado?*/
+                if( !$em ) //¿No existe? -> No. Procedo a agregarlo a la BD.
                 {
-                 
-                  /*agregamos a la base de datos*/
+                  /*Se busca en la tabla role el id del role que eligieron:*/
+                  $repositorio = $this->getDoctrine()->getRepository('EAMBundle:Role');
+                  $query = $repositorio->createQueryBuilder('r')
+                                       ->Where('r.name = :name')
+                                       ->setParameter('name', $user->getTipo())
+                                       ->getQuery();
+
+                  /*La variable ron contiene el objeto tipo array dentro del cual está el objeto tipo Role.*/
+                  $rol = $query->getResult();
+
+                  foreach ($rol as $key => $value) {
+                     $id = $value->getId();
+                     $_user_id = $user->getId();
+                     $rol_ = $value;
+                  }
+                  
+                  if ($user->getTipo() == "Administrativo") {
+                    $t_rol = "ROLE_ADMINISTRATIVO";
+                  }
+                  else
+                  {
+                    if ($user->getTipo() == "Medico") {
+                      $t_rol = "ROLE_MEDICO";
+                    }
+                    else
+                    {
+                      $t_rol = "ROLE_ENFERMERA";
+                    }
+                  }
+
+                  /*Creamos la entrada en la BD que representa la relación entre un empleado y un rol*/
+                  $_tmp_empleadoRole = new EmpleadoRole();
+                  $_tmp_empleadoRole->setRole($rol_);
+                  $_tmp_empleadoRole->setEmpleado($user);
+
                   $em = $this->getDoctrine()->getManager();
-                  $em->persist($user);
+                  $em->persist($_tmp_empleadoRole);
                   $em->flush();
 
+                  /*Redireccionamos a Home path:*/
                   return $this->redirect($this->generateUrl('Home'));
 
                 }else

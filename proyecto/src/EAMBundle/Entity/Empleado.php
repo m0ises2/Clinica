@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Empleado
  *
  * @ORM\Table(name="empleado")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="EAMBundle\Entity\EmpleadoRepository")
  */
 class Empleado implements UserInterface, \Serializable
 {
@@ -104,6 +104,8 @@ class Empleado implements UserInterface, \Serializable
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
+
+    private $tipo;
 
     public function __construct()
     {
@@ -407,6 +409,18 @@ class Empleado implements UserInterface, \Serializable
     public function getId()
     {
         return $this->id;
+    }
+
+    public function getTipo()
+    {
+        return $this->tipo;
+    }
+
+    public function setTipo( $Tipo )
+    {
+        $this->tipo = $Tipo;
+
+        return $this;
     }
 
     /**
