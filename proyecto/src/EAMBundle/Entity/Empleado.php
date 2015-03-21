@@ -62,6 +62,7 @@ class Empleado implements UserInterface, \Serializable
      * @var integer
      *
      * @ORM\Column(name="seguro_social", type="integer", nullable=false)
+     * @Assert\type(type="numeric", message="El valor debe ser entero.")
      */
     private $seguroSocial;
 
@@ -93,6 +94,7 @@ class Empleado implements UserInterface, \Serializable
      * @var integer
      *
      * @ORM\Column(name="telefono", type="integer", nullable=false)
+     * @Assert\type(type="numeric", message="El valor debe ser entero.")
      */
     private $telefono;
 
@@ -105,6 +107,10 @@ class Empleado implements UserInterface, \Serializable
      */
     private $id;
 
+    /**
+    * @var string
+    * @ORM\Column(name="tipo", type="string")
+    */
     private $tipo;
 
     public function __construct()

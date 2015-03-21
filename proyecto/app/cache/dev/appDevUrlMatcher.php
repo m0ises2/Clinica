@@ -152,6 +152,16 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
                 return array (  '_controller' => 'EAMBundle\\Controller\\EmpleadoController::NuevoAction',  '_route' => 'Nuevo_empleado',);
             }
 
+            // Ver_empleados
+            if ($pathinfo === '/home/ver') {
+                return array (  '_controller' => 'EAMBundle\\Controller\\EmpleadoController::MostrarAction',  '_route' => 'Ver_empleados',);
+            }
+
+            // Ver
+            if ($pathinfo === '/home/usuario') {
+                return array (  '_controller' => 'EAMBundle\\Controller\\EmpleadoController::VerAction',  '_route' => 'Ver',);
+            }
+
         }
 
         // logout

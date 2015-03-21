@@ -41,7 +41,10 @@ class EmpleadoController extends Controller
       	  if ( $request->getMethod() == "POST")
       	  {
       	  		$form->handleRequest($request);
-              
+              if ($form->get('Cancelar')->isClicked())
+              {
+                  return $this->redirect($this->generateUrl('Home'));
+              }
       	  		/*Verificar validez del formulario*/
               if ( $form->isValid() )
       	  		{
@@ -94,22 +97,66 @@ class EmpleadoController extends Controller
                   $em->persist($_tmp_empleadoRole);
                   $em->flush();
 
+                  /*Detectamos que botón fue clickeado:*/
+                  if ( $form->get('Guardar')->isClicked() )
+                  {
+                    return $this->redirect($this->generateUrl('Nuevo_empleado'));
+                  }
+                  else
+                  {
+                      return $this->redirect($this->generateUrl('Home'));
+                  }
+
                   /*Redireccionamos a Home path:*/
                   return $this->redirect($this->generateUrl('Home'));
 
                 }else
                 {
-                  $error = "Empleado ya registrado.";
+                  $error = "user_registered";
                 }
       	  			
-      	  		}
-      	  		else
-      	  		{
-
       	  		}
       	  }
 
       	  return $this->render('EAMBundle:Empleado:nuevo.html.twig', array('form' => $form->createView() , 'nombre' => $this->getUser()->getnombreUsuario(), 'error' => $error));
+    }
+
+    public function MostrarAction()
+    {
+      /*¿Iniciada la sesión?*/
+      /*Validar si esta logeado*/
+      /**************************************************************/
+      if ( $this->getUser() === NULL ) 
+      {
+        return $this->redirect($this->generateUrl('login'));
+      }
+      /**************************************************************/
+
+      $em = $this->getDoctrine()->getManager();
+      $entities = $em->getRepository('EAMBundle:Empleado')->findAll();
+
+      return $this->render('EAMBundle:Empleado:show.html.twig', array('entidades' => $entities, 'nombre' => $this->getUser()->getnombreUsuario()));
+    }
+
+    public function VerAction()
+    {
+      /*¿Iniciada la sesión?*/
+      /*Validar si esta logeado*/
+      /**************************************************************/
+      if ( $this->getUser() === NULL ) 
+      {
+        return $this->redirect($this->generateUrl('login'));
+      }
+      /**************************************************************/
+
+      $request = $this->getRequest();
+      /*De esta manera obtengo los datos tipo hidden en un formulario que no está asociado a una entidad*/
+      $_user_id = $request->get('id');
+
+      $em = $this->getDoctrine()->getManager();
+      $_user = $em->getRepository('EAMBundle:Empleado')->find($_user_id);
+
+      return $this->render('EAMBundle:Empleado:User_details.html.twig', array('nombre' => $this->getUser()->getnombreUsuario(), 'entidad' => $_user));
     }
 
 }

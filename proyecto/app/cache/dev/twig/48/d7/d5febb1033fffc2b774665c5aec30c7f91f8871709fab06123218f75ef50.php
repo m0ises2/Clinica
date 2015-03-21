@@ -138,7 +138,10 @@ class __TwigTemplate_48d7d5febb1033fffc2b774665c5aec30c7f91f8871709fab06123218f7
                                         <a href=\"#\"><i class=\"fa fa-pencil-square-o\"></i> Editar privilegios </a>
                                     </li>                                
                                     <li>
-                                        <a href=\"#\"><i class=\"fa fa-list\"></i> Mostrar </a>
+                                        <a href=\"";
+            // line 109
+            echo $this->env->getExtension('routing')->getPath("Ver_empleados");
+            echo "\"><i class=\"fa fa-list\"></i> Mostrar </a>
                                     </li>
                                 </ul>
                                 <!-- /.nav-second-level -->
@@ -298,7 +301,7 @@ class __TwigTemplate_48d7d5febb1033fffc2b774665c5aec30c7f91f8871709fab06123218f7
         // line 190
         echo "                    <div class=\"row\">
                         <div class=\"col-lg-12\">
-                            <h1 class=\"page-header\"> Aqui va el contenido de cada vista </h1>
+                            
                         </div>
                         <!-- /.col-lg-12 -->
                     </div>
@@ -348,6 +351,6 @@ class __TwigTemplate_48d7d5febb1033fffc2b774665c5aec30c7f91f8871709fab06123218f7
 
     public function getDebugInfo()
     {
-        return array (  334 => 217,  328 => 214,  322 => 211,  316 => 208,  313 => 207,  310 => 206,  299 => 190,  296 => 189,  290 => 32,  284 => 29,  278 => 26,  272 => 23,  266 => 20,  259 => 17,  256 => 16,  250 => 13,  242 => 219,  240 => 206,  230 => 198,  227 => 189,  212 => 176,  149 => 115,  128 => 97,  121 => 92,  118 => 91,  90 => 67,  75 => 55,  51 => 33,  49 => 32,  46 => 31,  44 => 16,  38 => 13,  24 => 1,);
+        return array (  337 => 217,  331 => 214,  325 => 211,  319 => 208,  316 => 207,  313 => 206,  302 => 190,  299 => 189,  293 => 32,  287 => 29,  281 => 26,  275 => 23,  269 => 20,  262 => 17,  259 => 16,  253 => 13,  245 => 219,  243 => 206,  233 => 198,  230 => 189,  215 => 176,  152 => 115,  143 => 109,  128 => 97,  121 => 92,  118 => 91,  90 => 67,  75 => 55,  51 => 33,  49 => 32,  46 => 31,  44 => 16,  38 => 13,  24 => 1,);
     }
 }

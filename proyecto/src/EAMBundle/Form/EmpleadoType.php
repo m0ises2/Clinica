@@ -15,15 +15,15 @@ class EmpleadoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nombreUsuario','text', array('label' => 'Nombre de usuario'))
-            ->add('contrasenha', 'password', array('label' => 'Contraseña'))
+            ->add('nombreUsuario','text')
+            ->add('contrasenha', 'password')
             ->add('nombre')
             ->add('apellido')
             ->add('fechaNac', 'date', array('widget' => 'single_text', 'format' => 'yyyy/MM/dd','label' => 'Fecha de nacimiento'))
-            ->add('seguroSocial','text', array('label' => '# Seguro Social'))
-            ->add('direccion', 'text', array('label' => 'Dirección'))
+            ->add('seguroSocial','text')
+            ->add('direccion', 'text')
             ->add('fechaInicio', 'date', array('widget' => 'single_text', 'format' => 'yyyy/MM/dd'))
-            ->add('telefono','text',array('label' => 'Teléfono'))
+            ->add('telefono','text')
             ->add('tipo', 'choice' , array(
                     'choices' => array(
                             'Administrativo' => 'Administrativo',
@@ -33,8 +33,8 @@ class EmpleadoType extends AbstractType
                     'expanded' => true,
                     'multiple' => false
                 ))
-            ->add('Guardar','submit', array('label' => 'Guardar'))
-            ->add('Guardar_otro', 'submit', array('label' => 'Guardar y Agregar Otro'))
+            ->add('Guardar','submit')
+            ->add('Guardar_otro', 'submit', array('label' => 'Guardar y volver'))
             ->add('Cancelar','submit')
         ;
     }

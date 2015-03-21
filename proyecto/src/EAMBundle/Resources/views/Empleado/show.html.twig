@@ -1,0 +1,53 @@
+{% extends "::baseClinica.html.twig" %}
+
+{% block title %}  Mostrar {% endblock %}
+
+{% block content %}
+
+	<div class="row">
+		<div class="col-lg-12">
+			<h2 class="page-header"> Empleados activos en la clinica </h2>
+		</div>
+	</div>
+	<div class = "row">
+		<div class = "col-lg-8 col-lg-offset-2">
+			<div class = "panel panel-info" >
+				<div class = "panel-body" >
+					<div class = "table-responsive">
+						<table class = "table" >
+							<thead>
+								<tr>
+									<th>Nombre</th>
+									<th>Apellido</th>
+									<th>Nombre de Usuario</th>
+									<th>Rol</th>
+									<th>Acciones</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for usuario in entidades%}
+									<tr>
+										
+										<td> {{ usuario.nombre }} </td>
+										<td> {{ usuario.apellido }} </td>
+										<td> {{ usuario.nombreUsuario }} </td>
+										<td> {{ usuario.tipo }} </td>
+										<td>
+											<div>
+												<form method="POST" action="{{ path("Ver") }}">
+													<input type="hidden" value="{{ usuario.id }}" name="id" >
+													<button class="btn btn-outline btn-info" type="submit">Detalles</button>
+												</form>
+											</div>
+											
+										</td>										
+									</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
