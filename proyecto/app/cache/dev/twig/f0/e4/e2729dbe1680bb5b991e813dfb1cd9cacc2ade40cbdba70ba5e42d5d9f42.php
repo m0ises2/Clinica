@@ -176,7 +176,7 @@ class __TwigTemplate_f0e4e2729dbe1680bb5b991e813dfb1cd9cacc2ade40cbdba70ba5e42d5
         echo "
 \t\t    \t\t";
         // line 67
-        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), "fechaNac", array()), 'widget', array("attr" => array("class" => "form-control")));
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), "fechaNac", array()), 'widget', array("attr" => array("class" => "form-control", "placeholder" => "dia/mes/año")));
         echo "
 
 \t\t    \t\t";
@@ -264,7 +264,7 @@ class __TwigTemplate_f0e4e2729dbe1680bb5b991e813dfb1cd9cacc2ade40cbdba70ba5e42d5
         echo "
 \t\t    \t\t";
         // line 103
-        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), "fechaInicio", array()), 'widget', array("attr" => array("class" => "form-control")));
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), "fechaInicio", array()), 'widget', array("attr" => array("class" => "form-control", "placeholder" => "dia/mes/año")));
         echo "
 
 \t\t    \t\t<label> Roles disponibles </label>

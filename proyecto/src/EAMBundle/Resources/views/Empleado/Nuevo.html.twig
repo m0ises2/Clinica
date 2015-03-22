@@ -64,7 +64,7 @@
 		    			</div>
     				{% endif %}
 		    		{{ form_label(form.fechaNac) }}
-		    		{{ form_widget(form.fechaNac, {'attr':{'class':'form-control'}}) }}
+		    		{{ form_widget(form.fechaNac, {'attr':{'class':'form-control', 'placeholder':'dia/mes/año'}}) }}
 
 		    		{% if form_errors(form.seguroSocial) %}
 		    			<div class = "alert alert-danger alert-dismissable">
@@ -100,7 +100,7 @@
 		    			</div>
     				{% endif %}
 		    		{{ form_label(form.fechaInicio, 'Fecha de ingreso') }}
-		    		{{ form_widget(form.fechaInicio, {'attr':{'class':'form-control'}}) }}
+		    		{{ form_widget(form.fechaInicio, {'attr':{'class':'form-control', 'placeholder':'dia/mes/año'}}) }}
 
 		    		<label> Roles disponibles </label>
 			    	<div class="radio" style="padding-left:50px;">

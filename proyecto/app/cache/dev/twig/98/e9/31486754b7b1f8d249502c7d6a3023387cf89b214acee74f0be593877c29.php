@@ -95,7 +95,7 @@ class __TwigTemplate_98e931486754b7b1f8d249502c7d6a3023387cf89b214acee74f0be5938
 \t\t\t\t\t\t\t\t\t<td> <b> Fecha de Nacimiento: </b> </td>
 \t\t\t\t\t\t\t\t\t<td> ";
         // line 41
-        echo twig_escape_filter($this->env, twig_date_format_filter($this->env, $this->getAttribute((isset($context["entidad"]) ? $context["entidad"] : $this->getContext($context, "entidad")), "fechaNac", array()), "d-m-y"), "html", null, true);
+        echo twig_escape_filter($this->env, twig_date_format_filter($this->env, $this->getAttribute((isset($context["entidad"]) ? $context["entidad"] : $this->getContext($context, "entidad")), "fechaNac", array()), "d/m/y"), "html", null, true);
         echo " </td>
 \t\t\t\t\t\t\t\t</tr>
 \t\t\t\t\t\t\t\t<tr>
@@ -116,7 +116,7 @@ class __TwigTemplate_98e931486754b7b1f8d249502c7d6a3023387cf89b214acee74f0be5938
 \t\t\t\t\t\t\t\t\t<td> <b> Fecha de Ingreso: </b> </td>
 \t\t\t\t\t\t\t\t\t<td> ";
         // line 53
-        echo twig_escape_filter($this->env, twig_date_format_filter($this->env, $this->getAttribute((isset($context["entidad"]) ? $context["entidad"] : $this->getContext($context, "entidad")), "fechaInicio", array()), "d-m-y"), "html", null, true);
+        echo twig_escape_filter($this->env, twig_date_format_filter($this->env, $this->getAttribute((isset($context["entidad"]) ? $context["entidad"] : $this->getContext($context, "entidad")), "fechaInicio", array()), "d/m/y"), "html", null, true);
         echo " </td>
 \t\t\t\t\t\t\t\t</tr>
 \t\t\t\t\t\t\t\t<tr>

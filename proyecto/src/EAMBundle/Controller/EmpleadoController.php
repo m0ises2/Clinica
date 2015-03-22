@@ -152,7 +152,7 @@ class EmpleadoController extends Controller
       $request = $this->getRequest();
       /*De esta manera obtengo los datos tipo hidden en un formulario que no está asociado a una entidad*/
       $_user_id = $request->get('id');
-
+      
       $em = $this->getDoctrine()->getManager();
       $_user = $em->getRepository('EAMBundle:Empleado')->find($_user_id);
 
