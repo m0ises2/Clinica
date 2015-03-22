@@ -161,13 +161,77 @@ class EmpleadoController extends Controller
       $em = $this->getDoctrine()->getManager();
       $_user = $em->getRepository('EAMBundle:Empleado')->find($_user_id);
 
+      $form = $this->formularioDetalles();
+
       /*Si el empleado existe, se procede a mostrarse en la vista sino, se arroja un error 404 "empleado no existe".*/
       if ( $_user )
       {
-        return $this->render('EAMBundle:Empleado:User_details.html.twig', array('nombre' => $this->getUser()->getnombreUsuario(), 'entidad' => $_user));
+        return $this->render('EAMBundle:Empleado:User_details.html.twig', array('nombre' => $this->getUser()->getnombreUsuario(), 'entidad' => $_user, 'form' => $form->createView()));
       }  
 
       throw $this->createNotFoundException('Empleado no existe.');      
+    }
+
+    public function ElegirAction()
+    {
+        $form = $this->formularioDetalles();
+        $request = $this->getRequest();
+
+        if ( $request->getMethod() == "POST" )
+        {
+            $form->handleRequest($request);
+            /*Extraigo los datos del formulario, para posteriormente obtener el id del empleado que se esta manejando.*/
+            $data = $form->getData();
+            $_user_id = $data['id'];
+
+            /*¿Que botón fue clickeado?*/
+            if ( $form->get('Regresar')->isClicked() )
+            {
+              return $this->redirect($this->generateUrl('Ver_empleados'));
+            }
+
+            if ( $form->get('Editar')->isClicked() )
+            {
+              return $this->redirect($this->generateUrl('Editar'));
+            }
+
+            if ( $form->get('Borrar')->isClicked() )
+            {
+              /*Se procede con las validaciones de existencia del usuario:*/
+              $query = $this->getDoctrine()->getManager();
+              $em = $query->getRepository('EAMBundle:Empleado')->find($_user_id);
+
+              if ( $em )
+              {
+                $query->remove($em);
+                $query->flush();
+                /* Se crea el flashmessage para que en la vista se aprecie el cambio. */
+                $request->getSession()->getFlashBag()->add('Eliminado', 'Usuario eliminado con exito.');
+
+                return $this->redirect($this->generateUrl('Ver_empleados'));
+              }
+              else
+              { 
+                  throw $this->createNotFoundException('Empleado no existe.');
+              }
+            }            
+        }
+        else
+        {
+          return $this->redirect($this->generateUrl('Home'));
+        }
+    }
+
+    private function formularioDetalles()
+    {
+        $form = $this->createFormBuilder()
+             ->add('id','hidden')
+             ->add('Regresar', 'submit')
+             ->add('Borrar', 'submit')
+             ->add('Editar', 'submit')
+             ->getForm();
+
+        return $form;
     }
 
 }

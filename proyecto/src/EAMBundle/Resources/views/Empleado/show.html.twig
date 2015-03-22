@@ -20,6 +20,14 @@
 	</div>
 	<div class = "row">
 		<div class = "col-lg-10 col-lg-offset-1">
+
+			{% for flashMessage in app.session.flashbag.get('Eliminado') %}
+				<div class="alert alert-success alert-dismissable">
+					<button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>
+					{{ flashMessage }}
+				</div>
+			{% endfor %}
+
 			<div class = "panel panel-info" >
 				<div class = "panel-body" >
 					<div class = "dataTable_wrapper">

@@ -131,16 +131,44 @@ class __TwigTemplate_98e931486754b7b1f8d249502c7d6a3023387cf89b214acee74f0be5938
 \t\t\t\t\t</div>
 \t\t\t\t</div>
 \t\t\t</div>
-\t\t\t<form method=\"POST\" action=\"";
-        // line 64
-        echo $this->env->getExtension('routing')->getPath("Ver_empleados");
-        echo "\">
-\t\t\t\t\t\t\t<input type=\"hidden\" value=\"";
+\t\t\t<div class = \"row col-lg-offset-1\">
+\t\t\t\t<form method = \"POST\" action =\"";
         // line 65
-        echo twig_escape_filter($this->env, $this->getAttribute((isset($context["entidad"]) ? $context["entidad"] : $this->getContext($context, "entidad")), "id", array()), "html", null, true);
-        echo "\" name=\"id\" >
-\t\t\t\t\t\t\t<button class=\"btn btn-outline btn-primary\" type=\"submit\">Regresar</button>
-\t\t\t\t\t\t</form>
+        echo $this->env->getExtension('routing')->getPath("Elegir");
+        echo "\">
+
+\t\t\t\t\t";
+        // line 67
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), "id", array()), 'widget', array("attr" => array("type" => "hidden", "value" => $this->getAttribute((isset($context["entidad"]) ? $context["entidad"] : $this->getContext($context, "entidad")), "id", array()))));
+        echo "
+
+\t\t\t\t\t<div class = \"col-lg-4\">
+\t\t\t\t\t\t";
+        // line 70
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), "Regresar", array()), 'widget', array("attr" => array("class" => "btn btn-outline btn-primary")));
+        echo "
+\t\t\t\t\t</div>
+
+\t\t\t\t\t<div class = \"col-lg-4\">
+\t\t\t\t\t\t";
+        // line 74
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), "Editar", array()), 'widget', array("attr" => array("class" => "btn btn-outline btn-primary")));
+        echo "
+\t\t\t\t\t</div>
+
+\t\t\t\t\t<div class = \"col-lg-4\">
+\t\t\t\t\t\t";
+        // line 78
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), "Borrar", array()), 'widget', array("attr" => array("class" => "btn btn-outline btn-danger")));
+        echo "
+\t\t\t\t\t</div>
+
+\t\t\t\t\t";
+        // line 81
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), 'rest');
+        echo "
+\t\t\t\t</form>
+\t\t\t</div>
 \t\t</div>
 \t</div>
 ";
@@ -158,6 +186,6 @@ class __TwigTemplate_98e931486754b7b1f8d249502c7d6a3023387cf89b214acee74f0be5938
 
     public function getDebugInfo()
     {
-        return array (  140 => 65,  136 => 64,  126 => 57,  119 => 53,  112 => 49,  105 => 45,  98 => 41,  91 => 37,  84 => 33,  77 => 29,  70 => 25,  56 => 14,  43 => 5,  37 => 3,  11 => 1,);
+        return array (  168 => 81,  162 => 78,  155 => 74,  148 => 70,  142 => 67,  137 => 65,  126 => 57,  119 => 53,  112 => 49,  105 => 45,  98 => 41,  91 => 37,  84 => 33,  77 => 29,  70 => 25,  56 => 14,  43 => 5,  37 => 3,  11 => 1,);
     }
 }

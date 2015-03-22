@@ -162,6 +162,16 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
                 return array (  '_controller' => 'EAMBundle\\Controller\\EmpleadoController::VerAction',  '_route' => 'Ver',);
             }
 
+            // Elegir
+            if ($pathinfo === '/home/opcion') {
+                return array (  '_controller' => 'EAMBundle\\Controller\\EmpleadoController::ElegirAction',  '_route' => 'Elegir',);
+            }
+
+            // Editar
+            if ($pathinfo === '/home/edita') {
+                return array (  '_controller' => 'EAMBundle\\Controller\\EmpleadoController::EditarAction',  '_route' => 'Editar',);
+            }
+
         }
 
         // logout

@@ -74,6 +74,27 @@ class __TwigTemplate_adbf020a74b0251c3c895c46f23d8ae8f29d2824998bc3606798b956eab
 \t</div>
 \t<div class = \"row\">
 \t\t<div class = \"col-lg-10 col-lg-offset-1\">
+
+\t\t\t";
+        // line 24
+        $context['_parent'] = (array) $context;
+        $context['_seq'] = twig_ensure_traversable($this->getAttribute($this->getAttribute($this->getAttribute((isset($context["app"]) ? $context["app"] : $this->getContext($context, "app")), "session", array()), "flashbag", array()), "get", array(0 => "Eliminado"), "method"));
+        foreach ($context['_seq'] as $context["_key"] => $context["flashMessage"]) {
+            // line 25
+            echo "\t\t\t\t<div class=\"alert alert-success alert-dismissable\">
+\t\t\t\t\t<button class=\"close\" aria-hidden=\"true\" data-dismiss=\"alert\" type=\"button\">×</button>
+\t\t\t\t\t";
+            // line 27
+            echo twig_escape_filter($this->env, $context["flashMessage"], "html", null, true);
+            echo "
+\t\t\t\t</div>
+\t\t\t";
+        }
+        $_parent = $context['_parent'];
+        unset($context['_seq'], $context['_iterated'], $context['_key'], $context['flashMessage'], $context['_parent'], $context['loop']);
+        $context = array_intersect_key($context, $_parent) + $_parent;
+        // line 30
+        echo "
 \t\t\t<div class = \"panel panel-info\" >
 \t\t\t\t<div class = \"panel-body\" >
 \t\t\t\t\t<div class = \"dataTable_wrapper\">
@@ -89,37 +110,37 @@ class __TwigTemplate_adbf020a74b0251c3c895c46f23d8ae8f29d2824998bc3606798b956eab
 \t\t\t\t\t\t\t</thead>
 \t\t\t\t\t\t\t<tbody>
 \t\t\t\t\t\t\t\t";
-        // line 37
+        // line 45
         $context['_parent'] = (array) $context;
         $context['_seq'] = twig_ensure_traversable((isset($context["entidades"]) ? $context["entidades"] : $this->getContext($context, "entidades")));
         foreach ($context['_seq'] as $context["_key"] => $context["usuario"]) {
-            // line 38
+            // line 46
             echo "\t\t\t\t\t\t\t\t\t<tr class=\"even gradeA\">
 \t\t\t\t\t\t\t\t\t\t
 \t\t\t\t\t\t\t\t\t\t<td> ";
-            // line 40
+            // line 48
             echo twig_escape_filter($this->env, $this->getAttribute($context["usuario"], "nombre", array()), "html", null, true);
             echo " </td>
 \t\t\t\t\t\t\t\t\t\t<td> ";
-            // line 41
+            // line 49
             echo twig_escape_filter($this->env, $this->getAttribute($context["usuario"], "apellido", array()), "html", null, true);
             echo " </td>
 \t\t\t\t\t\t\t\t\t\t<td> ";
-            // line 42
+            // line 50
             echo twig_escape_filter($this->env, $this->getAttribute($context["usuario"], "nombreUsuario", array()), "html", null, true);
             echo " </td>
 \t\t\t\t\t\t\t\t\t\t<td> ";
-            // line 43
+            // line 51
             echo twig_escape_filter($this->env, $this->getAttribute($context["usuario"], "tipo", array()), "html", null, true);
             echo " </td>
 \t\t\t\t\t\t\t\t\t\t<td>
 \t\t\t\t\t\t\t\t\t\t\t<div>
 \t\t\t\t\t\t\t\t\t\t\t\t<form method=\"POST\" action=\"";
-            // line 46
+            // line 54
             echo $this->env->getExtension('routing')->getPath("Ver");
             echo "\">
 \t\t\t\t\t\t\t\t\t\t\t\t\t<input type=\"hidden\" value=\"";
-            // line 47
+            // line 55
             echo twig_escape_filter($this->env, $this->getAttribute($context["usuario"], "id", array()), "html", null, true);
             echo "\" name=\"id\" >
 \t\t\t\t\t\t\t\t\t\t\t\t\t<button class=\"btn btn-outline btn-info\" type=\"submit\">Detalles</button>
@@ -133,7 +154,7 @@ class __TwigTemplate_adbf020a74b0251c3c895c46f23d8ae8f29d2824998bc3606798b956eab
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['usuario'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 55
+        // line 63
         echo "\t\t\t\t\t\t\t</tbody>
 \t\t\t\t\t\t</table>
 \t\t\t\t\t</div>
@@ -144,20 +165,20 @@ class __TwigTemplate_adbf020a74b0251c3c895c46f23d8ae8f29d2824998bc3606798b956eab
 ";
     }
 
-    // line 64
+    // line 72
     public function block_javascript($context, array $blocks = array())
     {
-        // line 65
+        // line 73
         echo "\t";
         $this->displayParentBlock("javascript", $context, $blocks);
         echo "
 
 \t<script src=\"";
-        // line 67
+        // line 75
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("bundles/eam/js/jquery.dataTables.min.js"), "html", null, true);
         echo "\"></script>
 \t<script src=\"";
-        // line 68
+        // line 76
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("bundles/eam/js/dataTables.bootstrap.min.js"), "html", null, true);
         echo "\"></script>
 
@@ -184,6 +205,6 @@ class __TwigTemplate_adbf020a74b0251c3c895c46f23d8ae8f29d2824998bc3606798b956eab
 
     public function getDebugInfo()
     {
-        return array (  161 => 68,  157 => 67,  151 => 65,  148 => 64,  137 => 55,  123 => 47,  119 => 46,  113 => 43,  109 => 42,  105 => 41,  101 => 40,  97 => 38,  93 => 37,  69 => 15,  66 => 14,  60 => 12,  54 => 9,  48 => 6,  42 => 4,  39 => 3,  11 => 1,);
+        return array (  182 => 76,  178 => 75,  172 => 73,  169 => 72,  158 => 63,  144 => 55,  140 => 54,  134 => 51,  130 => 50,  126 => 49,  122 => 48,  118 => 46,  114 => 45,  97 => 30,  88 => 27,  84 => 25,  80 => 24,  69 => 15,  66 => 14,  60 => 12,  54 => 9,  48 => 6,  42 => 4,  39 => 3,  11 => 1,);
     }
 }

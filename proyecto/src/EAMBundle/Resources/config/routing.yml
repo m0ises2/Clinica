@@ -21,5 +21,13 @@ Ver:
     path: /home/detallesUsuario
     defaults: { _controller: EAMBundle:Empleado:Ver }
 
+Elegir:
+    path: /home/opcion
+    defaults: { _controller: EAMBundle:Empleado:Elegir }
+
+Editar:
+    path: /home/edita
+    defaults: { _controller: EAMBundle:Empleado:Editar }
+
 logout:
    path: /logout
