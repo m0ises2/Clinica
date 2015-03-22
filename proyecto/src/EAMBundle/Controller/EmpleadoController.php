@@ -157,29 +157,36 @@ class EmpleadoController extends Controller
       {
           return $this->redirect($this->generateUrl('Ver_empleados'));
       }
+
       /*Consulto en la BD al empleado, para posteriormente mostrar sus datos personales:*/
       $em = $this->getDoctrine()->getManager();
       $_user = $em->getRepository('EAMBundle:Empleado')->find($_user_id);
 
-      $form = $this->formularioDetalles();
+      $form = $this->formularioAcciones();
 
       /*Si el empleado existe, se procede a mostrarse en la vista sino, se arroja un error 404 "empleado no existe".*/
-      if ( $_user )
+      if ( !$_user )
       {
-        return $this->render('EAMBundle:Empleado:User_details.html.twig', array('nombre' => $this->getUser()->getnombreUsuario(), 'entidad' => $_user, 'form' => $form->createView()));
+        throw $this->createNotFoundException('Empleado no existe.'); 
       }  
 
-      throw $this->createNotFoundException('Empleado no existe.');      
+      return $this->render('EAMBundle:Empleado:User_details.html.twig', array('nombre' => $this->getUser()->getnombreUsuario(), 'entidad' => $_user, 'form' => $form->createView()));     
     }
 
+    /*
+
+    Esta función realiza la detección de que botón en la vista de detalles de usuario, fue pulsado. ¿Regresar, Editar o Borrar?
+
+    */
     public function ElegirAction()
     {
-        $form = $this->formularioDetalles();
+        $form = $this->formularioAcciones();
         $request = $this->getRequest();
 
         if ( $request->getMethod() == "POST" )
         {
             $form->handleRequest($request);
+
             /*Extraigo los datos del formulario, para posteriormente obtener el id del empleado que se esta manejando.*/
             $data = $form->getData();
             $_user_id = $data['id'];
@@ -192,7 +199,7 @@ class EmpleadoController extends Controller
 
             if ( $form->get('Editar')->isClicked() )
             {
-              return $this->redirect($this->generateUrl('Editar'));
+              return $this->redirect($this->generateUrl('Ver_empleados'));
             }
 
             if ( $form->get('Borrar')->isClicked() )
@@ -206,13 +213,13 @@ class EmpleadoController extends Controller
                 $query->remove($em);
                 $query->flush();
                 /* Se crea el flashmessage para que en la vista se aprecie el cambio. */
-                $request->getSession()->getFlashBag()->add('Eliminado', 'Usuario eliminado con exito.');
+                $request->getSession()->getFlashBag()->add('Eliminado', 'El empleado ha sido eliminado con exito.');
 
                 return $this->redirect($this->generateUrl('Ver_empleados'));
               }
               else
               { 
-                  throw $this->createNotFoundException('Empleado no existe.');
+                throw $this->createNotFoundException('Empleado no existe.');
               }
             }            
         }
@@ -221,8 +228,10 @@ class EmpleadoController extends Controller
           return $this->redirect($this->generateUrl('Home'));
         }
     }
-
-    private function formularioDetalles()
+    /*
+        Esta función es la encargada de crear el formulario que renderiza los tres botones de acción en la vista de detalles del empleado.
+    */
+    private function formularioAcciones()
     {
         $form = $this->createFormBuilder()
              ->add('id','hidden')
