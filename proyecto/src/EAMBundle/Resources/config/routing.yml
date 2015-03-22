@@ -15,10 +15,10 @@ Nuevo_empleado:
     defaults: { _controller: EAMBundle:Empleado:Nuevo }
 
 Ver_empleados:
-    path: /home/ver
+    path: /home/mostrar
     defaults: { _controller: EAMBundle:Empleado:Mostrar }
 Ver:
-    path: /home/usuario
+    path: /home/detallesUsuario
     defaults: { _controller: EAMBundle:Empleado:Ver }
 
 logout:

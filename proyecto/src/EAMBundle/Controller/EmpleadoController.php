@@ -148,15 +148,26 @@ class EmpleadoController extends Controller
         return $this->redirect($this->generateUrl('login'));
       }
       /**************************************************************/
-
+      
       $request = $this->getRequest();
       /*De esta manera obtengo los datos tipo hidden en un formulario que no está asociado a una entidad*/
       $_user_id = $request->get('id');
-      
+
+      if ( $_user_id == NULL )
+      {
+          return $this->redirect($this->generateUrl('Ver_empleados'));
+      }
+      /*Consulto en la BD al empleado, para posteriormente mostrar sus datos personales:*/
       $em = $this->getDoctrine()->getManager();
       $_user = $em->getRepository('EAMBundle:Empleado')->find($_user_id);
 
-      return $this->render('EAMBundle:Empleado:User_details.html.twig', array('nombre' => $this->getUser()->getnombreUsuario(), 'entidad' => $_user));
+      /*Si el empleado existe, se procede a mostrarse en la vista sino, se arroja un error 404 "empleado no existe".*/
+      if ( $_user )
+      {
+        return $this->render('EAMBundle:Empleado:User_details.html.twig', array('nombre' => $this->getUser()->getnombreUsuario(), 'entidad' => $_user));
+      }  
+
+      throw $this->createNotFoundException('Empleado no existe.');      
     }
 
 }

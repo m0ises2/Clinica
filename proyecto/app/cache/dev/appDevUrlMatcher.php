@@ -153,12 +153,12 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
             }
 
             // Ver_empleados
-            if ($pathinfo === '/home/ver') {
+            if ($pathinfo === '/home/mostrar') {
                 return array (  '_controller' => 'EAMBundle\\Controller\\EmpleadoController::MostrarAction',  '_route' => 'Ver_empleados',);
             }
 
             // Ver
-            if ($pathinfo === '/home/usuario') {
+            if ($pathinfo === '/home/detallesUsuario') {
                 return array (  '_controller' => 'EAMBundle\\Controller\\EmpleadoController::VerAction',  '_route' => 'Ver',);
             }
 
