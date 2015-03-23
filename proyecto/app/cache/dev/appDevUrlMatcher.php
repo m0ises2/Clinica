@@ -168,8 +168,13 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
             }
 
             // Editar
-            if ($pathinfo === '/home/edita') {
-                return array (  '_controller' => 'EAMBundle\\Controller\\EmpleadoController::EditarAction',  '_route' => 'Editar',);
+            if (0 === strpos($pathinfo, '/home/edita') && preg_match('#^/home/edita/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'Editar')), array (  '_controller' => 'EAMBundle\\Controller\\EmpleadoController::EditarAction',));
+            }
+
+            // Actualizar
+            if (0 === strpos($pathinfo, '/home/actualiza') && preg_match('#^/home/actualiza/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'Actualizar')), array (  '_controller' => 'EAMBundle\\Controller\\EmpleadoController::ActualizarAction',));
             }
 
         }

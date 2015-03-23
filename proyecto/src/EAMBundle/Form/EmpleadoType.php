@@ -34,7 +34,6 @@ class EmpleadoType extends AbstractType
                     'multiple' => false
                 ))
             ->add('Guardar','submit')
-            ->add('Guardar_otro', 'submit', array('label' => 'Guardar y volver'))
             ->add('Cancelar','submit')
         ;
     }

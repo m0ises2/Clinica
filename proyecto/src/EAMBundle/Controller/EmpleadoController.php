@@ -36,6 +36,9 @@ class EmpleadoController extends Controller
       	  $user = new Empleado();
       	  $form = $this->createForm(new EmpleadoType(), $user);
 
+          /*Este botoón es único en la vista de añadir nuevo, por lo tanto solo debe agregarse al formulario cuando se invica a NuevoAction()*/
+          $form->add('Guardar_otro', 'submit', array('label' => 'Guardar y volver'));
+
       	  $request = $this->getRequest();
 
       	  if ( $request->getMethod() == "POST")
@@ -180,8 +183,18 @@ class EmpleadoController extends Controller
     */
     public function ElegirAction()
     {
+
+        /*¿Iniciada la sesión?*/
+        /*Validar si esta logeado*/
+        /**************************************************************/
+        if ( $this->getUser() === NULL ) 
+        {
+          return $this->redirect($this->generateUrl('login'));
+        }
+        /**************************************************************/
+
         $form = $this->formularioAcciones();
-        $request = $this->getRequest();
+        $request = $this->getRequest();        
 
         if ( $request->getMethod() == "POST" )
         {
@@ -199,7 +212,7 @@ class EmpleadoController extends Controller
 
             if ( $form->get('Editar')->isClicked() )
             {
-              return $this->redirect($this->generateUrl('Ver_empleados'));
+              return $this->redirect($this->generateUrl('Editar', array('id' => $_user_id)));
             }
 
             if ( $form->get('Borrar')->isClicked() )
@@ -241,6 +254,86 @@ class EmpleadoController extends Controller
              ->getForm();
 
         return $form;
+    }
+
+    public function EditarAction($id)
+    {
+      /*¿Iniciada la sesión?*/
+      /*Validar si esta logeado*/
+      /**************************************************************/
+      if ( $this->getUser() === NULL ) 
+      {
+        return $this->redirect($this->generateUrl('login'));
+      }
+      /**************************************************************/
+
+       /* Se genera el formulario para la edición del empleado: */
+      $em = $this->getDoctrine()->getManager();
+      $query = $em->getRepository('EAMBundle:Empleado')->find($id);
+
+      if ( $query )
+      {
+          $form = $this->createForm(new EmpleadoType(), $query);
+
+          /*Encriptar el id es necesario por cuestiones de seguridad, por lo tanto:*/
+          $_id_tmp = base64_encode($query->getId());
+          
+          return $this->render('EAMBundle:Empleado:Edit.html.twig', array('form' => $form->createView(),'id' => $_id_tmp, 'entidad' => $query, 'nombre' => $this->getUser()->getnombreUsuario()));               
+      }
+      else
+      {
+        throw $this->createNotFoundException('Empleado no existe.');
+      }
+
+      return $this->redirect($this->generateUrl('Ver_empleados'));
+    }
+
+    public function ActualizarAction($id)
+    {
+      /*¿Iniciada la sesión?*/
+      /*Validar si esta logeado*/
+      /**************************************************************/
+      if ( $this->getUser() === NULL ) 
+      {
+        return $this->redirect($this->generateUrl('login'));
+      }
+      /**************************************************************/
+      
+      $request = $this->getRequest();
+
+      if ( $request->getMethod() == "POST" )
+      {
+          $em = $this->getDoctrine()->getManager();
+          $query = $em->getRepository('EAMBundle:Empleado')->find(base64_decode($id));
+
+          if ( $query )
+          {
+              $form = $this->createForm(new EmpleadoType(), $query);
+              $form->handleRequest($request);              
+
+              /*¿Pulsaron el botón de cancelar?*/
+              if ( $form->get('Cancelar')->isClicked() )
+              {
+                 return $this->redirect($this->generateUrl('Ver_empleados'));
+              }
+
+              /*Si el formulario que cargaron es valido, entoces se procede con la actulización de la entrada en la BD:*/
+              if ($form->isValid())
+              {
+                $em->flush();
+
+                 /* Se crea el flashmessage para que en la vista se aprecie el cambio. */
+                $request->getSession()->getFlashBag()->add('Actualizado', 'El empleado ha sido actualizado con exito.');
+                
+                return $this->redirect($this->generateUrl('Ver_empleados'));
+              }
+          }
+          else
+          {
+            throw $this->createNotFoundException('Empleado no existe.');
+          }
+      }
+      return $this->render('EAMBundle:Empleado:Edit.html.twig', array('form' => $form->createView(), 'entidad' => $query, 'nombre' => $this->getUser()->getnombreUsuario()));
     }
 
 }

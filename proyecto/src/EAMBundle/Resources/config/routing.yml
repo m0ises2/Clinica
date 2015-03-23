@@ -26,8 +26,12 @@ Elegir:
     defaults: { _controller: EAMBundle:Empleado:Elegir }
 
 Editar:
-    path: /home/edita
+    path: /home/edita/{id}
     defaults: { _controller: EAMBundle:Empleado:Editar }
+
+Actualizar:
+    path: /home/actualiza/{id}
+    defaults: { _controller: EAMBundle:Empleado:Actualizar }
 
 logout:
    path: /logout
