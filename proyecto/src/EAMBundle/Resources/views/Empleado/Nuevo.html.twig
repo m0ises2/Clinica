@@ -10,7 +10,7 @@
         <!-- /.col-lg-12 -->
     </div>
 
-    <div class = "row">
+    <div class = "row" >
     	<div class = "col-lg-3 col-lg-offset-4">
     		{% if error == "user_registered" %}
     			<div class = "alert alert-danger alert-dismissable">
@@ -21,7 +21,7 @@
     		
     		<form method="POST" action = "{{ path('Nuevo_empleado') }}" >
     			<div class = "row" >
-    				<h4> Datos de cuenta </h4>
+    				<h3> Datos de cuenta </h3>
     			</div>
 	    		<div class = "form-group" >
 	    			{% if form_errors(form.nombreUsuario) %}
@@ -30,8 +30,8 @@
 		    				{{ form_errors(form.nombreUsuario) }}
 		    			</div>
     				{% endif %}
-		    		{{ form_label(form.nombreUsuario) }}
-		    		{{ form_widget(form.nombreUsuario, {'attr':{'class':'form-control'}}) }}
+		    		{{ form_label(form.nombreUsuario, 'Nombre de Usuario') }}
+		    		{{ form_widget(form.nombreUsuario, {'attr':{'class':'form-control', 'data-toggle':'tooltip', 'data-placement':'right', 'title':'Lóngitud máxima 15 carácteres', 'data-container':'body'}}) }}
 
 		    		{% if form_errors(form.contrasenha) %}
 		    			<div class = "alert alert-danger alert-dismissable">
@@ -43,7 +43,7 @@
 		    		{{ form_widget(form.contrasenha, {'attr':{'class':'form-control'}}) }}
 
 		    		<div class = "row" >
-    					<h4> Datos de personales </h4>
+    					<h3> Datos de personales </h3>
     				</div>
 		    		{% if form_errors(form.nombre) %}
 		    			<div class = "alert alert-danger alert-dismissable">
@@ -52,7 +52,7 @@
 		    			</div>
     				{% endif %}
 		    		{{ form_label(form.nombre) }}
-		    		{{ form_widget(form.nombre, {'attr':{'class':'form-control'}}) }}
+		    		{{ form_widget(form.nombre, {'attr':{'class':'form-control' , 'data-toggle':'tooltip', 'data-placement':'right', 'title':'Lóngitud máxima 15 carácteres', 'data-container':'body'}}) }}
 
 		    		{% if form_errors(form.apellido) %}
 		    			<div class = "alert alert-danger alert-dismissable">
@@ -61,7 +61,7 @@
 		    			</div>
     				{% endif %}
 		    		{{ form_label(form.apellido) }}
-		    		{{ form_widget(form.apellido, {'attr':{'class':'form-control'}}) }}
+		    		{{ form_widget(form.apellido, {'attr':{'class':'form-control' , 'data-toggle':'tooltip', 'data-placement':'right', 'title':'Lóngitud máxima 15 carácteres', 'data-container':'body'}}) }}
 
 		    		{% if form_errors(form.fechaNac) %}
 		    			<div class = "alert alert-danger alert-dismissable">
@@ -79,7 +79,7 @@
 		    			</div>
     				{% endif %}
 		    		{{ form_label(form.seguroSocial,'Número de seguro social') }}
-		    		{{ form_widget(form.seguroSocial, {'attr':{'class':'form-control'}}) }}
+		    		{{ form_widget(form.seguroSocial, {'attr':{'class':'form-control' , 'data-toggle':'tooltip', 'data-placement':'right', 'title':'Solo números', 'data-container':'body'}}) }}
 
 		    		{% if form_errors(form.direccion) %}
 		    			<div class = "alert alert-danger alert-dismissable">
@@ -88,7 +88,7 @@
 		    			</div>
     				{% endif %}
 		    		{{ form_label(form.direccion,'Dirección') }}
-		    		{{ form_widget(form.direccion, {'attr':{'class':'form-control'}}) }}
+		    		{{ form_widget(form.direccion, {'attr':{'class':'form-control' , 'data-toggle':'tooltip', 'data-placement':'right', 'title':'Municipio, calle, número casa', 'data-container':'body'}}) }}
 
 		    		{% if form_errors(form.telefono) %}
 		    			<div class = "alert alert-danger alert-dismissable">
@@ -97,10 +97,10 @@
 		    			</div>
     				{% endif %}
 		    		{{ form_label(form.telefono,'Teléfono') }}
-		    		{{ form_widget(form.telefono, {'attr':{'class':'form-control'}}) }}
+		    		{{ form_widget(form.telefono, {'attr':{'class':'form-control', 'placeholder':'04128523697', 'data-toggle':'tooltip', 'data-placement':'right', 'title':'Solo números', 'data-container':'body'}}) }}
 
 		    		<div class = "row" >
-    					<h4> Datos de empleo </h4>
+    					<h3> Datos de empleo </h3>
     				</div>
 
 		    		{% if form_errors(form.fechaInicio) %}
@@ -109,10 +109,10 @@
 		    				{{ form_errors(form.fechaInicio) }}
 		    			</div>
     				{% endif %}
-		    		{{ form_label(form.fechaInicio, 'Fecha de ingreso') }}
+		    		{{ form_label(form.fechaInicio, 'Fecha de ingreso al cargo') }}
 		    		{{ form_widget(form.fechaInicio, {'attr':{'class':'form-control', 'placeholder':'dia/mes/año'}}) }}
 
-		    		<label> Roles disponibles </label>
+		    		<label style = "padding-top:10px;"> Tipo de cargo </label>
 			    	<div class="radio" style="padding-left:50px;">
 				    	 {% for type in form.tipo %}
 				    	 	<div div class="row">
@@ -137,4 +137,15 @@
     </div>
     </div>
     <!-- /.row -->
+
+    {% block javascript %}
+    	{{ parent() }}
+
+    	<script>
+    		$(function () {
+		  		$('[data-toggle="tooltip"]').tooltip()
+			})
+    	</script>
+
+    {% endblock %}
 {% endblock %}
