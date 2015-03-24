@@ -20,6 +20,9 @@
     		{% endif %}
     		
     		<form method="POST" action = "{{ path('Nuevo_empleado') }}" >
+    			<div class = "row" >
+    				<h4> Datos de cuenta </h4>
+    			</div>
 	    		<div class = "form-group" >
 	    			{% if form_errors(form.nombreUsuario) %}
 		    			<div class = "alert alert-danger alert-dismissable">
@@ -39,6 +42,9 @@
 		    		{{ form_label(form.contrasenha,'Contraseña') }}
 		    		{{ form_widget(form.contrasenha, {'attr':{'class':'form-control'}}) }}
 
+		    		<div class = "row" >
+    					<h4> Datos de personales </h4>
+    				</div>
 		    		{% if form_errors(form.nombre) %}
 		    			<div class = "alert alert-danger alert-dismissable">
 		    				<button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>
@@ -93,6 +99,10 @@
 		    		{{ form_label(form.telefono,'Teléfono') }}
 		    		{{ form_widget(form.telefono, {'attr':{'class':'form-control'}}) }}
 
+		    		<div class = "row" >
+    					<h4> Datos de empleo </h4>
+    				</div>
+
 		    		{% if form_errors(form.fechaInicio) %}
 		    			<div class = "alert alert-danger alert-dismissable">
 		    				<button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>
@@ -110,18 +120,21 @@
 				    	 		{{ form_label(type) }}
 				    	 	</div>
 				    	 {% endfor %}
-				   	</div>
-			    </div>
+				    </div>
+				</div>
 
-		    	<div>
+		    	<div style= "padding-bottom: 20px;">
 		    		{{form_widget(form.Guardar ,{'attr':{'class':'btn btn-outline btn-primary'}})}}
 		    		{{form_widget(form.Guardar_otro ,{'attr':{'class':'btn btn-outline btn-success'}})}}
 		    		{{form_widget(form.Cancelar ,{'attr':{'class':'btn btn-outline btn-danger'}})}}
 		    	<div/>
-		    	{{ form_rest(form) }}	    		
+		    	<div class = "row" >
+		    		{{ form_rest(form) }}	    		
+		    	</div>
 	    	</form>
     	</div>
     </div>
+    </div>
+    </div>
     <!-- /.row -->
-
 {% endblock %}
