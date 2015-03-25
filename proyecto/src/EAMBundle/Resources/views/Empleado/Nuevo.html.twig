@@ -71,7 +71,7 @@
 	    			</div>
 				{% endif %}
 	    		{{ form_label(form.fechaNac) }}
-	    		{{ form_widget(form.fechaNac, {'attr':{'class':'form-control', 'placeholder':'dia/mes/año'}}) }}
+	    		{{ form_widget(form.fechaNac, {'attr':{'id':'datepicker', 'class':'form-control', 'placeholder':'dia-mes-año', 'id':'datepicker', 'readonly':''}}) }}
 
 	    		{% if form_errors(form.seguroSocial) %}
 	    			<div class = "alert alert-danger alert-dismissable">
@@ -111,7 +111,7 @@
 	    			</div>
 				{% endif %}
 	    		{{ form_label(form.fechaInicio, 'Fecha de ingreso al cargo') }}
-	    		{{ form_widget(form.fechaInicio, {'attr':{'class':'form-control', 'placeholder':'dia/mes/año'}}) }}
+	    		{{ form_widget(form.fechaInicio, {'attr':{'id':'datepicker', 'class':'form-control', 'placeholder':'dia-mes-año','id':'datepicker', 'readonly':''}}) }}
 
 	    		<label style = "padding-top:10px;"> Tipo de cargo </label>
 		    	<div class="radio" style="padding-left:50px;">

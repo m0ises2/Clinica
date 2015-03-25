@@ -27,6 +27,10 @@
 
         <!-- Custom Fonts -->
         <link href="{{ asset('bundles/eam/css/fontawesome/css/font-awesome.css') }}" rel="stylesheet" type="text/css" />
+
+        <!-- css for datepicker -->
+        <link href="{{ asset('bundles/eam/datepicker/css/datepicker.css') }}" rel="stylesheet" type="text/css" />
+
     {% endblock %}
 
     {% block scripts %}  {% endblock %}
@@ -207,7 +211,7 @@
 
     {% block javascript %}
        <!-- jQuery -->
-        <script src="{{ asset('bundles/eam/js/jquery.min.js') }}"></script>
+        <script src="{{ asset('bundles/eam/js/jquery-1.11.2.js') }}"></script>
 
         <!-- Bootstrap Core JavaScript -->
         <script src="{{ asset('bundles/eam/js/bootstrap.min.js') }}"></script>
@@ -217,6 +221,21 @@
 
         <!-- Custom Theme JavaScript -->
         <script src="{{ asset('bundles/eam/js/sb-admin-2.js') }}"></script>
+
+        <!-- JS for datepicker -->
+        <script src="{{ asset('bundles/eam/datepicker/js/bootstrap-datepicker.js') }}" > </script>
+
+        <script>
+            (function(){
+                $('#eambundle_empleado_fechaNac').datepicker({ format: "dd-mm-yyyy" });
+            })(jQuery);
+        </script>
+
+        <script>
+            (function(){
+                $('#eambundle_empleado_fechaInicio').datepicker({ format: "dd-mm-yyyy" });
+            })(jQuery);
+        </script>
     {% endblock %}
 
 </body>

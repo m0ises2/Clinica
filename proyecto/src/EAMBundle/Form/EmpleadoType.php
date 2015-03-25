@@ -19,10 +19,10 @@ class EmpleadoType extends AbstractType
             ->add('contrasenha', 'password')
             ->add('nombre')
             ->add('apellido')
-            ->add('fechaNac', 'date', array('widget' => 'single_text', 'format' => 'dd/MM/yyyy','label' => 'Fecha de nacimiento'))
+            ->add('fechaNac', 'date', array('widget' => 'single_text', 'format' => 'dd-MM-yyyy','label' => 'Fecha de nacimiento'))
             ->add('seguroSocial','text')
             ->add('direccion', 'text')
-            ->add('fechaInicio', 'date', array('widget' => 'single_text', 'format' => 'dd/MM/yyyy'))
+            ->add('fechaInicio', 'date', array('widget' => 'single_text', 'format' => 'dd-MM-yyyy'))
             ->add('telefono','text')
             ->add('tipo', 'choice' , array(
                     'choices' => array(
