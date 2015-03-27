@@ -16,7 +16,7 @@ class EmpleadoType extends AbstractType
     {
         $builder
             ->add('nombreUsuario','text')
-            ->add('contrasenha', 'password')
+            ->add('contrasenha', 'text')
             ->add('nombre')
             ->add('apellido')
             ->add('fechaNac', 'date', array('widget' => 'single_text', 'format' => 'dd-MM-yyyy','label' => 'Fecha de nacimiento'))

@@ -106,10 +106,14 @@
 				</div>
 			</div>
 
-	    	<div>
-	    		{{form_widget(form.Guardar ,{'attr':{'class':'btn btn-outline btn-primary'}})}}
+	    	<div class = "row">
+	    		<div class="col-lg-2 col-lg-offset-2"> 
+	    			{{form_widget(form.Guardar ,{'attr':{'class':'btn btn-outline btn-primary'}})}} 
+	    		</div>
 	    		
-	    		{{form_widget(form.Cancelar ,{'attr':{'class':'btn btn-outline btn-danger'}})}}
+	    		<div class="col-lg-2 col-lg-offset-2" > 
+	    			{{form_widget(form.Cancelar ,{'attr':{'class':'btn btn-outline btn-danger'}})}} 
+	    		</div>	    		
 	    	</div>
 
 	    	{{ form_rest(form) }}	

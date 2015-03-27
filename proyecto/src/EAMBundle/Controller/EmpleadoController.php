@@ -124,6 +124,10 @@ class EmpleadoController extends Controller
       	  return $this->render('EAMBundle:Empleado:nuevo.html.twig', array('form' => $form->createView() , 'nombre' => $this->getUser()->getnombreUsuario(), 'error' => $error));
     }
 
+   /*
+    * Esta función se encarga de recopilar todos los empleados en la BD y de invocar a la vista "show" (mostrar) para listarlos.
+    */
+
     public function MostrarAction()
     {
       /*¿Iniciada la sesión?*/
@@ -138,9 +142,14 @@ class EmpleadoController extends Controller
       $em = $this->getDoctrine()->getManager();
       $entities = $em->getRepository('EAMBundle:Empleado')->findAll();
 
+
+
       return $this->render('EAMBundle:Empleado:show.html.twig', array('entidades' => $entities, 'nombre' => $this->getUser()->getnombreUsuario()));
     }
 
+   /*
+    * Esta función se encarga de mostrar mas detalles de la información referente a un empleado.
+    */
     public function VerAction()
     {
       /*¿Iniciada la sesión?*/
@@ -156,6 +165,7 @@ class EmpleadoController extends Controller
       /*De esta manera obtengo los datos tipo hidden en un formulario que no está asociado a una entidad*/
       $_user_id = $request->get('id');
 
+  
       if ( $_user_id == NULL )
       {
           return $this->redirect($this->generateUrl('Ver_empleados'));
@@ -165,6 +175,16 @@ class EmpleadoController extends Controller
       $em = $this->getDoctrine()->getManager();
       $_user = $em->getRepository('EAMBundle:Empleado')->find($_user_id);
 
+      /*
+      * Condicional para saber si el boton editar fue pulsado.
+      */
+      if ( $request->request->has('editar') )
+      {
+        $_user_id = base64_encode($request->get('id'));
+        return $this->redirect($this->generateUrl('Editar', array('id' => $_user_id)));
+      }
+
+      /*formulario de acciones de la tabla*/
       $form = $this->formularioAcciones();
 
       /*Si el empleado existe, se procede a mostrarse en la vista sino, se arroja un error 404 "empleado no existe".*/
@@ -176,10 +196,8 @@ class EmpleadoController extends Controller
       return $this->render('EAMBundle:Empleado:User_details.html.twig', array('nombre' => $this->getUser()->getnombreUsuario(), 'entidad' => $_user, 'form' => $form->createView()));     
     }
 
-    /*
-
-    Esta función realiza la detección de que botón en la vista de detalles de usuario, fue pulsado. ¿Regresar, Editar o Borrar?
-
+   /*
+    * Esta función realiza la detección de que botón en la vista de detalles de usuario, fue pulsado. ¿Regresar, Editar o Borrar?
     */
     public function ElegirAction()
     {
@@ -212,7 +230,7 @@ class EmpleadoController extends Controller
 
             if ( $form->get('Editar')->isClicked() )
             {
-              return $this->redirect($this->generateUrl('Editar', array('id' => $_user_id)));
+              return $this->redirect($this->generateUrl('Editar', array('id' => base64_encode($_user_id))));
             }
 
             if ( $form->get('Borrar')->isClicked() )
@@ -269,7 +287,7 @@ class EmpleadoController extends Controller
 
        /* Se genera el formulario para la edición del empleado: */
       $em = $this->getDoctrine()->getManager();
-      $query = $em->getRepository('EAMBundle:Empleado')->find($id);
+      $query = $em->getRepository('EAMBundle:Empleado')->find(base64_decode($id));
 
       if ( $query )
       {
@@ -309,8 +327,8 @@ class EmpleadoController extends Controller
           if ( $query )
           {
               $form = $this->createForm(new EmpleadoType(), $query);
-              $form->handleRequest($request);              
-
+              $form->handleRequest($request);
+                      
               /*¿Pulsaron el botón de cancelar?*/
               if ( $form->get('Cancelar')->isClicked() )
               {
@@ -318,7 +336,7 @@ class EmpleadoController extends Controller
               }
 
               /*Si el formulario que cargaron es valido, entoces se procede con la actulización de la entrada en la BD:*/
-              if ($form->isValid())
+              if ( $form->isValid() )
               {
                 $em->flush();
 
