@@ -8,6 +8,8 @@ use Symfony\Component\HttpFoundation\Request;
 use EAMBundle\Entity\Empleado;
 use EAMBundle\Entity\EmpleadoRole;
 use EAMBundle\Entity\Role;
+use EAMBundle\Entity\Bitacora;
+
 
 use EAMBundle\Form\EmpleadoType;
 
@@ -15,6 +17,7 @@ class EmpleadoController extends Controller
 {
     public function indexAction()
     {
+
         return $this->redirect($this->generaateUrl('login'));
     }
 
@@ -73,12 +76,7 @@ class EmpleadoController extends Controller
                   $rol = $query->getResult();
 
                   foreach ($rol as $key => $value) {
-                     $rol_->setName($value->getName());
-                     $rol_->setRole($value->getRole());                     
-
-                     $id = $value->getId();
-                     $_user_id = $user->getId();
-                     $rol_ = $value;
+                    $rol_ = $value;
                   }
                   
                   if ($user->getTipo() == "Administrativo") {
@@ -95,17 +93,6 @@ class EmpleadoController extends Controller
                     }
                   }
 
-                  /*Creamos la entrada en la BD que representa la relación entre un empleado y un rol*/
-                  /*
-                  $_tmp_empleadoRole = new EmpleadoRole();
-                  $_tmp_empleadoRole->setRole($rol_);
-                  $_tmp_empleadoRole->setEmpleado($user);
-                  
-                  $em = $this->getDoctrine()->getManager();
-                  $em->persist($_tmp_empleadoRole);
-                  $em->flush();
-                  */
-
                   $em = $this->getDoctrine()->getManager();
                   /*Se agrega al nuevo empleado su rol correspondiente*/
                   $user->addRole($rol_); 
@@ -114,9 +101,12 @@ class EmpleadoController extends Controller
                   /*Se envía la BD*/
                   $em->flush();
 
+                  /*Entrada en la bitacora*/
+                  $this->addLog( $this->getUser()->getId(), 'Agregado empleado: '. $user->getId() );
+
                   /*Detectamos que botón fue clickeado:*/
                   if ( $form->get('Guardar')->isClicked() )
-                  {
+                  {                  
                     return $this->redirect($this->generateUrl('Nuevo_empleado'));
                   }
                   else
@@ -155,8 +145,6 @@ class EmpleadoController extends Controller
 
       $em = $this->getDoctrine()->getManager();
       $entities = $em->getRepository('EAMBundle:Empleado')->findAll();
-
-
 
       return $this->render('EAMBundle:Empleado:show.html.twig', array('entidades' => $entities, 'nombre' => $this->getUser()->getnombreUsuario()));
     }
@@ -211,7 +199,7 @@ class EmpleadoController extends Controller
     }
 
    /*
-    * Esta función realiza la detección de que botón en la vista de detalles de usuario, fue pulsado. ¿Regresar, Editar o Borrar?
+    * Esta función realiza la detección de que botón en la vista de detalles de usuario, fue pulsado. ¿Regresar, Editar o Borrar?.
     */
     public function ElegirAction()
     {
@@ -260,6 +248,9 @@ class EmpleadoController extends Controller
                 /* Se crea el flashmessage para que en la vista se aprecie el cambio. */
                 $request->getSession()->getFlashBag()->add('Eliminado', 'El empleado ha sido eliminado con exito.');
 
+                /*Entrada en la bitacora*/
+                $this->addLog( $this->getUser()->getId(), 'Eliminado empleado: '. $_user_id);
+
                 return $this->redirect($this->generateUrl('Ver_empleados'));
               }
               else
@@ -273,6 +264,7 @@ class EmpleadoController extends Controller
           return $this->redirect($this->generateUrl('Home'));
         }
     }
+
     /*
         Esta función es la encargada de crear el formulario que renderiza los tres botones de acción en la vista de detalles del empleado.
     */
@@ -288,6 +280,9 @@ class EmpleadoController extends Controller
         return $form;
     }
 
+   /*
+    * Esta funcion se encarga de renderizar el formulario para la edición de un empleado.
+    */
     public function EditarAction($id)
     {
       /*¿Iniciada la sesión?*/
@@ -320,6 +315,9 @@ class EmpleadoController extends Controller
       return $this->redirect($this->generateUrl('Ver_empleados'));
     }
 
+   /*
+    * Esta duncion se encarga de modificar los registros de empleados en la base de datos, con la finalidad de agregar los cambios realizados en la información de un empleado.
+    */
     public function ActualizarAction($id)
     {
       /*¿Iniciada la sesión?*/
@@ -389,6 +387,9 @@ class EmpleadoController extends Controller
 
                 $em->flush();
 
+                /*Entrada en la bitacora*/
+                $this->addLog( $this->getUser()->getId(), 'Modificación de empleado: '. base64_decode($id));
+
                  /* Se crea el flashmessage para que en la vista se aprecie el cambio. */
                 $request->getSession()->getFlashBag()->add('Actualizado', 'El empleado ha sido actualizado con exito.');
                 
@@ -402,5 +403,37 @@ class EmpleadoController extends Controller
       }
       return $this->render('EAMBundle:Empleado:Edit.html.twig', array('form' => $form->createView(), 'entidad' => $query, 'nombre' => $this->getUser()->getnombreUsuario()));
     }
+
+    /*Funciones para guardar la bitácora:*/
+   /*
+    * Esta función agrega una nueva entrada a la tabla bitácora.
+    */
+    private function addLog( $user_id, $mensaje )
+    {
+        /* Se obtiene la hora del evento:*/
+        
+        $time = new \DateTime();
+        
+
+        /*Se crea el objeto bitacora para almacenarlo posteriormente*/
+        $log = new Bitacora();
+        $log->setIdEmpleado( $user_id )
+            ->setFecha( $time )
+            ->setMensaje( $mensaje );
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($log);
+        $em->flush();
+
+        return $this;
+
+    }
+
+    private function getLog()
+    {
+
+    }
+
+    /*Fin de funciones para guardar la bitácora*/
 
 }

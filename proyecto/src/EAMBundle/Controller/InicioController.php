@@ -56,7 +56,7 @@ class InicioController extends Controller
 			return $this->redirect($this->generateUrl('login'));
 		}
 		/**************************************************************/
-
+		
 		return $this->render('::baseClinica.html.twig',array('nombre' => $this->getUser()->getUsername()));
 	}
 }
