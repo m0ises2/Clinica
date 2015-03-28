@@ -11,26 +11,26 @@ Home:
     defaults: { _controller: EAMBundle:Inicio:iniciar }
 
 Nuevo_empleado:
-    path:    /home/nuevo
+    path:    /nuevo
     defaults: { _controller: EAMBundle:Empleado:Nuevo }
 
 Ver_empleados:
-    path: /home/mostrar
+    path: /mostrar
     defaults: { _controller: EAMBundle:Empleado:Mostrar }
 Ver:
-    path: /home/detallesUsuario
+    path: /detallesUsuario
     defaults: { _controller: EAMBundle:Empleado:Ver }
 
 Elegir:
-    path: /home/opcion
+    path: /opcion
     defaults: { _controller: EAMBundle:Empleado:Elegir }
 
 Editar:
-    path: /home/edita/{id}
+    path: /edita/{id}
     defaults: { _controller: EAMBundle:Empleado:Editar }
 
 Actualizar:
-    path: /home/actualiza/{id}
+    path: /actualiza/{id}
     defaults: { _controller: EAMBundle:Empleado:Actualizar }
 
 logout:

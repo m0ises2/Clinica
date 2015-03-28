@@ -24,16 +24,17 @@ class EmpleadoController extends Controller
     public function NuevoAction()
     {
 
-    	/*¿Iniciada la sesión?*/
-    	/*Validar si esta logeado*/
-		/**************************************************************/
-		if ( $this->getUser() === NULL ) 
-		{
-			return $this->redirect($this->generateUrl('login'));
-		}
-		/**************************************************************/
+      /*¿Iniciada la sesión?*/
+      /*Validar si esta logeado*/
+  		/**************************************************************/
+  		if ( $this->getUser() === NULL ) 
+  		{
+  			return $this->redirect($this->generateUrl('login'));
+  		}
+		  /**************************************************************/
           $error = "";
       	  $user = new Empleado();
+          $rol_ = new Role();
       	  $form = $this->createForm(new EmpleadoType(), $user);
 
           /*Este botoón es único en la vista de añadir nuevo, por lo tanto solo debe agregarse al formulario cuando se invica a NuevoAction()*/
@@ -44,6 +45,7 @@ class EmpleadoController extends Controller
       	  if ( $request->getMethod() == "POST")
       	  {
       	  		$form->handleRequest($request);
+
               if ($form->get('Cancelar')->isClicked())
               {
                   return $this->redirect($this->generateUrl('Home'));
@@ -56,8 +58,7 @@ class EmpleadoController extends Controller
                   La consulta se realiza basandose en el número de seguro social, que es único.
                 */
                 $em = $this->getDoctrine()->getRepository('EAMBundle:Empleado')->findBySeguroSocial( $user->getseguroSocial() );
-                $role = NULL;
-                $role_id = NULL;
+               
                 /*¿Existe el empleado?*/
                 if( !$em ) //¿No existe? -> No. Procedo a agregarlo a la BD.
                 {
@@ -72,6 +73,9 @@ class EmpleadoController extends Controller
                   $rol = $query->getResult();
 
                   foreach ($rol as $key => $value) {
+                     $rol_->setName($value->getName());
+                     $rol_->setRole($value->getRole());                     
+
                      $id = $value->getId();
                      $_user_id = $user->getId();
                      $rol_ = $value;
@@ -92,12 +96,22 @@ class EmpleadoController extends Controller
                   }
 
                   /*Creamos la entrada en la BD que representa la relación entre un empleado y un rol*/
+                  /*
                   $_tmp_empleadoRole = new EmpleadoRole();
                   $_tmp_empleadoRole->setRole($rol_);
                   $_tmp_empleadoRole->setEmpleado($user);
-
+                  
                   $em = $this->getDoctrine()->getManager();
                   $em->persist($_tmp_empleadoRole);
+                  $em->flush();
+                  */
+
+                  $em = $this->getDoctrine()->getManager();
+                  /*Se agrega al nuevo empleado su rol correspondiente*/
+                  $user->addRole($rol_); 
+                  /*se prepara para almacenarse*/                
+                  $em->persist($user);
+                  /*Se envía la BD*/
                   $em->flush();
 
                   /*Detectamos que botón fue clickeado:*/
@@ -337,7 +351,42 @@ class EmpleadoController extends Controller
 
               /*Si el formulario que cargaron es valido, entoces se procede con la actulización de la entrada en la BD:*/
               if ( $form->isValid() )
-              {
+              { 
+                $user_tipo_tmp = $form->getData()->getTipo();                
+                $user_roles_tmp = $form->getData()->getRoles();
+
+                foreach ($user_roles_tmp as $key => $value) {
+                  $tmp = $value->getName();
+                  $rol_prev = $value;
+                }
+
+                /*¿Tiene asignado un role diferente al previo de la actualización?*/
+                if ( $user_tipo_tmp != $tmp )
+                {
+                  $rol_ = new Role();
+                  /*Se busca en la tabla role el id del role que eligieron:*/
+                  $repositorio = $this->getDoctrine()->getRepository('EAMBundle:Role');
+                  $query_ = $repositorio->createQueryBuilder('r')
+                                       ->Where('r.name = :name')
+                                       ->setParameter('name', $query->getTipo())
+                                       ->getQuery();
+                                           
+                  /*La variable ron contiene el objeto tipo array dentro del cual está el objeto tipo Role.*/
+                  $rol = $query_->getResult();
+
+                  foreach ($rol as $key => $value)
+                  {
+                    $rol_ = $value;
+                  }
+
+                  /*Eliminamos el rol anterior*/
+                  $query->removeRole($rol_prev);
+
+                  /*Creo un nuevo rol, el cual será el asignado en la actualización*/
+                  $query->addRole($rol_);
+
+                }
+
                 $em->flush();
 
                  /* Se crea el flashmessage para que en la vista se aprecie el cambio. */

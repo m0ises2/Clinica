@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Empleado
  *
  * @ORM\Table(name="empleado")
- * @ORM\Entity(repositoryClass="EAMBundle\Entity\EmpleadoRepository")
+ * @ORM\Entity()
  */
 class Empleado implements UserInterface, \Serializable
 {
@@ -460,7 +460,7 @@ class Empleado implements UserInterface, \Serializable
      */
     public function addRole(\EAMBundle\Entity\Role $role)
     {
-        $this->role[] = $role;
+        $this->roles[] = $role;
 
         return $this;
     }
@@ -472,7 +472,7 @@ class Empleado implements UserInterface, \Serializable
      */
     public function removeRole(\EAMBundle\Entity\Role $role)
     {
-        $this->role->removeElement($role);
+        $this->roles->removeElement($role);
     }
 
     /**
@@ -482,6 +482,6 @@ class Empleado implements UserInterface, \Serializable
      */
     public function getRole()
     {
-        return $this->role;
+        return $this->roles;
     }   
 }
