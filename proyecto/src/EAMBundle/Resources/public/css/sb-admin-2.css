@@ -4,6 +4,7 @@
  * For details, see http://www.apache.org/licenses/LICENSE-2.0.
  */
 
+
 body {
     background-color: #f8f8f8;
 }
@@ -351,4 +352,47 @@ table.dataTable thead .sorting:after {
 
 .panel-yellow a:hover {
     color: #df8a13;
+}
+
+.principio
+{
+    background-color:  #EFEFEF;
+    margin-top: 63px;
+
+
+    padding-top: 15px;
+    padding-bottom: 30px;
+    padding-left: 100px;
+
+    border-radius: 10px;
+}
+.mensaje
+{
+    margin-bottom: 25px;
+    margin-top: 20px;
+}
+.cant_reporte
+{
+    margin-top: 60px;
+}
+.digito
+{
+
+}
+.boton
+{
+    margin-left: 10px;
+}
+.numeros
+{
+    width: 30px;
+    height: 30px;
+
+    font-weight: bold;
+    font-size: large;
+
+    color: black;
+
+    padding-left: 15px;
+    padding-top: 5px; 
 }

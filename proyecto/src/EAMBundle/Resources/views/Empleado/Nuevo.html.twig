@@ -128,9 +128,10 @@
 	    	<div style= "padding-bottom: 20px;">
 	    		{{form_widget(form.Guardar ,{'attr':{'class':'btn btn-outline btn-primary'}})}}
 	    		{{form_widget(form.Guardar_otro ,{'attr':{'class':'btn btn-outline btn-success'}})}}
-	    		{{form_widget(form.Cancelar ,{'attr':{'class':'btn btn-outline btn-danger'}})}}
+	    		<a href="{{ path('Home') }}" ><button class="btn btn-outline btn-danger" type="button">Cancelar</button></a>
 	    	</div>
 	    	<div class = "row" >
+	    	    {% do form.Cancelar.setRendered %}
 	    		{{ form_rest(form) }}	    		
 	    	</div>
     	</form>

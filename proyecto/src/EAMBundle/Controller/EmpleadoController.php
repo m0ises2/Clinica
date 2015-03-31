@@ -388,7 +388,7 @@ class EmpleadoController extends Controller
                 $em->flush();
 
                 /*Entrada en la bitacora*/
-                $this->addLog( $this->getUser()->getId(), 'Modificación de empleado: '. base64_decode($id));
+                $this->addLog( $this->getUser()->getId(), 'Editado empleado: '. base64_decode($id));
 
                  /* Se crea el flashmessage para que en la vista se aprecie el cambio. */
                 $request->getSession()->getFlashBag()->add('Actualizado', 'El empleado ha sido actualizado con exito.');
