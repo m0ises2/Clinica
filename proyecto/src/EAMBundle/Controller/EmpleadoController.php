@@ -413,6 +413,9 @@ class EmpleadoController extends Controller
         /* Se obtiene la hora del evento:*/
         
         $time = new \DateTime();
+        /*Se establece la zona horaria correctamente.*/
+        $zone = $this->container->getParameter('time_zone');
+        $time->setTimezone( new \DateTimeZone($zone));
         
 
         /*Se crea el objeto bitacora para almacenarlo posteriormente*/
