@@ -107,36 +107,27 @@
                                 <!-- /.nav-second-level -->
                             </li>
                         {% endif %}
+                        {# La gestion de citas no necesita condicionarse ya que todo el personal puede gestionar citas #}
+                            <li>
+                                <a href="#">
+                                    <i class="fa fa-calendar fa-fw"></i> Citas <span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li>
+                                        <a href="{{ path('Nueva_cita') }}"><i class="fa fa-plus-square"></i> Añadir </a>
+                                    </li>
+                                    <li>
+                                        <a href="#"><i class="fa fa-list"></i> Mostrar </a>
+                                    </li>
+                                </ul>
+                                <!-- /.nav-second-level -->
+                            </li>
                         <li>
                             <a href="#"> !"#/(=)(/" </a>
                         </li>
                         <li>
                             <a href="forms.html"> !#"$/()=?" </a>
                         </li>
-                        <li>
-                            <a href="#"> !"$%/()" <span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="#">Panels and Wells</a>
-                                </li>
-                                <li>
-                                    <a href="#">Buttons</a>
-                                </li>
-                                <li>
-                                    <a href="#">Notifications</a>
-                                </li>
-                                <li>
-                                    <a href="#">Typography</a>
-                                </li>
-                                <li>
-                                    <a href="#"> Icons</a>
-                                </li>
-                                <li>
-                                    <a href="#">Grid</a>
-                                </li>
-                            </ul>
-                            <!-- /.nav-second-level -->
-                        </li>
+                        
                         <li>
                             <a href="#"> =)(/%$#" <span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">

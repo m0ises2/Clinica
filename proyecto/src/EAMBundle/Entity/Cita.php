@@ -36,19 +36,23 @@ class Cita
     /**
      * @var integer
      *
-     * @ORM\Column(name="id_paciente", type="integer", nullable=false)
-     */
-    private $idPaciente;
-
-    /**
-     * @var integer
-     *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="Paciente", inversedBy="citas")
+     * @ORM\JoinColumn(name="id_paciente", referencedColumnName="id")
+     */
+    private $paciente;
+
+     /**
+     * @ORM\OneToOne(targetEntity="Visita")
+     * @ORM\JoinColumn(name="id_visita", referencedColumnName="id")
+     */
+    private $visita;
 
 
     /**
@@ -121,29 +125,6 @@ class Cita
     }
 
     /**
-     * Set idPaciente
-     *
-     * @param integer $idPaciente
-     * @return Cita
-     */
-    public function setIdPaciente($idPaciente)
-    {
-        $this->idPaciente = $idPaciente;
-
-        return $this;
-    }
-
-    /**
-     * Get idPaciente
-     *
-     * @return integer 
-     */
-    public function getIdPaciente()
-    {
-        return $this->idPaciente;
-    }
-
-    /**
      * Get id
      *
      * @return integer 
@@ -151,5 +132,51 @@ class Cita
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set paciente
+     *
+     * @param \EAMBundle\Entity\Paciente $paciente
+     * @return Cita
+     */
+    public function setPaciente(\EAMBundle\Entity\Paciente $paciente = null)
+    {
+        $this->paciente = $paciente;
+    
+        return $this;
+    }
+
+    /**
+     * Get paciente
+     *
+     * @return \EAMBundle\Entity\Paciente 
+     */
+    public function getPaciente()
+    {
+        return $this->paciente;
+    }
+
+    /**
+     * Set visita
+     *
+     * @param \EAMBundle\Entity\Visita $visita
+     * @return Cita
+     */
+    public function setVisita(\EAMBundle\Entity\Visita $visita = null)
+    {
+        $this->visita = $visita;
+    
+        return $this;
+    }
+
+    /**
+     * Get visita
+     *
+     * @return \EAMBundle\Entity\Visita 
+     */
+    public function getVisita()
+    {
+        return $this->visita;
     }
 }

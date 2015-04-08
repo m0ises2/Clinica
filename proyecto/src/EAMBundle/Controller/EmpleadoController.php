@@ -72,7 +72,7 @@ class EmpleadoController extends Controller
                                        ->setParameter('name', $user->getTipo())
                                        ->getQuery();
 
-                  /*La variable ron contiene el objeto tipo array dentro del cual está el objeto tipo Role.*/
+                  /*La variable rol contiene el objeto tipo array dentro del cual está el objeto tipo Role.*/
                   $rol = $query->getResult();
 
                   foreach ($rol as $key => $value) {

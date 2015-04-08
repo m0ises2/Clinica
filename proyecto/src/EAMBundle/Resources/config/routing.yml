@@ -33,5 +33,9 @@ Actualizar:
     path: /actualiza/{id}
     defaults: { _controller: EAMBundle:Empleado:Actualizar }
 
+Nueva_cita:
+    path: /nuevacita/
+    defaults: {_controller: EAMBundle:Cita:NuevaCita}
+
 logout:
    path: /logout

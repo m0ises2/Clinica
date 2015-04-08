@@ -3,6 +3,7 @@
 namespace EAMBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Paciente
@@ -62,6 +63,22 @@ class Paciente
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Cita", mappedBy="paciente")
+     */
+    private $citas;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Visita", mappedBy="paciente")
+     */
+    private $visitas;
+
+    public function __construct()
+    {
+        $this->citas = new ArrayCollection();
+        $this->visitas = new ArrayCollection();
+    }
 
 
 
@@ -211,5 +228,71 @@ class Paciente
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Add citas
+     *
+     * @param \EAMBundle\Entity\Cita $citas
+     * @return Paciente
+     */
+    public function addCita(\EAMBundle\Entity\Cita $citas)
+    {
+        $this->citas[] = $citas;
+    
+        return $this;
+    }
+
+    /**
+     * Remove citas
+     *
+     * @param \EAMBundle\Entity\Cita $citas
+     */
+    public function removeCita(\EAMBundle\Entity\Cita $citas)
+    {
+        $this->citas->removeElement($citas);
+    }
+
+    /**
+     * Get citas
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCitas()
+    {
+        return $this->citas;
+    }
+
+    /**
+     * Add visitas
+     *
+     * @param \EAMBundle\Entity\Visita $visitas
+     * @return Paciente
+     */
+    public function addVisita(\EAMBundle\Entity\Visita $visitas)
+    {
+        $this->visitas[] = $visitas;
+    
+        return $this;
+    }
+
+    /**
+     * Remove visitas
+     *
+     * @param \EAMBundle\Entity\Visita $visitas
+     */
+    public function removeVisita(\EAMBundle\Entity\Visita $visitas)
+    {
+        $this->visitas->removeElement($visitas);
+    }
+
+    /**
+     * Get visitas
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getVisitas()
+    {
+        return $this->visitas;
     }
 }

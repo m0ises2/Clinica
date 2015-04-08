@@ -27,11 +27,10 @@ class Visita
     private $hora;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="id_paciente", type="integer", nullable=false)
+     * @ORM\ManyToOne(targetEntity="Paciente", inversedBy="visitas")
+     * @ORM\JoinColumn(name="id_paciente", referencedColumnName="id")
      */
-    private $idPaciente;
+    private $paciente;
 
     /**
      * @var integer
@@ -98,29 +97,6 @@ class Visita
     }
 
     /**
-     * Set idPaciente
-     *
-     * @param integer $idPaciente
-     * @return Visita
-     */
-    public function setIdPaciente($idPaciente)
-    {
-        $this->idPaciente = $idPaciente;
-
-        return $this;
-    }
-
-    /**
-     * Get idPaciente
-     *
-     * @return integer 
-     */
-    public function getIdPaciente()
-    {
-        return $this->idPaciente;
-    }
-
-    /**
      * Set idMedico
      *
      * @param integer $idMedico
@@ -151,5 +127,28 @@ class Visita
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set paciente
+     *
+     * @param \EAMBundle\Entity\Paciente $paciente
+     * @return Visita
+     */
+    public function setPaciente(\EAMBundle\Entity\Paciente $paciente = null)
+    {
+        $this->paciente = $paciente;
+    
+        return $this;
+    }
+
+    /**
+     * Get paciente
+     *
+     * @return \EAMBundle\Entity\Paciente 
+     */
+    public function getPaciente()
+    {
+        return $this->paciente;
     }
 }
