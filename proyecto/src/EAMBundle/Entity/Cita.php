@@ -2,6 +2,8 @@
 
 namespace EAMBundle\Entity;
 
+use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -13,16 +15,25 @@ use Doctrine\ORM\Mapping as ORM;
 class Cita
 {
     /**
-     * @var \DateTime
+     * @var integer
      *
-     * @ORM\Column(name="fecha", type="date", nullable=false)
+     * @ORM\Column(name="segurosocial", type="integer", nullable=false)
      */
-    private $fecha;
+    private $segurosocial;
 
     /**
      * @var \DateTime
      *
+     * @ORM\Column(name="fecha", type="date", nullable=false)
+     * @Assert\Date()
+     */
+    private $fecha;
+
+    /**
+     * @var \Time
+     *
      * @ORM\Column(name="hora", type="time", nullable=false)
+     * @Assert\Time()
      */
     private $hora;
 
@@ -30,15 +41,9 @@ class Cita
      * @var string
      *
      * @ORM\Column(name="motivo", type="string", length=250, nullable=false)
+     * @Assert\NotBlank(message="Debe escribir el motivo de la cita")
      */
     private $motivo;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="id_paciente", type="integer", nullable=false)
-     */
-    private $idPaciente;
 
     /**
      * @var integer
@@ -49,6 +54,18 @@ class Cita
      */
     private $id;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="Paciente", inversedBy="citas")
+     * @ORM\JoinColumn(name="paciente_id", referencedColumnName="id")
+     */
+    private $paciente;
+
+
+     /**
+     * @ORM\OneToOne(targetEntity="Visita")
+     * @ORM\JoinColumn(name="id_visita", referencedColumnName="id")
+     */
+    private $visita;
 
 
     /**
@@ -121,29 +138,6 @@ class Cita
     }
 
     /**
-     * Set idPaciente
-     *
-     * @param integer $idPaciente
-     * @return Cita
-     */
-    public function setIdPaciente($idPaciente)
-    {
-        $this->idPaciente = $idPaciente;
-
-        return $this;
-    }
-
-    /**
-     * Get idPaciente
-     *
-     * @return integer 
-     */
-    public function getIdPaciente()
-    {
-        return $this->idPaciente;
-    }
-
-    /**
      * Get id
      *
      * @return integer 
@@ -151,5 +145,76 @@ class Cita
     public function getId()
     {
         return $this->id;
+    }
+
+
+    /**
+     * Set visita
+     *
+     * @param \EAMBundle\Entity\Visita $visita
+     * @return Cita
+     */
+    public function setVisita(\EAMBundle\Entity\Visita $visita = null)
+    {
+        $this->visita = $visita;
+    
+        return $this;
+    }
+
+    /**
+     * Get visita
+     *
+     * @return \EAMBundle\Entity\Visita 
+     */
+    public function getVisita()
+    {
+        return $this->visita;
+    }
+
+
+    /**
+     * Set paciente
+     *
+     * @param \EAMBundle\Entity\Paciente $paciente
+     * @return Cita
+     */
+    public function setPaciente(\EAMBundle\Entity\Paciente $paciente = null)
+    {
+        $this->paciente = $paciente;
+    
+        return $this;
+    }
+
+    /**
+     * Get paciente
+     *
+     * @return \EAMBundle\Entity\Paciente 
+     */
+    public function getPaciente()
+    {
+        return $this->paciente;
+    }
+
+    /**
+     * Set segurosocial
+     *
+     * @param integer $segurosocial
+     * @return Cita
+     */
+    public function setSegurosocial($segurosocial)
+    {
+        $this->segurosocial = $segurosocial;
+    
+        return $this;
+    }
+
+    /**
+     * Get segurosocial
+     *
+     * @return integer 
+     */
+    public function getSegurosocial()
+    {
+        return $this->segurosocial;
     }
 }

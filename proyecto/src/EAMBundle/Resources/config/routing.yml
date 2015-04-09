@@ -43,3 +43,7 @@ Guardar_paciente:
 
 logout:
    path: /logout
+
+Nueva_cita:
+    path: /nuevacita/
+    defaults: {_controller: EAMBundle:Cita:NuevaCita}
