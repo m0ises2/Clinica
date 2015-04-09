@@ -33,5 +33,13 @@ Actualizar:
     path: /actualiza/{id}
     defaults: { _controller: EAMBundle:Empleado:Actualizar }
 
+Nuevo_paciente:
+    path: /nuevo_paciente
+    defaults: { _controller: EAMBundle:Paciente:Nuevo }
+
+Guardar_paciente:
+    path: /guardar_paciente
+    defaults: { _controller: EAMBundle:Paciente:Guardar }
+
 logout:
    path: /logout
