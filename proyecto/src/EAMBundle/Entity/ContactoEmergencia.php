@@ -30,6 +30,8 @@ class ContactoEmergencia
      * @var integer
      *
      * @ORM\Column(name="id_paciente", type="integer", nullable=false)
+     * @ORM\ManyToOne(targetEntity="Paciente", inversedBy="emergencia")
+     * @ORM\JoinColumn(name="id_paciente", referencedColumnName="id")
      */
     private $idPaciente;
 
@@ -62,6 +64,9 @@ class ContactoEmergencia
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
+
+
+    
 
 
 
@@ -211,5 +216,11 @@ class ContactoEmergencia
     public function getId()
     {
         return $this->id;
+    }
+
+    public function addPaciente(Paciente $paciente){
+        if(!$this->emergencia->contains($paciente)){
+            $this->emergencia->add($paciente);
+        }
     }
 }

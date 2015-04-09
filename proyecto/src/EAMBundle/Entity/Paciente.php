@@ -5,6 +5,8 @@ namespace EAMBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
+use Doctrine\Common\Collections\ArrayCollection;
+
 /**
  * Paciente
  *
@@ -74,8 +76,25 @@ class Paciente
      */
     private $visitas;
 
-    public function __construct()
-    {
+    /**
+     * @ORM\OneToMany(targetEntity="NumerosTelefonicos", mappedBy="idPaciente", cascade={"persist"})
+     */
+    private $telefonos;
+
+    /**
+    *@ORM\OneToMany(targetEntity="ContactoEmergencia", mappedBy="idPaciente", cascade={"persist"})
+    */
+
+    private $emergencia;
+
+
+    public function  __toString(){
+        return $this->numSeguroSocial;
+    }
+
+    public function __construct(){
+        $this->telefonos = new ArrayCollection();
+        $this->emergencia = new ArrayCollection();
         $this->citas = new ArrayCollection();
         $this->visitas = new ArrayCollection();
     }
@@ -228,6 +247,47 @@ class Paciente
         return $this->id;
     }
 
+    public function setTelefonos($telefonos){
+        $this->telefonos = $telefonos;
+        foreach ($telefonos as $telP) {
+            $telP->setIdPaciente($this);
+        }
+    }
+
+    public function getTelefonos()
+    {
+        return $this->telefonos;
+    }
+
+    public function addTelefono(NumerosTelefonicos $tlf){
+        $tlf->addPaciente($this);
+        $this->telefono->add($tlf);
+    }
+
+    public function removeTelefono(NumerosTelefonicos $tlf){
+        $this->telefonos->removeElement($tlf);
+    }
+
+    public function getEmergencias(){
+        return $this->emergencia;
+    }
+
+    public function setEmergencias($emergencia){
+        $this->emergencia = $emergencia;
+        foreach ($emergencia as $emer) {
+            $emer->setIdPaciente($this);
+        }
+    }
+
+    public function removeEmergencia(ContactoEmergencia $emr){
+        $this->emergencia->removeElement($emr);
+    }
+
+
+    public function addEmergencia(ContactoEmergencia $emr){
+        $emergencia->addPaciente($this);
+        $this->emergencia->add($emr);
+    }
     /**
      * Add citas
      *
@@ -259,10 +319,7 @@ class Paciente
     public function getCitas()
     {
         return $this->citas;
-    }
-
-    
-    
+    }  
 
     /**
      * Add visitas
