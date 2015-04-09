@@ -21,6 +21,8 @@ class PacienteController extends Controller{
 
 	public function NuevoAction(){
 
+		$error ="";
+
 		$paciente = new Paciente();
 
 		$numero1 = new NumerosTelefonicos();
@@ -53,40 +55,49 @@ class PacienteController extends Controller{
 			if($form->isValid()){
 
 				
+				$repo =  $this->getDoctrine()->getRepository('EAMBundle:Paciente')->findByNumSeguroSocial($paciente->getNumSeguroSocial());
 
+				if($repo){
 
-				$tel = $paciente->getTelefonos();
-				$paciente->setTelefonos($tel);
+					$error = "duplicado"
 
-				$emer  = $paciente->getEmergencias();
-				$paciente->setEmergencias($emer);				
-
-
-				$em = $this->getDoctrine()->getManager();
-
-				$em->persist($paciente);
-
-				$em->flush();
+				}else{
 
 
 
-				return new Response('<!DOCTYPE html>
-				<html>
-				<head>
-					<title></title>
-				</head>
-				<body>
-					<h1>guardando el paciente</h1>
-				</body>
-				</html>');
+					$tel = $paciente->getTelefonos();
+					$paciente->setTelefonos($tel);
 
+					$emer  = $paciente->getEmergencias();
+					$paciente->setEmergencias($emer);				
+
+
+					$em = $this->getDoctrine()->getManager();
+
+					$em->persist($paciente);
+
+					$em->flush();
+
+
+
+					return new Response('<!DOCTYPE html>
+					<html>
+					<head>
+						<title></title>
+					</head>
+					<body>
+						<h1>guardando el paciente</h1>
+					</body>
+					</html>');
+
+				}
 			}
 		
 		}
 
 
 		
-		return $this->render('EAMBundle:Paciente:Nuevo.html.twig',array('form'=>$form->createView(), 'nombre' => $this->getUser()->getnombreUsuario()) ) ;
+		return $this->render('EAMBundle:Paciente:Nuevo.html.twig',array('form'=>$form->createView(), 'nombre' => $this->getUser()->getnombreUsuario(), 'error' => $error) ) ;
 	}
 
 	public function GuardarAction(){
