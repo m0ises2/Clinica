@@ -42,6 +42,14 @@ class Bitacora
      */
     private $mensaje;
 
+    /**
+    * @var string
+    *
+    * @ORM\Column(name="nombre_empleado", type="string", length=20); 
+    */
+
+    private $empleado;
+
 
     /**
      * Get id
@@ -120,5 +128,28 @@ class Bitacora
     public function getMensaje()
     {
         return $this->mensaje;
+    }
+
+    /**
+     * Set empleado
+     *
+     * @param string $empleado
+     * @return Bitacora
+     */
+    public function setEmpleado($empleado)
+    {
+        $this->empleado = $empleado;
+    
+        return $this;
+    }
+
+    /**
+     * Get empleado
+     *
+     * @return string 
+     */
+    public function getEmpleado()
+    {
+        return $this->empleado;
     }
 }
