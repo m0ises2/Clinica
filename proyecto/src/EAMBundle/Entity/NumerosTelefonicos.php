@@ -37,6 +37,8 @@ class NumerosTelefonicos
      * @var integer
      *
      * @ORM\Column(name="id_paciente", type="integer", nullable=false)
+     * @ORM\ManyToOne(targetEntity="Paciente", inversedBy="telefonos")
+     * @ORM\JoinColumn(name="id_paciente", referencedColumnName="id")
      */
     private $idPaciente;
 
@@ -151,5 +153,11 @@ class NumerosTelefonicos
     public function getId()
     {
         return $this->id;
+    }
+
+    public function addPaciente(Paciente $paciente){
+        if(!$this->telefonos->contains($paciente)){
+            $this->telefonos->add($paciente);
+        }
     }
 }
