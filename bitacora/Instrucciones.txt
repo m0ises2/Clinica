@@ -8,8 +8,11 @@ Para hacer uso de la bitácora que se implementó, solo es necesario copiar la sig
     private function addLog( $user_id, $mensaje )
     {
         /* Se obtiene la hora del evento:*/
-        
-        $time = new \DateTime();
+	$time = new \DateTime();
+
+        /*Se establece la zona horaria correctamente.*/
+        $zone = $this->container->getParameter('time_zone');
+        $time->setTimezone( new \DateTimeZone($zone));
         
 
         /*Se crea el objeto bitacora para almacenarlo posteriormente*/
@@ -42,7 +45,7 @@ Mensaje de editado empleado existente:
 	Editado empleado <id empleado editado>
 
 Mensaje de eliminado empleado:
-	Eliminado empleado <id empelado eliminado>
+	Eliminado empleado <id empleado eliminado>
 
 //////////////////////////////////////////////   SCRIPT  ///////////////////////////////////////////////////////////
 
