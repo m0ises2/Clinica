@@ -80,6 +80,8 @@ class Paciente
         $this->visitas = new ArrayCollection();
     }
 
+
+
     /**
      * Set apellido
      *
@@ -261,7 +263,10 @@ class Paciente
         return $this->citas;
     }
 
-    
+    public function __toString()
+    {
+        return $this->getNombre();
+    }
     
 
     /**

@@ -15,11 +15,13 @@ class CitaType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('fecha',array('widget' => 'single_text', 'format' => 'dd-MM-yyyy','label' => 'Fecha de Cita'))
+            ->add('segurosocial','text')
+            ->add('fecha','date', array('widget' => 'single_text', 'format' => 'dd-MM-yyyy','label' => 'Fecha de Cita'))
             ->add('hora')
-            ->add('motivo')
-            ->add('paciente') //si este campo me molesto, lo comento.
+            ->add('motivo','text')
+            //->add('paciente')
             ->add('visita')
+
         ;
     }
     

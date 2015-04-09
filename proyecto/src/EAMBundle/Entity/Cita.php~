@@ -194,27 +194,4 @@ class Cita
     {
         return $this->paciente;
     }
-
-    /**
-     * Set segurosocial
-     *
-     * @param integer $segurosocial
-     * @return Cita
-     */
-    public function setSegurosocial($segurosocial)
-    {
-        $this->segurosocial = $segurosocial;
-    
-        return $this;
-    }
-
-    /**
-     * Get segurosocial
-     *
-     * @return integer 
-     */
-    public function getSegurosocial()
-    {
-        return $this->segurosocial;
-    }
 }
