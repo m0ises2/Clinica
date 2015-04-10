@@ -33,6 +33,10 @@ Actualizar:
     path: /actualiza/{id}
     defaults: { _controller: EAMBundle:Empleado:Actualizar }
 
+Bitacora:
+    path: /registros
+    defaults: { _controller: EAMBundle:Bitacora:Mostrar }
+
 Nuevo_paciente:
     path: /nuevo_paciente
     defaults: { _controller: EAMBundle:Paciente:Nuevo }
