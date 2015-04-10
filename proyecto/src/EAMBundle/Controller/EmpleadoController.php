@@ -101,7 +101,7 @@ class EmpleadoController extends Controller
                   $em->flush();
 
                   /*Entrada en la bitacora*/
-                  $this->addLog( $this->getUser()->getnombreUsuario(), $this->getUser()->getId(), 'Agregado empleado: '. $user->getId() );
+                  $this->addLog( $this->getUser()->getnombreUsuario(), $this->getUser()->getId(), 'Agregado empleado: '. $user->getNombre().' '. $user->getApellido() );
 
                   /*Detectamos que botón fue clickeado:*/
                   if ( $form->get('Guardar')->isClicked() )
@@ -247,7 +247,7 @@ class EmpleadoController extends Controller
                 $request->getSession()->getFlashBag()->add('Eliminado', 'El empleado ha sido eliminado con exito.');
 
                 /*Entrada en la bitacora*/
-                $this->addLog($this->getUser()->getnombreUsuario(), $this->getUser()->getId(), 'Eliminado empleado: '. $_user_id);
+                $this->addLog($this->getUser()->getnombreUsuario(), $this->getUser()->getId(), 'Eliminado empleado: '. $em->getNombre().' '. $em->getApellido() );
 
                 return $this->redirect($this->generateUrl('Ver_empleados'));
               }
@@ -367,7 +367,7 @@ class EmpleadoController extends Controller
                                        ->setParameter('name', $query->getTipo())
                                        ->getQuery();
                                            
-                  /*La variable ron contiene el objeto tipo array dentro del cual está el objeto tipo Role.*/
+                  /*La variable rol contiene el objeto tipo array dentro del cual está el objeto tipo Role.*/
                   $rol = $query_->getResult();
 
                   foreach ($rol as $key => $value)
@@ -386,7 +386,7 @@ class EmpleadoController extends Controller
                 $em->flush();
 
                 /*Entrada en la bitacora*/
-                $this->addLog( $this->getUser()->getnombreUsuario() ,$this->getUser()->getId(), 'Editado empleado: '. base64_decode($id));
+                $this->addLog( $this->getUser()->getnombreUsuario() ,$this->getUser()->getId(), 'Editado empleado: '. $query->getNombre().' '. $query->getApellido() );
 
                  /* Se crea el flashmessage para que en la vista se aprecie el cambio. */
                 $request->getSession()->getFlashBag()->add('Actualizado', 'El empleado ha sido actualizado con éxito.');
