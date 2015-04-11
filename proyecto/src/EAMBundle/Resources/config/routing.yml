@@ -10,6 +10,12 @@ Home:
     path:    /home
     defaults: { _controller: EAMBundle:Inicio:iniciar }
 
+ajax_request:
+    path:  /ajax_
+    defaults: { _controller: EAMBundle:Empleado:disponible }
+    requirements:
+          _method: POST
+
 Nuevo_empleado:
     path:    /nuevo
     defaults: { _controller: EAMBundle:Empleado:Nuevo }
