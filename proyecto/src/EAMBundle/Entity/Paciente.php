@@ -65,7 +65,7 @@ class Paciente
     private $id;
 
     /**
-     * @ORM\OneToMany(targetEntity="Cita", mappedBy="id_paciente")
+     * @ORM\OneToMany(targetEntity="Cita", mappedBy="paciente")
      */
     private $citas;
 
@@ -350,5 +350,38 @@ class Paciente
     public function getVisitas()
     {
         return $this->visitas;
+    }
+
+    /**
+     * Add emergencia
+     *
+     * @param \EAMBundle\Entity\ContactoEmergencia $emergencia
+     * @return Paciente
+     */
+    public function addEmergencium(\EAMBundle\Entity\ContactoEmergencia $emergencia)
+    {
+        $this->emergencia[] = $emergencia;
+    
+        return $this;
+    }
+
+    /**
+     * Remove emergencia
+     *
+     * @param \EAMBundle\Entity\ContactoEmergencia $emergencia
+     */
+    public function removeEmergencium(\EAMBundle\Entity\ContactoEmergencia $emergencia)
+    {
+        $this->emergencia->removeElement($emergencia);
+    }
+
+    /**
+     * Get emergencia
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getEmergencia()
+    {
+        return $this->emergencia;
     }
 }
