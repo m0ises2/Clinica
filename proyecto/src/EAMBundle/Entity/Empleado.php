@@ -13,6 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="empleado")
  * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="EAMBundle\Entity\EmpleadoRepository")
  */
 class Empleado implements UserInterface, \Serializable
 {
