@@ -34,7 +34,7 @@ class Cita
     /**
      * @var \string
      *
-     * @ORM\Column(name="hora", type="string", length=15, nullable=false)
+     * @ORM\Column(name="hora", type="string", nullable=false)
      * @Assert\NotBlank(message="Debe escribir la hora de la cita")
      * 
      */
@@ -200,27 +200,4 @@ class Cita
     }
 
     
-
-    /**
-     * Set hora
-     *
-     * @param string $hora
-     * @return Cita
-     */
-    public function setHora($hora)
-    {
-        $this->hora = $hora;
-    
-        return $this;
-    }
-
-    /**
-     * Get hora
-     *
-     * @return string 
-     */
-    public function getHora()
-    {
-        return $this->hora;
-    }
 }

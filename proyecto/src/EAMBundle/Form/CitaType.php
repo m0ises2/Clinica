@@ -17,7 +17,7 @@ class CitaType extends AbstractType
         $builder
             ->add('segurosocial','text')
             ->add('fecha','date', array('widget' => 'single_text', 'format' => 'dd-MM-yyyy','label' => 'Fecha de Cita'))
-            ->add('hora','time', array('input'  => 'datetime','widget' => 'choice'))
+            ->add('hora','text',array('attr'=> array('class' => 'time')))
             ->add('motivo','textarea')
             //->add('paciente')
             //->add('visita')

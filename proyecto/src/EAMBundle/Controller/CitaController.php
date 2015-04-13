@@ -6,6 +6,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use EAMBundle\Entity\Cita;
+use EAMBundle\Entity\Empleado;
+use EAMBundle\Entity\EmpleadoRole;
 use EAMBundle\Entity\Bitacora;
 use EAMBundle\Entity\Paciente;
 
@@ -43,11 +45,13 @@ class CitaController extends Controller
       /**************************************************************/
         $cita = new Cita();
         $paciente = new Paciente();
+        $empleado = new Empleado();
         $form = $this->createForm(new CitaType(), $cita);     
         $request = $this->getRequest();
-
+        $error = "";
         if ( $request->getMethod() == "POST")
         {
+          
             $form->handleRequest($request); //Manejo la solicitud
             if($form->isValid()) //si el formulario es valido
             {
@@ -65,19 +69,20 @@ class CitaController extends Controller
                   foreach ($busqueda as $key => $value) //para acceder al objeto cita
                   {                  
                     if ($value->getFecha() == $cita->getFecha())
-                    {                     
+                    {  
+                      //return new response("son iguales");                    
                       //el paciente tiene una cita este dia (no se puede permitir)
                       $session = $request->getSession();
                       $this->addFlash(
                           'error',
                           'El paciente ya tiene una cita este dia'
                        );
+                      $error='true';  
                     }
-                    else //la fecha de la cita es diferente a las citas del paciente
-                    {
-                      
-                      /*return new response("NO son iguales"); sirve para depurar*/
-                      //Se agrega el paciente a la cita
+                  }
+                  if (!$error) //en las tuplas no hay una cita con fecha igual para ese paciente
+                  {
+                    //Se agrega el paciente a la cita
                       foreach ($em as $key => $value) {
                         $paciente = $value;
                       }
@@ -85,12 +90,15 @@ class CitaController extends Controller
                       $_cita = $this->getDoctrine()->getManager();
                       $_cita->persist($cita);
                       $_cita->flush();
+                      /*Entrada en la bitacora*/
+                      $this->addLog( $this->getUser()->getnombreUsuario(), $this->getUser()->getId(), 'Agregada Cita: '. $paciente->getNombre().' '. $paciente->getApellido());
                       return $this->redirect($this->generateUrl('Home'));
-                    }
+
                   }
                 }
                 else //EL paciente NO tiene ninguna cita
                 {
+                  //return new response("ACA");  
                   /*Se agrega el paciente a la cita*/
                      foreach ($em as $key => $value) {
                         $paciente = $value;
@@ -99,18 +107,53 @@ class CitaController extends Controller
                       $_cita = $this->getDoctrine()->getManager();
                       $_cita->persist($cita);
                       $_cita->flush();
+                      /*Entrada en la bitacora*/
+                      $this->addLog( $this->getUser()->getnombreUsuario(), $this->getUser()->getId(), 'Agregada Cita: '. $paciente->getNombre().' '. $paciente->getApellido());
+                      return $this->redirect($this->generateUrl('Home'));
                 }
               }
               else //No existe el paciente en la base de datos
               {
+                //return new response("aca");  
                 $session = $request->getSession();
                       $this->addFlash(
-                          'paciente',
+                          'error',
                           'El paciente no existe'
                        );
               }
             } 
+            //return new response("NOVALIDO");
         }
+        
         return $this->render('EAMBundle:Cita:nueva.html.twig', array('form' => $form->createView()));
+    }
+
+    /*Funciones para guardar la bitácora:*/
+    /*
+    * Esta función agrega una nueva entrada a la tabla bitácora.
+    */
+    private function addLog( $nombreUsuario, $user_id, $mensaje )
+    {
+        /* Se obtiene la hora del evento:*/
+        
+        $time = new \DateTime();
+        /*Se establece la zona horaria correctamente.*/
+        $zone = $this->container->getParameter('time_zone');
+        $time->setTimezone( new \DateTimeZone($zone));
+        
+
+        /*Se crea el objeto bitacora para almacenarlo posteriormente*/
+        $log = new Bitacora();
+        $log->setIdEmpleado( $user_id )
+            ->setEmpleado($nombreUsuario)
+            ->setFecha( $time )
+            ->setMensaje( $mensaje );
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($log);
+        $em->flush();
+
+        return $this;
+
     }
 }
