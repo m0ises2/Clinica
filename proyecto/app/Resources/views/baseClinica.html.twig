@@ -98,7 +98,8 @@
                         {% if is_granted('ROLE_ADMIN') %}
                             <li>
                                 <a href="#">
-                                    <i class="fa fa-users fa-fw"></i> Empleados <span class="fa arrow"></span></a>
+                                    <i class="fa fa-users fa-fw"></i> Empleados <span class="fa arrow"></span>
+                                </a>
                                 <ul class="nav nav-second-level">
                                     <li>
                                         <a href="{{ path('Nuevo_empleado') }}"><i class="fa fa-plus-square"></i> Añadir </a>
@@ -111,16 +112,7 @@
                             </li>
                         {% endif %}
 
-                        <li>
-                            <a href="#">
-                                Paciente<span class="fa arrow"></span>
-                            </a>
-                            <ul class="nav nav-second-level" aria-expanded="true">
-                                <li>
-                                    <a href="{{ path('Nuevo_paciente') }}"><i class="fa"></i> Añadir </a>
-                                </li>
-                            </ul>
-                        </li>
+                        
 
                         {# La gestion de citas no necesita condicionarse ya que todo el personal puede gestionar citas #}
                             <li>
@@ -137,8 +129,17 @@
                                 <!-- /.nav-second-level -->
                             </li>
                         <li>
-                            <a href="#"> !"#/(=)(/" </a>
-                        </li>
+                                <a href="#">
+                                    <i class="fa fa-users fa-fw"></i> Paciente <span class="fa arrow"></span>
+                                </a>
+                                <ul class="nav nav-second-level">
+                                    <li>
+                                        <a href="{{ path('NuevoPaciente') }}"><i class="fa fa-plus-square"></i> Añadir </a>
+                                    </li>
+                                    
+                                </ul>
+                                <!-- /.nav-second-level -->
+                            </li>
                         <li>
                             <a href="forms.html"> !#"$/()=?" </a>
                         </li>
@@ -291,6 +292,19 @@
                 $('#eambundle_cita_fecha').datepicker({ format: "dd-mm-yyyy" });
             })(jQuery);
         </script>
+
+        <script>
+            (function(){
+                $('#eambundle_paciente_fechasNac').datepicker({ format: "dd-mm-yyyy" });
+            })(jQuery);
+        </script>
+
+        <script>
+            (function(){
+                $('#eambundle_paciente_emergencias_0_fechaAnhadido').datepicker({ format: "dd-mm-yyyy" });
+            })(jQuery);
+        </script>
+
     {% endblock %}
 
 </body>

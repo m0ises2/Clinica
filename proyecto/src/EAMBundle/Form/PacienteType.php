@@ -6,6 +6,11 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
+use EAMBundle\Entity\PacienteRepository;
+use EAMBundle\Entity\Paciente;
+
+use EAMBundle\Controller;
+
 class PacienteType extends AbstractType
 {
     /**
@@ -21,6 +26,7 @@ class PacienteType extends AbstractType
             ->add('direccion')
             ->add('numSeguroSocial','text',array('label' => 'Numero de Seguro Social'))
             ->add('drPreferido','text', array('label' => 'Doctor de Preferencia'))
+            //->add('drPreferido','choice', array('mapped' => 'false', 'choices' => $this->medicos()))
             ->add('telefonos','collection',array(
                 'type'=> new NumerosTelefonicosType(), 
                 'allow_add'=>'true','by_reference'=>'false',
@@ -52,5 +58,22 @@ class PacienteType extends AbstractType
     public function getName()
     {
         return 'eambundle_paciente';
+    }
+
+    protected function medicos(){
+        $opciones= [];
+
+        /*$paciente = new PacienteRepository();
+
+        $opciones = $paciente->getMedicos();
+
+        
+        $repo = $this->getDoctrine()->getRepository('EAMBundle:Empleado')->findByTipo('Medico');
+
+        foreach ($repo as $medico) {
+            $repo->add($medico->getNombre() . '  ' . $medico->getApellido());
+        }*/
+
+        return $opciones;
     }
 }

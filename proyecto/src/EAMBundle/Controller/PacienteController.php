@@ -35,12 +35,7 @@ class PacienteController extends Controller{
 
 		$paciente->getEmergencias()->add($numero2);
 
-		/*$numero2 = new NumerosTelefonicos();		
-		$numero2->setCodigo('0242');
-		$numero2->setNumero('3619032');
-		$numero2->setTipo('Casa');
-
-		$paciente->getTelefonos()->add($numero2);*/
+		$medico =	$this->getDoctrine()->getRepository('EAMBundle:Empleado')->findByTipo('Medico');
 
 		$form = $this ->createForm(new PacienteType(), $paciente);
 
@@ -59,7 +54,7 @@ class PacienteController extends Controller{
 
 				if($repo){
 
-					$error = "duplicado"
+					$error = "duplicado";
 
 				}else{
 
@@ -97,13 +92,15 @@ class PacienteController extends Controller{
 
 
 		
-		return $this->render('EAMBundle:Paciente:Nuevo.html.twig',array('form'=>$form->createView(), 'nombre' => $this->getUser()->getnombreUsuario(), 'error' => $error) ) ;
+		return $this->render('EAMBundle:Paciente:Nuevo.html.twig',array('form'=>$form->createView(), 'nombre' => $this->getUser()->getnombreUsuario(), 'error' => $error,'medico' =>$medico) ) ;
 	}
 
 	public function GuardarAction(){
 
 		
 	}
+
+	
 }
 
 

@@ -12,7 +12,7 @@
 </div>
 
 <div class = "row" >
-	<div class = "col-lg-3 col-lg-offset-4">
+	<div class = "col-lg-4 col-lg-offset-4">
 
 		{% if error == "duplicado" %}
 			<div class = "alert alert-danger alert-dismissable">
@@ -21,7 +21,7 @@
 			</div>
 		{% endif %}
 
-		<form method="POST" action = "{{ path('Nuevo_paciente') }}" >
+		<form method="POST" action = "{{ path('NuevoPaciente') }}" >
 
 			<div class = "row" >
 				<h3> Datos Personales </h3>
@@ -35,7 +35,7 @@
 			    {{ form_widget(form.apellido, {'attr':{'class':'form-control', 'data-toggle':'tooltip', 'data-placement':'right', 'title':'Lóngitud máxima 15 carácteres', 'data-container':'body'}}) }}
 
 			    {{ form_label(form.fechasNac) }}
-			    {{ form_widget(form.fechasNac, {'attr':{'id':'datepicker', 'class':'form-control', 'placeholder':'dia-mes-año', 'id':'datepicker'}}) }} 
+			    {{ form_widget(form.fechasNac, {'attr':{'id':'datepicker', 'class':'form-control', 'placeholder':'dia-mes-año', 'id':'datepicker', 'readonly':''}}) }} 
 
 			    {{ form_label(form.direccion) }}
 			    {{ form_widget(form.direccion, {'attr':{'class':'form-control' , 'data-toggle':'tooltip', 'data-placement':'right', 'title':'Municipio, calle, número casa', 'data-container':'body'}}) }}
@@ -45,7 +45,9 @@
 
 			    {{ form_label(form.drPreferido) }}
 			    {{ form_widget(form.drPreferido, {'attr':{'class':'form-control' , 'data-toggle':'tooltip', 'data-placement':'right', 'data-container':'body', 'placeholder':'ESTO SERA UN SELECT'}}) }}
-			     
+
+			    
+
 			     <br>
 
 			    <div id="NUMERO">{{ form_label(form.drPreferido,"Numero de Telefono") }} </div>
@@ -84,7 +86,7 @@
 		    			{{ form_widget(emergencia.numero, {'attr':{'class':'form-control' , 'data-toggle':'tooltip', 'data-placement':'right', 'data-container':'body'}}) }}
 
 		    			{{ form_label(emergencia.fechaAnhadido) }}
-		    			{{ form_widget(emergencia.fechaAnhadido, {'attr':{'id':'datepicker', 'class':'form-control', 'placeholder':'dia-mes-año', 'id':'datepicker'}}) }}
+		    			{{ form_widget(emergencia.fechaAnhadido, {'attr':{'id':'datepicker', 'class':'form-control', 'placeholder':'dia-mes-año', 'id':'datepicker', 'readonly':''}}) }}
 
 		    			
 
@@ -192,7 +194,7 @@
 	});
 
 
-
+	var indexAnhadido;
 
 
 	function addTagForm2($collectionHolder2, $newLinkLi2) {
@@ -201,6 +203,8 @@
 
 	    // get the new index
 	    var index2 = $collectionHolder2.data('index');
+
+	    indexAnhadido = index2;
 
 	    // Replace '__name__' in the prototype's HTML to
 	    // instead be a number based on how many items we have
