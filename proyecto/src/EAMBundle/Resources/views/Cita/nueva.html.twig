@@ -15,16 +15,58 @@
 			
 			<form method="POST" action = "{{ path('Nueva_cita') }}" >
 				
+				{% for flashMessage in app.session.flashbag.get('error') %}
+    				<div class = "alert alert-danger alert-dismissable">
+	    				<button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>
+	    				{{ flashMessage }}
+	    			</div>
+				{% endfor %}
+
+				{{ form_label(form.segurosocial,'Número de seguro social') }}
+	    		{{ form_widget(form.segurosocial, {'attr':{'class':'form-control' , 'data-toggle':'tooltip', 'data-placement':'right', 'title':'Solo números', 'data-container':'body'}}) }}
+	    		{% if form_errors(form.segurosocial) %}
+	    			<div class = "alert alert-danger alert-dismissable">
+	    				<button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>
+	    			    {{ form_errors(form.segurosocial) }}
+	    			</div>
+				{% endif %}
+
 				{{ form_label(form.fecha, 'Fecha de cita') }}
-		    		{{ form_widget(form.fecha, {'attr':{'id':'datepicker', 'class':'form-control', 'placeholder':'dia-mes-año','id':'datepicker', 'readonly':''}}) }}
-		    		{% if form_errors(form.fecha) %}
-		    			<div class = "alert alert-danger alert-dismissable">
-		    				<button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>
-		    				{{ form_errors(form.fecha) }}
-		    			</div>
-					{% endif %}
-					{{ form_rest(form) }}
-					<input type="submit" />	
+		    	{{ form_widget(form.fecha, {'attr':{'id':'datepicker', 'class':'form-control', 'placeholder':'dia-mes-año','id':'datepicker', 'readonly':''}}) }}
+		    	{% if form_errors(form.fecha) %}
+		    		<div class = "alert alert-danger alert-dismissable">
+		    			<button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>
+		    			{{ form_errors(form.fecha) }}
+		    		</div>
+				{% endif %}	
+
+				{{ form_label(form.hora) }}
+				{{ form_widget(form.hora, {'attr':{'class':'form-control' , 'data-toggle':'tooltip'}}) }}
+	    		{% if form_errors(form.hora) %}
+	    			<div class = "alert alert-danger alert-dismissable">
+	    				<button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>
+	    				{{ form_errors(form.hora) }}
+	    			</div>
+				{% endif %}
+
+				{{ form_label(form.motivo,'Motivo') }}
+	    		{{ form_widget(form.motivo, {'attr':{'class':'form-control' , 'data-toggle':'tooltip', 'data-placement':'right', 'data-container':'body'}}) }}
+	    		{% if form_errors(form.motivo) %}
+	    			<div class = "alert alert-danger alert-dismissable">
+	    				<button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>
+	    				{{ form_errors(form.motivo) }}
+	    			</div>
+				{% endif %}
+
+				<div style= "padding-top: 20px;">
+	    		{{form_widget(form.Guardar ,{'attr':{'class':'btn btn-outline btn-primary'}})}}
+	    		<a href="{{ path('Home') }}" ><button class="btn btn-outline btn-danger" type="button">Cancelar</button></a>
+	    	</div>
+	    		<div class = "row" >
+	    	    {% do form.Cancelar.setRendered %}
+	    		{{ form_rest(form) }}	    		
+	    	</div>
+	    	
 	    	</form>
 		</div>
 	</div>

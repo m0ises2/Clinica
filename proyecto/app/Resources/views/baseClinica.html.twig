@@ -32,7 +32,8 @@
 
         <!-- css for datepicker -->
         <link href="{{ asset('bundles/eam/datepicker/css/datepicker.css') }}" rel="stylesheet" type="text/css" />
-
+        <!-- css for timepicker -->
+        <link href="{{ asset('bundles/eam/timepicker/css/jquery.timepicker.css') }}" rel="stylesheet" type="text/css" />
 
     {% endblock %}
 
@@ -72,7 +73,7 @@
                     </a>
                     <ul class="dropdown-menu dropdown-user">
                          <li>
-                            <a href="{{ path('logout') }}"><i class="fa fa-sign-out fa-fw"></i> Cerrar Sesión - {#{{ nombre }}#}</a>
+                            <a href="{{ path('logout') }}"><i class="fa fa-sign-out fa-fw"></i> Cerrar Sesión -{ nombre }}</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -186,7 +187,7 @@
                         {% endif %}
 
                         <li>
-                             <a href="{{ path('logout') }}"> <i class="fa fa-sign-out"></i> Cerrar Sesión </a>
+                             <a href="{{ path('logout') }}"> <i class="fa fa-sign-out"></i> Cerrar Sesión  </a>
                         </li>
                     </ul>
                 </div>
@@ -275,6 +276,9 @@
         <!-- JS for datepicker -->
         <script src="{{ asset('bundles/eam/datepicker/js/bootstrap-datepicker.js') }}" > </script>
 
+        <!-- JS for timepicker -->
+        <script src="{{ asset('bundles/eam/timepicker/js/jquery.timepicker.js') }}" > </script>
+
         <script>
             (function(){
                 $('#eambundle_empleado_fechaNac').datepicker({ format: "dd-mm-yyyy" });
@@ -292,6 +296,16 @@
                 $('#eambundle_cita_fecha').datepicker({ format: "dd-mm-yyyy" });
             })(jQuery);
         </script>
+        <script>
+                $(function() {
+                    $('#eambundle_cita_hora').timepicker({
+                        'disableTimeRanges': [
+                        ['12am', '7am'],
+                        ['9pm', '11pm']
+                        ]
+                });
+                })(jQuery);
+        </script>        
     {% endblock %}
 
 </body>

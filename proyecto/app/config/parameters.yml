@@ -12,3 +12,4 @@ parameters:
     mailer_password: null
     locale: en
     secret: 76d6c5cda1dbba5f05023b825da087ae0214b5e7
+    time_zone: "America/Caracas"

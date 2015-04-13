@@ -65,7 +65,7 @@ class Paciente
     private $id;
 
     /**
-     * @ORM\OneToMany(targetEntity="Cita", mappedBy="id_paciente")
+     * @ORM\OneToMany(targetEntity="Cita", mappedBy="paciente")
      */
     private $citas;
 
