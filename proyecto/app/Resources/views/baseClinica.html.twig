@@ -112,6 +112,19 @@
                             </li>
                         {% endif %}
 
+                            <li>
+                                <a href="#">
+                                    <i class="fa fa-fw"></i> Paciente <span class="fa arrow"></span>
+                                </a>
+                                <ul class="nav nav-second-level">
+                                    <li>
+                                        <a href="{{ path('NuevoPaciente') }}"><i class="fa fa-plus-square"></i> Añadir </a>
+                                    </li>
+                                    
+                                </ul>
+                                <!-- /.nav-second-level -->
+                            </li>
+
                         
 
                         {# La gestion de citas no necesita condicionarse ya que todo el personal puede gestionar citas #}
@@ -128,18 +141,7 @@
                                 </ul>
                                 <!-- /.nav-second-level -->
                             </li>
-                        <li>
-                                <a href="#">
-                                    <i class="fa fa-users fa-fw"></i> Paciente <span class="fa arrow"></span>
-                                </a>
-                                <ul class="nav nav-second-level">
-                                    <li>
-                                        <a href="{{ path('NuevoPaciente') }}"><i class="fa fa-plus-square"></i> Añadir </a>
-                                    </li>
-                                    
-                                </ul>
-                                <!-- /.nav-second-level -->
-                            </li>
+                        
                         <li>
                             <a href="forms.html"> !#"$/()=?" </a>
                         </li>

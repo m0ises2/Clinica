@@ -44,7 +44,7 @@
 			    {{ form_widget(form.numSeguroSocial, {'attr':{'class':'form-control' , 'data-toggle':'tooltip', 'data-placement':'right', 'data-container':'body'}}) }}
 
 			    {{ form_label(form.drPreferido) }}
-			    {{ form_widget(form.drPreferido, {'attr':{'class':'form-control' , 'data-toggle':'tooltip', 'data-placement':'right', 'data-container':'body', 'placeholder':'ESTO SERA UN SELECT'}}) }}
+			    {{ form_widget(form.drPreferido, {'attr':{'class':'form-control' , 'data-toggle':'tooltip', 'data-placement':'right', 'data-container':'body'}}) }}
 
 			    
 
@@ -80,7 +80,7 @@
 		    			{{ form_widget(emergencia.apellido, {'attr':{'class':'form-control' , 'data-toggle':'tooltip', 'data-placement':'right', 'data-container':'body'}}) }}
 
 		    			{{ form_label(emergencia.relacionPaciente) }}
-		    			{{ form_widget(emergencia.relacionPaciente, {'attr':{'class':'form-control' , 'data-toggle':'tooltip', 'data-placement':'right', 'data-container':'body', 'placeholder':'ESTO SERA UN SELECT'}}) }}
+		    			{{ form_widget(emergencia.relacionPaciente, {'attr':{'class':'form-control' , 'data-toggle':'tooltip', 'data-placement':'right', 'data-container':'body', 'placeholder':'Madre/Padre/Hermano'}}) }}
 
 		    			{{ form_label(emergencia.numero) }}
 		    			{{ form_widget(emergencia.numero, {'attr':{'class':'form-control' , 'data-toggle':'tooltip', 'data-placement':'right', 'data-container':'body'}}) }}
@@ -136,7 +136,7 @@
 
 	    var $a = newForm;	    
 
-	    var $newFormLi = $("<br><div id='"+index+"' class='panel panel-primary'><div class='panel-heading'>NUMERO</div></div>").append(newForm);
+	    var $newFormLi = $("<br><div id='"+index+"' class='panel panel-primary'></div>").append(newForm);
 	    $newLinkLi.before($newFormLi);
 
 	    addTagFormDeleteLink($newFormLi);
@@ -217,7 +217,7 @@
 
 	    var $a = newForm2;
 
-	    var $newFormLi2 = $("<br><div id='"+index2+"' class='panel panel-primary'><div class='panel-heading'>PERSONA</div></div>").append(newForm2);
+	    var $newFormLi2 = $("<br><div id='"+index2+"' class='panel panel-primary'></div>").append(newForm2);
 	    $newLinkLi2.before($newFormLi2);
 
 	    addTagFormDeleteLink2($newFormLi2);
