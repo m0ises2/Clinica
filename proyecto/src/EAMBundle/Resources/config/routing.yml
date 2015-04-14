@@ -17,27 +17,32 @@ ajax_request:
           _method: POST
 
 Nuevo_empleado:
-    path:    /nuevo
+    path:  /Empleado/nuevo
     defaults: { _controller: EAMBundle:Empleado:Nuevo }
 
 Ver_empleados:
-    path: /mostrar
+    path: /Empleado/mostrar
     defaults: { _controller: EAMBundle:Empleado:Mostrar }
+
 Ver:
-    path: /detallesUsuario
+    path: /Empleado/detallesUsuario
     defaults: { _controller: EAMBundle:Empleado:Ver }
 
 Elegir:
-    path: /opcion
+    path: /Empleado/opcion
     defaults: { _controller: EAMBundle:Empleado:Elegir }
 
 Editar:
-    path: /edita/{id}
+    path: /Empleado/edita/{id}
     defaults: { _controller: EAMBundle:Empleado:Editar }
 
 Actualizar:
-    path: /actualiza/{id}
+    path: /Empleado/actualiza/{id}
     defaults: { _controller: EAMBundle:Empleado:Actualizar }
+
+Ayuda:
+    path: /Ayuda
+    defaults: {_controller: EAMBundle:Ayuda:Mostrar }
 
 Bitacora:
     path: /registros
