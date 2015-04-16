@@ -11,7 +11,7 @@ Home:
     defaults: { _controller: EAMBundle:Inicio:iniciar }
 
 ajax_request:
-    path:  /ajax_
+    path:  /Empleado/ajax_
     defaults: { _controller: EAMBundle:Empleado:disponible }
     requirements:
           _method: POST
