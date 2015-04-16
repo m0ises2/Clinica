@@ -19,7 +19,8 @@ class CitaType extends AbstractType
             ->add('fecha','date', array('widget' => 'single_text', 'format' => 'dd-MM-yyyy','label' => 'Fecha de Cita'))
             ->add('hora','text',array('attr'=> array('class' => 'time')))
             ->add('motivo','textarea')
-            //->add('paciente')
+            ->add('paciente','entity',array(
+              'class' => 'EAMBundle:Paciente','attr'=> array('class' => 'hidden'), 'label'=>false))
             //->add('visita')
             ->add('Guardar','submit')
             ->add('Cancelar','submit')

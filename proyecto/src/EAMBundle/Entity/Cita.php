@@ -67,10 +67,7 @@ class Cita
      * @ORM\OneToOne(targetEntity="Visita")
      * @ORM\JoinColumn(name="id_visita", referencedColumnName="id")
      */
-    private $visita;
-
-
-    
+    private $visita;    
 
     /**
      * Set motivo

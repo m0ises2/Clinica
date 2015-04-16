@@ -73,7 +73,7 @@
                     </a>
                     <ul class="dropdown-menu dropdown-user">
                          <li>
-                            <a href="{{ path('logout') }}"><i class="fa fa-sign-out fa-fw"></i> Cerrar Sesión -{ nombre }}</a>
+                            <a href="{{ path('logout') }}"><i class="fa fa-sign-out fa-fw"></i> Cerrar Sesión - {#{{ nombre }}#}</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -133,7 +133,7 @@
                                         <a href="{{ path('Nueva_cita') }}"><i class="fa fa-plus-square"></i> Añadir </a>
                                     </li>
                                     <li>
-                                        <a href="#"><i class="fa fa-list"></i> Mostrar </a>
+                                        <a href="{{ path('Mostrar_citas') }}"><i class="fa fa-list"></i> Mostrar </a>
                                     </li>
                                 </ul>
                                 <!-- /.nav-second-level -->
@@ -211,7 +211,7 @@
                         {% if is_granted('ROLE_ADMIN') %}
                             <a href="{{ path('Ver_empleados') }}"> <button class="btn btn-primary" type="button"> Gestionar Empleados </button> </a>
                         {% endif %}
-                        <a href="#"> <button class="btn btn-primary boton" type="button"> Ver citas </button> </a>
+                        <a href="{{ path('Mostrar_citas') }}"> <button class="btn btn-primary boton" type="button"> Ver citas </button> </a>
                         <a href="#"> <button class="btn btn-primary boton" type="button"> Ver pacientes </button> </a>
                         <a href="#"> <button class="btn btn-primary boton" type="button"> Ver Historias Clínicas </button> </a>
                         

@@ -55,5 +55,21 @@ logout:
    path: /logout
 
 Nueva_cita:
-    path: /nuevacita/
+    path: /cita/nueva/
     defaults: {_controller: EAMBundle:Cita:NuevaCita}
+
+Mostrar_citas:
+    path: /cita/vercitas/
+    defaults: { _controller: EAMBundle:Cita:MostrarCitas }
+
+Cita_elegir:
+    path: /cita/{id}/opcion/
+    defaults: { _controller: EAMBundle:Cita:Elegir }
+
+Cita_editar:
+    path: /cita/{id}/editar/
+    defaults: { _controller: EAMBundle:Cita:EditarCita}
+
+Cita_actualizar:
+    path:  /cita/{id}/actualizar
+    defaults: { _controller: "EAMBundle:Cita:ActualizarCita" }

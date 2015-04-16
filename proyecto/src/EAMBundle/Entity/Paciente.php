@@ -87,7 +87,7 @@ class Paciente
 
 
     public function  __toString(){
-        return $this->numSeguroSocial;
+        return (string) $this->numSeguroSocial;
     }
 
     public function __construct(){
