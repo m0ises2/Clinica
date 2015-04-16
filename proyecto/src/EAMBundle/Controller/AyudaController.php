@@ -8,7 +8,16 @@ class AyudaController extends Controller
 {
     public function MostrarAction()
     {
-        return $this->render('EAMBundle:Ayuda:Ayuda.html.twig');
+    	/*¿Iniciada la sesión?*/
+      /*Validar si esta logeado*/
+      /**************************************************************/
+      if ( $this->getUser() === NULL ) 
+      {
+        return $this->redirect($this->generateUrl('login'));
+      }
+      /**************************************************************/
+      
+      return $this->render('EAMBundle:Ayuda:Ayuda.html.twig');
     }
 
 }
