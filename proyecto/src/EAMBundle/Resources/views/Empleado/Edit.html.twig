@@ -11,7 +11,7 @@
 </div>
 
 <div class = "row">
-   	<div class = "col-lg-3 col-lg-offset-4">
+   	<div class = "col-lg-4 col-lg-offset-4">
     	<form method="POST" action = "{{ path('Actualizar',{'id': id}) }}" >
     		<div class = "row" >
 				<h3> Datos de cuenta </h3>
@@ -108,7 +108,7 @@
 	    		{{ form_label(form.fechaInicio, 'Fecha de ingreso') }}
 	    		{{ form_widget(form.fechaInicio, {'attr':{'class':'form-control', 'placeholder':'dia-mes-año', 'readonly':''}}) }}
 
-	    		<label> Roles disponibles </label>
+	    		<label style = "padding-top:10px;"> Tipo de cargo </label>
 		    	<div class="radio" style="padding-left:50px;">
 			    	 {% for type in form.tipo %}
 			    	 	<div div class="row">
@@ -124,7 +124,7 @@
 	    			{{form_widget(form.Guardar ,{'attr':{'class':'btn btn-outline btn-primary'}})}} 
 	    		</div>
 	    		
-	    		<div class="col-lg-2 col-lg-offset-2" > 
+	    		<div class="col-lg-2 col-lg-offset-1" > 
 	    			{{form_widget(form.Cancelar ,{'attr':{'class':'btn btn-outline btn-danger'}})}} 
 	    		</div>	    		
 	    	</div>
