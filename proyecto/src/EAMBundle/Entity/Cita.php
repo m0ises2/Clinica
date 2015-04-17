@@ -16,24 +16,27 @@ class Cita
 {
     /**
      * @var integer
-     *
+     * 
      * @ORM\Column(name="segurosocial", type="integer", nullable=false)
+     * @Assert\NotBlank(message="Debe escribir el Numero de Seguro Social")
      */
     private $segurosocial;
 
     /**
-     * @var \DateTime
+     * @var \Date
      *
      * @ORM\Column(name="fecha", type="date", nullable=false)
+     * @Assert\NotBlank(message="Debe escribir la fecha de la cita")
      * @Assert\Date()
      */
     private $fecha;
 
     /**
-     * @var \Time
+     * @var \string
      *
-     * @ORM\Column(name="hora", type="time", nullable=false)
-     * @Assert\Time()
+     * @ORM\Column(name="hora", type="string", length=15, nullable=false)
+     * @Assert\NotBlank(message="Debe escribir la hora de la cita")
+     * 
      */
     private $hora;
 
@@ -56,7 +59,6 @@ class Cita
 
     /**
      * @ORM\ManyToOne(targetEntity="Paciente", inversedBy="citas")
-     * @ORM\JoinColumn(name="paciente_id", referencedColumnName="id")
      */
     private $paciente;
 
@@ -65,54 +67,7 @@ class Cita
      * @ORM\OneToOne(targetEntity="Visita")
      * @ORM\JoinColumn(name="id_visita", referencedColumnName="id")
      */
-    private $visita;
-
-
-    /**
-     * Set fecha
-     *
-     * @param \DateTime $fecha
-     * @return Cita
-     */
-    public function setFecha($fecha)
-    {
-        $this->fecha = $fecha;
-
-        return $this;
-    }
-
-    /**
-     * Get fecha
-     *
-     * @return \DateTime 
-     */
-    public function getFecha()
-    {
-        return $this->fecha;
-    }
-
-    /**
-     * Set hora
-     *
-     * @param \DateTime $hora
-     * @return Cita
-     */
-    public function setHora($hora)
-    {
-        $this->hora = $hora;
-
-        return $this;
-    }
-
-    /**
-     * Get hora
-     *
-     * @return \DateTime 
-     */
-    public function getHora()
-    {
-        return $this->hora;
-    }
+    private $visita;    
 
     /**
      * Set motivo
@@ -216,5 +171,53 @@ class Cita
     public function getSegurosocial()
     {
         return $this->segurosocial;
+    }
+
+    /**
+     * Set fecha
+     *
+     * @param \DateTime $fecha
+     * @return Cita
+     */
+    public function setFecha($fecha)
+    {
+        $this->fecha = $fecha;
+    
+        return $this;
+    }
+
+    /**
+     * Get fecha
+     *
+     * @return \DateTime 
+     */
+    public function getFecha()
+    {
+        return $this->fecha;
+    }
+
+    
+
+    /**
+     * Set hora
+     *
+     * @param string $hora
+     * @return Cita
+     */
+    public function setHora($hora)
+    {
+        $this->hora = $hora;
+    
+        return $this;
+    }
+
+    /**
+     * Get hora
+     *
+     * @return string 
+     */
+    public function getHora()
+    {
+        return $this->hora;
     }
 }

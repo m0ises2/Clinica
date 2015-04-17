@@ -36,11 +36,14 @@ class CitaController extends Controller
     /* Crear una nueva Cita*/
     public function NuevaCitaAction()
     {
+      /*¿Iniciada la sesión?*/
       /*Validar si esta logeado*/
+      /**************************************************************/
       if ($this->getUser() === NULL )
       {
         return $this->redirect($this->generateUrl('login'));
       }
+      /**************************************************************/
         $cita = new Cita();
         $paciente = new Paciente();
         $empleado = new Empleado();
@@ -62,13 +65,13 @@ class CitaController extends Controller
                   //la variable busqueda contiene objeto tipo consulta de cita
                   foreach ($busqueda as $key => $value) //para acceder al objeto cita
                   {                  
-                    if ($value->getFecha() == $cita->getFecha() && $value->getHora() == $cita->getHora() )
+                    if ($value->getFecha() == $cita->getFecha())
                     {         
                       //el paciente tiene una cita este dia (no se puede permitir)
                       $session = $request->getSession();
                       $this->addFlash(
                           'error',
-                          'El paciente ya tiene una cita este dia y en esta hora'
+                          'El paciente ya tiene una cita este dia'
                        );
                       $error='true';  
                     }
@@ -83,10 +86,9 @@ class CitaController extends Controller
                       $_cita = $this->getDoctrine()->getManager();
                       $_cita->persist($cita);
                       $_cita->flush();
-                      $request->getSession()->getFlashBag()->add('Añadida', 'La cita ha sido añadida exitosamente.');
                       /*Entrada en la bitacora*/
                       $this->addLog( $this->getUser()->getnombreUsuario(), $this->getUser()->getId(), 'Agregada Cita: '. $paciente->getNombre().' '. $paciente->getApellido());
-                      return $this->redirect($this->generateUrl('Mostrar_citas'));
+                      return $this->redirect($this->generateUrl('Home'));
                   }
                 }
                 else //EL paciente NO tiene ninguna cita
@@ -98,10 +100,9 @@ class CitaController extends Controller
                       $_cita = $this->getDoctrine()->getManager();
                       $_cita->persist($cita);
                       $_cita->flush();
-                      $request->getSession()->getFlashBag()->add('Añadida', 'La cita ha sido añadida exitosamente.');
                       /*Entrada en la bitacora*/
                       $this->addLog( $this->getUser()->getnombreUsuario(), $this->getUser()->getId(), 'Agregada Cita: '. $paciente->getNombre().' '. $paciente->getApellido());
-                      return $this->redirect($this->generateUrl('Mostrar_citas'));
+                      return $this->redirect($this->generateUrl('Home'));
                 }
               }
               else //No existe el paciente en la base de datos
@@ -109,12 +110,12 @@ class CitaController extends Controller
                 $session = $request->getSession();
                       $this->addFlash(
                           'error',
-                          'El paciente debe estar registrado'
+                          'El paciente no existe'
                        );
               }
             }
         }        
-        return $this->render('EAMBundle:Cita:nueva.html.twig', array('nombre' => $this->getUser()->getnombreUsuario(),'form' => $form->createView()));
+        return $this->render('EAMBundle:Cita:nueva.html.twig', array('form' => $form->createView()));
     }
 
     /* Muestra todas las Citas*/
@@ -128,45 +129,13 @@ class CitaController extends Controller
       }
       /**************************************************************/
       
-      $citas = $this->getDoctrine()->getManager()->getRepository('EAMBundle:Cita')->findAll();
+      $citas = $this->getDoctrine()->getManager()->getRepository('EAMBundle:Cita')->findAll();   
       
-      return $this->render('EAMBundle:Cita:mostrarcita.html.twig',array('nombre' => $this->getUser()->getnombreUsuario(),'citas'=>$citas));
+
+      return $this->render('EAMBundle:Cita:mostrarcita.html.twig',array('citas'=>$citas));
+
     }
 
-    /*Esta funcion es para saber en la tabla de mostrar citas si desean eliminar o editar la cita*/
-    public function ElegirAction()
-    {
-        /**************************************************************/
-        if ( $this->getUser() === NULL ) 
-        {
-          return $this->redirect($this->generateUrl('login'));
-        }
-        /**************************************************************/       
-        $request = $this->getRequest();
-        if ($request->request->has('editar') )
-        {
-          $_cita_id = $request->get('id');
-          return $this->redirect($this->generateUrl('Cita_editar', array('nombre' => $this->getUser()->getnombreUsuario(),'id' => $_cita_id)));
-        }  
-        if ($request->request->has('eliminar') )
-        {
-            if ($request->getMethod() == "POST") 
-            {
-              $_cita_id = $request->get('id');
-              $em = $this->getDoctrine()->getManager();
-              $cita = $em->getRepository('EAMBundle:Cita')->find($_cita_id);
-              if (!$cita) 
-              {
-                  throw $this->createNotFoundException('No se encontro la cita');
-              }
-              $em->remove($cita);
-              $em->flush();
-              $this->addLog( $this->getUser()->getnombreUsuario(), $this->getUser()->getId(), 'Eliminada Cita: '.$_cita_id);
-              $request->getSession()->getFlashBag()->add('Eliminada', 'La cita ha sido eliminada exitosamente.');
-              return $this->redirect($this->generateUrl('Mostrar_citas'));
-            }
-        } 
-    }
     /*editar cita*/
     public function EditarCitaAction($id)
     {
@@ -184,9 +153,10 @@ class CitaController extends Controller
         if (!$cita) {
             throw $this->createNotFoundException('No se encontro la cita.');
         }
+
         $_cita_id = $cita->getId();
         $form = $this->createForm(new CitaType(), $cita);
-        return $this->render('EAMBundle:Cita:EditarCita.html.twig', array('nombre' => $this->getUser()->getnombreUsuario(),'form' => $form->createView(),
+        return $this->render('EAMBundle:Cita:EditarCita.html.twig', array('form' => $form->createView(),
           'cita'      => $cita,'id' => $_cita_id));
     }
 
@@ -216,12 +186,27 @@ class CitaController extends Controller
               }
               if ($form->isValid()) 
               {
-                  $em->persist($cita);
-                  $em->flush();
-                  /*Entrada en la bitacora*/
-                  $this->addLog( $this->getUser()->getnombreUsuario(), $this->getUser()->getId(), 'Editada Cita: '. $cita->getId());
+                $_cita_hora = $form->getData()->getHora();
+                if ($cita->getHora() == $_cita_hora)
+                {
+                  //el paciente tiene una cita este dia (no se puede permitir)
+                  /*$session = $request->getSession();
+                  $this->addFlash(
+                      'error',
+                      'El paciente ya tiene una cita a esta hora'
+                  );*/
+                  echo $_cita_hora
+                  return new Response("por aca");
+                  return
+                }
+                else
+                {
+                  //$em->persist($cita);
+                  //$em->flush();
                   $request->getSession()->getFlashBag()->add('Actualizada', 'La cita ha sido actualizada.');
-                  return $this->redirect($this->generateUrl('Mostrar_citas'));
+                  
+                }
+                return $this->redirect($this->generateUrl('Mostrar_citas'));
               }
         } //no se encontro la cita 
         else

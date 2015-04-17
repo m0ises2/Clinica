@@ -17,10 +17,13 @@ class CitaType extends AbstractType
         $builder
             ->add('segurosocial','text')
             ->add('fecha','date', array('widget' => 'single_text', 'format' => 'dd-MM-yyyy','label' => 'Fecha de Cita'))
-            ->add('hora')
-            ->add('motivo','text')
-            //->add('paciente')
-            ->add('visita')
+            ->add('hora','text',array('attr'=> array('class' => 'time')))
+            ->add('motivo','textarea')
+            ->add('paciente','entity',array(
+              'class' => 'EAMBundle:Paciente','attr'=> array('class' => 'hidden'), 'label'=>false))
+            //->add('visita')
+            ->add('Guardar','submit')
+            ->add('Cancelar','submit')
 
         ;
     }

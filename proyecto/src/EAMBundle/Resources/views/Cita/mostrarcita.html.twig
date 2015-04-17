@@ -2,42 +2,48 @@
 
 {% block styles %}
 	{{ parent() }}
-	<!-- DataTables Responsive CSS -->
-    <link href="{{ asset('bundles/eam/css/datatablesresponsive/css/dataTables.responsive.css') }}" rel="stylesheet" type="text/css" />
-    
-    <!-- DataTables CSS -->
+	<!-- DataTables CSS -->
     <link href="{{ asset('bundles/eam/css/datatablesplugins/integration/bootstrap/3/dataTables.bootstrap.css') }}" rel="stylesheet" type="text/css" />
+	<!-- DataTables Responsive CSS -->
+    <link href="{{ asset('bundles/eam/css/datatablesresponsive/css/dataTables.responsive.css') }}" rel="stylesheet" type="text/css" />  
 {% endblock %}
 
-{% block title %}  Mostrar {% endblock %}
+{% block title %}  Mostrar Citas {% endblock %}
 
 {% block content %}
 
 	<div class="row">
 		<div class="col-lg-12">
-			<h2 class="page-header"> Empleados activos en la clinica </h2>
-		</div>
-	</div>
-
-	<div class = "row">
-		<div class=" col-lg-2 col-lg-offset-10" style="padding-bottom: 10px;">
-			<a href="{{ path('Nuevo_empleado') }}">
-				<button class="btn btn-outline btn-primary btn-lg" type="button"> Añadir </button>
-			</a>
+			<h2 class="page-header"> Citas </h2>
 		</div>
 	</div>
 
 	<div class = "row">
 		<div class = "col-lg-10 col-lg-offset-1">
 
-			{% for flashMessage in app.session.flashbag.get('Eliminado') %}
-				<div class="alert alert-danger alert-dismissable">
+			{% for flashMessage in app.session.flashbag.get('Añadida') %}
+				<div class="alert alert-success alert-dismissable">
 					<button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>
 					{{ flashMessage }}
 				</div>
 			{% endfor %}
-			{% for flashMessage in app.session.flashbag.get('Actualizado') %}
+
+			{% for flashMessage in app.session.flashbag.get('error') %}
+    				<div class = "alert alert-danger alert-dismissable">
+	    				<button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>
+	    				{{ flashMessage }}
+	    			</div>
+			{% endfor %}
+
+			{% for flashMessage in app.session.flashbag.get('Actualizada') %}
 				<div class="alert alert-success alert-dismissable">
+					<button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>
+					{{ flashMessage }}
+				</div>
+			{% endfor %}
+
+			{% for flashMessage in app.session.flashbag.get('Eliminada') %}
+				<div class="alert alert-danger alert-dismissable">
 					<button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>
 					{{ flashMessage }}
 				</div>
@@ -51,25 +57,26 @@
 								<tr>
 									<th>Nombre</th>
 									<th>Apellido</th>
-									<th>Nombre de Usuario</th>
-									<th>Rol</th>
+									<th>Fecha</th>
+									<th>Hora</th>
+									<th>Motivo</th>
 									<th>Más</th>
 								</tr>
 							</thead>
 							<tbody>
-								{% for usuario in entidades %}
+								{% for cita in citas %}
 									<tr class="even gradeA">
 										
-										<td> {{ usuario.nombre }} </td>
-										<td> {{ usuario.apellido }} </td>
-										<td> {{ usuario.nombreUsuario }} </td>
-										<td> {{ usuario.tipo }} </td>
+										<td> {{ cita.paciente.nombre }} </td>
+										<td> {{ cita.paciente.apellido }} </td>
+										<td> {{ cita.fecha|date("d/m/Y") }} </td>
+										<td> {{ cita.hora }} </td>
+										<td> {{ cita.motivo }} </td>									
 										<td>
 											<div>
-												<form method="POST" action="{{ path("Ver") }}">
-													<input type="hidden" value="{{ usuario.id }}" name="id" >
-													<button name="detalles" class="btn btn-outline btn-primary btn-sm" type="submit">Detalles</button>
-													<button name="editar" class="btn btn-outline btn-primary btn-sm" type="submit">Editar Información</button>
+												<form method="POST" action="{{ path('Cita_elegir', { 'id': cita.id }) }}">	
+													<button name="editar" class="btn btn-outline btn-primary btn-sm" type="submit">Editar</button>
+													<button type="submit" name="eliminar" class="btn btn-outline btn-danger btn-sm">Eliminar</button>
 												</form>												
 											</div>
 											
@@ -83,6 +90,7 @@
 			</div>
 		</div>
 	</div>
+
 {% endblock %}
 
 {% block javascript %}
@@ -94,8 +102,7 @@
 	<script>
     $(document).ready(function() {
         $('#dataTables-example').DataTable({
-                responsive: true,
-               "columns": [	{ "width": "18%" }, { "width": "18%" }, { "width": "18%" }, { "width": "18%" }, { "width": "20%" } ]
+                responsive: true
         });
     });
     </script>

@@ -32,7 +32,8 @@
 
         <!-- css for datepicker -->
         <link href="{{ asset('bundles/eam/datepicker/css/datepicker.css') }}" rel="stylesheet" type="text/css" />
-
+        <!-- css for timepicker -->
+        <link href="{{ asset('bundles/eam/timepicker/css/jquery.timepicker.css') }}" rel="stylesheet" type="text/css" />
 
     {% endblock %}
 
@@ -64,7 +65,7 @@
             <!-- /.navbar-header -->
 
             <ul class="nav navbar-top-links navbar-right">
-                <li> <a href="">Ayuda - Instrucciones</a> </li>
+                <li> <a href="{{ path('Ayuda') }}">Ayuda - Instrucciones</a> </li>
               <!-- /.dropdown -->
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
@@ -72,7 +73,7 @@
                     </a>
                     <ul class="dropdown-menu dropdown-user">
                          <li>
-                            <a href="{{ path('logout') }}"><i class="fa fa-sign-out fa-fw"></i> Cerrar Sesión - {#{{ nombre }}#}</a>
+                            <a href="{{ path('logout') }}"><i class="fa fa-sign-out fa-fw"></i> Cerrar Sesión - {{ nombre }}</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -139,7 +140,7 @@
                                         <a href="{{ path('Nueva_cita') }}"><i class="fa fa-plus-square"></i> Añadir </a>
                                     </li>
                                     <li>
-                                        <a href="#"><i class="fa fa-list"></i> Mostrar </a>
+                                        <a href="{{ path('Mostrar_citas') }}"><i class="fa fa-list"></i> Mostrar </a>
                                     </li>
                                 </ul>
                                 <!-- /.nav-second-level -->
@@ -191,7 +192,7 @@
                         {% endif %}
 
                         <li>
-                             <a href="{{ path('logout') }}"> <i class="fa fa-sign-out"></i> Cerrar Sesión </a>
+                             <a href="{{ path('logout') }}"> <i class="fa fa-sign-out"></i> Cerrar Sesión  </a>
                         </li>
                     </ul>
                 </div>
@@ -215,7 +216,7 @@
                         {% if is_granted('ROLE_ADMIN') %}
                             <a href="{{ path('Ver_empleados') }}"> <button class="btn btn-primary" type="button"> Gestionar Empleados </button> </a>
                         {% endif %}
-                        <a href="#"> <button class="btn btn-primary boton" type="button"> Ver citas </button> </a>
+                        <a href="{{ path('Mostrar_citas') }}"> <button class="btn btn-primary boton" type="button"> Ver citas </button> </a>
                         <a href="#"> <button class="btn btn-primary boton" type="button"> Ver pacientes </button> </a>
                         <a href="#"> <button class="btn btn-primary boton" type="button"> Ver Historias Clínicas </button> </a>
                         
@@ -280,6 +281,9 @@
         <!-- JS for datepicker -->
         <script src="{{ asset('bundles/eam/datepicker/js/bootstrap-datepicker.js') }}" > </script>
 
+        <!-- JS for timepicker -->
+        <script src="{{ asset('bundles/eam/timepicker/js/jquery.timepicker.js') }}" > </script>
+
         <script>
             (function(){
                 $('#eambundle_empleado_fechaNac').datepicker({ format: "dd-mm-yyyy" });
@@ -297,6 +301,7 @@
                 $('#eambundle_cita_fecha').datepicker({ format: "dd-mm-yyyy" });
             })(jQuery);
         </script>
+<<<<<<< HEAD
 
         <script>
             (function(){
@@ -310,6 +315,18 @@
             })(jQuery);
         </script> 
 
+=======
+        <script>
+                $(function() {
+                    $('#eambundle_cita_hora').timepicker({
+                        'disableTimeRanges': [
+                        ['12am', '7am'],
+                        ['9pm', '11pm']
+                        ]
+                });
+                })(jQuery);
+        </script>        
+>>>>>>> 52685fb17af0244c84dd5d3e27063b16eb15ea4d
     {% endblock %}
 
 </body>

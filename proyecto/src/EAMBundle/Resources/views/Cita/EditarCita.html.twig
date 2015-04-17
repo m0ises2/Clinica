@@ -1,19 +1,19 @@
 {% extends "::baseClinica.html.twig" %}
 
-{% block title %}  Nueva Cita {% endblock %}
+{% block title %} Editar Cita {% endblock %}
 
 {% block content %}
-
-	<div class="row">
-	    <div class="col-lg-12">
-	        <h2 class="page-header"> Nueva Cita </h2>
-	    </div>
-	</div>
+<div class="row">
+        <div class="col-lg-12">
+            <h2 class="page-header"> Editar Cita </h2>
+        </div>
+        <!-- /.col-lg-12 -->   
+</div>
 
 	<div class = "row" >
 		<div class = "col-lg-3 col-lg-offset-4">
 			
-			<form method="POST" action = "{{ path('Nueva_cita') }}" >
+			<form method="POST" action = "{{ path('Cita_actualizar', {'id': id}) }}" >
 				
 				{% for flashMessage in app.session.flashbag.get('error') %}
     				<div class = "alert alert-danger alert-dismissable">
@@ -21,9 +21,9 @@
 	    				{{ flashMessage }}
 	    			</div>
 				{% endfor %}
-
+				
 				{{ form_label(form.segurosocial,'Número de seguro social') }}
-	    		{{ form_widget(form.segurosocial, {'attr':{'class':'form-control' , 'data-toggle':'tooltip', 'data-placement':'right', 'title':'Solo números', 'data-container':'body'}}) }}
+	    		{{ form_widget(form.segurosocial, {'attr':{'class':'form-control' , 'data-toggle':'tooltip', 'data-placement':'right', 'title':'Solo números', 'data-container':'body','readonly':''}}) }}
 	    		{% if form_errors(form.segurosocial) %}
 	    			<div class = "alert alert-danger alert-dismissable">
 	    				<button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>
@@ -32,7 +32,7 @@
 				{% endif %}
 
 				{{ form_label(form.fecha, 'Fecha de cita') }}
-		    	{{ form_widget(form.fecha, {'attr':{'id':'datepicker', 'class':'form-control', 'placeholder':'dia-mes-año','id':'datepicker'}}) }}
+		    	{{ form_widget(form.fecha, {'attr':{'id':'datepicker', 'class':'form-control', 'placeholder':'dia-mes-año','id':'datepicker', 'readonly':''}}) }}
 		    	{% if form_errors(form.fecha) %}
 		    		<div class = "alert alert-danger alert-dismissable">
 		    			<button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>
@@ -60,7 +60,7 @@
 
 				<div style= "padding-top: 20px;">
 	    		{{form_widget(form.Guardar ,{'attr':{'class':'btn btn-outline btn-primary'}})}}
-	    		<a href="{{ path('Home') }}" ><button class="btn btn-outline btn-danger" type="button">Cancelar</button></a>
+	    		<a href="{{ path('Mostrar_citas') }}" ><button class="btn btn-outline btn-danger" type="button">Cancelar</button></a>
 	    	</div>
 	    		<div class = "row" >
 	    	    {% do form.Cancelar.setRendered %}
@@ -70,11 +70,5 @@
 	    	</form>
 		</div>
 	</div>
-	<!-- /.row -->
-
-{% endblock %}
-
-{% block javascript %}
-	{{ parent() }}
 
 {% endblock %}
