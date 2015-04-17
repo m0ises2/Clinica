@@ -76,19 +76,19 @@ class Paciente
     private $visitas;
 
     /**
-     * @ORM\OneToMany(targetEntity="NumerosTelefonicos", mappedBy="idPaciente", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="NumerosTelefonicos", mappedBy="idPaciente", cascade={"persist","remove"})
      */
     private $telefonos;
 
     /**
-    *@ORM\OneToMany(targetEntity="ContactoEmergencia", mappedBy="idPaciente", cascade={"persist"})
+    *@ORM\OneToMany(targetEntity="ContactoEmergencia", mappedBy="idPaciente", cascade={"persist","remove"})
     */
 
     private $emergencia;
 
 
     public function  __toString(){
-        return $this->numSeguroSocial;
+        return (string) $this->numSeguroSocial;
     }
 
     public function __construct(){
@@ -354,37 +354,4 @@ class Paciente
     }
 
 
-
-    /**
-     * Add emergencia
-     *
-     * @param \EAMBundle\Entity\ContactoEmergencia $emergencia
-     * @return Paciente
-     */
-    public function addEmergencium(\EAMBundle\Entity\ContactoEmergencia $emergencia)
-    {
-        $this->emergencia[] = $emergencia;
-    
-        return $this;
-    }
-
-    /**
-     * Remove emergencia
-     *
-     * @param \EAMBundle\Entity\ContactoEmergencia $emergencia
-     */
-    public function removeEmergencium(\EAMBundle\Entity\ContactoEmergencia $emergencia)
-    {
-        $this->emergencia->removeElement($emergencia);
-    }
-
-    /**
-     * Get emergencia
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getEmergencia()
-    {
-        return $this->emergencia;
-    }
 }

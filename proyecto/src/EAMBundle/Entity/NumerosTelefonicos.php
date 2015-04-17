@@ -37,7 +37,7 @@ class NumerosTelefonicos
      * @var integer
      *
      * @ORM\ManyToOne(targetEntity="Paciente", inversedBy="telefonos")
-     * @ORM\JoinColumn(name="id_paciente", referencedColumnName="id")
+     * @ORM\JoinColumn(name="id_paciente", referencedColumnName="id", onDelete="CASCADE")
      */
     private $idPaciente;
 

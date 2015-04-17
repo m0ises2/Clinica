@@ -1,0 +1,88 @@
+{% extends "::baseClinica.html.twig" %}
+
+{% block title %}  Mostrar {% endblock %}
+
+{% block content %}	
+	<div class="row">
+		<div class="col-lg-12">
+			<h2 class="page-header"> Paciente </h2>
+		</div>
+	</div>
+
+	
+
+	<div class="row">
+		<div class="col-lg-4" style="padding-left:140px;">
+			<img src="{{ asset('bundles/eam/images/user.png') }}" alt="profile_picture" class="img-responsive" style="width:160px; height:180px">
+		</div>
+
+		<div class="col-lg-6">
+				<div class = "panel panel-info">
+					<div class = "panel-body">
+						<div class = "table-responsive">
+							<table class = "table">
+								<tbody>
+									<tr>
+										<td> <b> Nombre:</b> </td>
+										<td> {{ paciente.nombre }} </td>
+									</tr>
+									<tr>
+										<td> <b> Apellido: </b> </td>
+										<td> {{ paciente.apellido }} </td>
+									</tr>
+									<tr>
+										<td> <b> Fecha de Nacimiento: </b> </td>
+										<td> {{ paciente.fechasNac|date('d/m/y') }} </td>
+									</tr>
+									<tr>
+										<td> <b> Dirección: </b> </td>
+										<td> {{ paciente.direccion }} </td>
+									</tr>
+									<tr>
+										<td> <b> Numero de Seguro social </b> </td>
+										<td> {{ paciente.numSeguroSocial }} </td>
+									</tr>
+									<tr>
+										<td> <b> Doctro de preferencia: </b> </td>
+										<td> {{ paciente.drPreferido }} </td>
+									</tr>
+									<tr>
+										<td> <b> Numero de telefono: </b> </td>
+										<td><br>
+											{% for telefono in paciente.telefonos%}
+												<div>
+													{{telefono.tipo}} : {{ telefono.codigo }} {{telefono.numero}}  
+												</div>
+											{% endfor %}
+										</td>
+									</tr>
+
+									<tr>
+										<td> <b> Contacto de Emegencia: </b> </td>
+										<td><br>
+											{% for emergencia in paciente.emergencias%}
+												<div>
+													{{emergencia.relacionPaciente}} : {{ emergencia.nombre }} {{emergencia.apellido}} {{emergencia.numero}}  
+												</div>
+											{% endfor %}
+										</td>
+									</tr>
+
+								</body>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class = "row col-lg-offset-1">
+					<a class="btn btn-outline btn-primary" href="{{ path('Buscar_Pacientes') }}"> Atras</a>
+
+					<a class="btn btn-outline btn-primary" href="{{ path('Buscar_Pacientes') }}"> Editar</a>
+
+					<a class="btn btn-outline btn-primary" href="{{ path('Buscar_Pacientes') }}"> Borrar</a>
+				</div>
+		</div>
+
+	</div>
+
+	
+{% endblock %}

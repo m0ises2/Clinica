@@ -15,11 +15,11 @@ class ContactoEmergenciaType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nombre','text')
-            ->add('apellido')
-            ->add('relacionPaciente')
-            ->add('numero','text')
-            ->add('fechaAnhadido','date', array('widget' => 'single_text', 'format' => 'dd-MM-yyyy','label' => 'Fecha en que fue Añadido'))
+            ->add('nombre','text', array('label' => 'Nombre', 'attr' => array('class' =>'form-control') ) )
+            ->add('apellido', 'text', array('label' => 'Apellido', 'attr' => array('class' =>'form-control')) )
+            ->add('relacionPaciente', 'text', array('label' => 'Relacion con el paciente', 'attr' => array('class' =>'form-control')) )
+            ->add('numero','text', array('label' => 'Numero', 'attr' => array('class' =>'form-control')) )
+            ->add('fechaAnhadido','date', array('widget' => 'single_text', 'format' => 'dd-MM-yyyy','label' => 'Fecha en que fue Añadido', 'attr' => array('class' => 'form-control')))
         ;
     }
     

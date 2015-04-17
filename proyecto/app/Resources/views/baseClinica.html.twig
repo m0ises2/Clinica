@@ -33,6 +33,7 @@
         <!-- css for datepicker -->
         <link href="{{ asset('bundles/eam/datepicker/css/datepicker.css') }}" rel="stylesheet" type="text/css" />
 
+
     {% endblock %}
 
     {% block scripts %}  {% endblock %}
@@ -120,7 +121,9 @@
                                     <li>
                                         <a href="{{ path('NuevoPaciente') }}"><i class="fa fa-plus-square"></i> Añadir </a>
                                     </li>
-                                    
+                                    <li>
+                                        <a href="{{ path('Buscar_Pacientes') }}"><i class="fa fa-list-ul"></i> Buscar </a>
+                                    </li>                                    
                                 </ul>
                                 <!-- /.nav-second-level -->
                             </li>
@@ -262,7 +265,7 @@
     </footer> 
 
     {% block javascript %}
-       <!-- jQuery -->
+         <!-- jQuery -->
         <script src="{{ asset('bundles/eam/js/jquery-1.11.2.js') }}"></script>
 
         <!-- Bootstrap Core JavaScript -->
@@ -303,9 +306,9 @@
 
         <script>
             (function(){
-                $('#eambundle_paciente_emergencias_0_fechaAnhadido').datepicker({ format: "dd-mm-yyyy" });
+                $('#eambundle_paciente_emergencias_0_fechaAnhadido').datepicker({ format: 'dd-mm-yyyy' });
             })(jQuery);
-        </script>
+        </script> 
 
     {% endblock %}
 

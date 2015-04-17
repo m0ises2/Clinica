@@ -21,6 +21,9 @@ class EmpleadoController extends Controller
         return $this->redirect($this->generaateUrl('login'));
     }
 
+    public function exAction(){ return $this->render('::baseClinica.html.twig',array('nombre' => $this->getUser()->getUsername(),'cantidad_empleados' => 0,
+               'cantidad_medicos' => 0, 'cantidad_enfermeras' => 0, 'cantidad_administrativos' => 0)); }
+
     /*
     * Esta acción permite crear un nuevo empleado. 
     */
@@ -437,5 +440,34 @@ class EmpleadoController extends Controller
     }
 
     /*Fin de funciones para guardar la bitácora*/
+
+    public function disponibleAction()
+    {
+      /*Solicito el request*/
+      $request = $this->getRequest();
+      /*Obtengo del request el nombre de usuario a validar*/
+      $_check = $request->get('user');
+
+      /*Busco en la BD el nombre de usuario que estoy recibiendo.*/
+      $em = $this->getDoctrine()->getManager();
+      $em = $em->getRepository('EAMBundle:Empleado')->findByNombreUsuario($_check);
+
+      /*Creo el json para los datos de vuelta:*/
+
+      if ( !$em )
+      {
+        $return = array("responseCode" => 200);        
+      }
+      else
+      {
+        $return = array("responseCode" => 400);
+      }
+
+      /*se codifica el array al  tipo JSON*/
+      $return = json_encode($return);
+      
+      /*se genera una nueva respuesta con los datos necesarios*/
+      return new Response( $return, 200, array('Content-Type'=>'application/json') );
+    }
 
 }

@@ -10,6 +10,12 @@ Home:
     path:    /home
     defaults: { _controller: EAMBundle:Inicio:iniciar }
 
+ajax_request:
+    path:  /ajax_
+    defaults: { _controller: EAMBundle:Empleado:disponible }
+    requirements:
+          _method: POST
+
 Nuevo_empleado:
     path:    /nuevo
     defaults: { _controller: EAMBundle:Empleado:Nuevo }
@@ -41,9 +47,25 @@ NuevoPaciente:
     path: /paciente/nuevo
     defaults: { _controller: EAMBundle:Paciente:Nuevo }
 
-Guardar_paciente:
-    path: /guardar_paciente
-    defaults: { _controller: EAMBundle:Paciente:Guardar }
+Buscar_Pacientes:
+    path: /paciente/buscar
+    defaults: { _controller:EAMBundle:Paciente:Buscar}
+
+Ver_Paciente:
+    path: /paciente/ver/{id}
+    defaults: { _controller: EAMBundle:Paciente:Ver }
+
+Editar_paciente:
+    path: /paciente/editar/{id}
+    defaults: { _controller: EAMBundle:Paciente:Editar}
+
+Actualizar_Paciente:
+    path: /paciente/actualizar/{id}
+    defaults: { _controller: EAMBundle:Paciente:Actualizar}
+
+Eliminar_Paciente:
+    path: /paciente/elimiar/{id}
+    defaults: { _controller: EAMBundle:Paciente:Eliminar}
 
 logout:
    path: /logout
