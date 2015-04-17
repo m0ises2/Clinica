@@ -114,7 +114,7 @@ class CitaController extends Controller
               }
             }
         }        
-        return $this->render('EAMBundle:Cita:nueva.html.twig', array('form' => $form->createView()));
+        return $this->render('EAMBundle:Cita:nueva.html.twig', array('nombre' => $this->getUser()->getnombreUsuario(),'form' => $form->createView()));
     }
 
     /* Muestra todas las Citas*/
@@ -130,7 +130,7 @@ class CitaController extends Controller
       
       $citas = $this->getDoctrine()->getManager()->getRepository('EAMBundle:Cita')->findAll();
       
-      return $this->render('EAMBundle:Cita:mostrarcita.html.twig',array('citas'=>$citas));
+      return $this->render('EAMBundle:Cita:mostrarcita.html.twig',array('nombre' => $this->getUser()->getnombreUsuario(),'citas'=>$citas));
     }
 
     /*Esta funcion es para saber en la tabla de mostrar citas si desean eliminar o editar la cita*/
@@ -141,12 +141,12 @@ class CitaController extends Controller
         {
           return $this->redirect($this->generateUrl('login'));
         }
-        /**************************************************************/
+        /**************************************************************/       
         $request = $this->getRequest();
         if ($request->request->has('editar') )
         {
           $_cita_id = $request->get('id');
-          return $this->redirect($this->generateUrl('Cita_editar', array('id' => $_cita_id)));
+          return $this->redirect($this->generateUrl('Cita_editar', array('nombre' => $this->getUser()->getnombreUsuario(),'id' => $_cita_id)));
         }  
         if ($request->request->has('eliminar') )
         {
@@ -157,10 +157,11 @@ class CitaController extends Controller
               $cita = $em->getRepository('EAMBundle:Cita')->find($_cita_id);
               if (!$cita) 
               {
-                  throw $this->createNotFoundException('Unable to find Workout entity.');
+                  throw $this->createNotFoundException('No se encontro la cita');
               }
               $em->remove($cita);
               $em->flush();
+              $this->addLog( $this->getUser()->getnombreUsuario(), $this->getUser()->getId(), 'Eliminada Cita: '.$_cita_id);
               $request->getSession()->getFlashBag()->add('Eliminada', 'La cita ha sido eliminada exitosamente.');
               return $this->redirect($this->generateUrl('Mostrar_citas'));
             }
@@ -185,7 +186,7 @@ class CitaController extends Controller
         }
         $_cita_id = $cita->getId();
         $form = $this->createForm(new CitaType(), $cita);
-        return $this->render('EAMBundle:Cita:EditarCita.html.twig', array('form' => $form->createView(),
+        return $this->render('EAMBundle:Cita:EditarCita.html.twig', array('nombre' => $this->getUser()->getnombreUsuario(),'form' => $form->createView(),
           'cita'      => $cita,'id' => $_cita_id));
     }
 
