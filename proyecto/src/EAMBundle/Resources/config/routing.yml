@@ -83,14 +83,22 @@ Mostrar_citas:
     path: /cita/vercitas/
     defaults: { _controller: EAMBundle:Cita:MostrarCitas }
 
-Cita_elegir:
-    path: /cita/{id}/opcion/
-    defaults: { _controller: EAMBundle:Cita:Elegir }
+Cita_eliminar:
+    path: /cita/eliminar/{id}
+    defaults: { _controller: EAMBundle:Cita:EliminarCita }
 
 Cita_editar:
-    path: /cita/{id}/editar/
+    path: /cita/editar/{id}/
     defaults: { _controller: EAMBundle:Cita:EditarCita}
 
 Cita_actualizar:
-    path:  /cita/{id}/actualizar
+    path:  /cita/actualizar/{id}
     defaults: { _controller: "EAMBundle:Cita:ActualizarCita" }
+
+Cita_Visita:
+    path:  /visita/nueva/{id}
+    defaults: { _controller: "EAMBundle:Cita:Visita" }
+
+Nueva_Visita:
+    path:  /visita/nueva/
+    defaults: { _controller: "EAMBundle:Visita:Nueva" }
