@@ -84,7 +84,7 @@ class PacienteController extends Controller{
 
 
 
-					return $this->render('EAMBundle:Paciente:verPaciente.html.twig', array('paciente' => $paciente));
+					return $this->render('EAMBundle:Paciente:verPaciente.html.twig', array('paciente' => $paciente,'nombre' => $this->getUser()->getnombreUsuario()));
 
 
 				}
@@ -103,7 +103,7 @@ class PacienteController extends Controller{
 		$repo = $this->getDoctrine()->getManager();
 		$paciente = $repo->getRepository('EAMBundle:Paciente')->find($id);
 
-		return $this->render('EAMBundle:Paciente:ver_paciente.html.twig', array( 'paciente' => $paciente));
+		return $this->render('EAMBundle:Paciente:ver_paciente.html.twig', array( 'paciente' => $paciente,'nombre' => $this->getUser()->getnombreUsuario()));
 
 	}
 
