@@ -99,6 +99,6 @@ Cita_Visita:
     path:  /visita/nueva/{id}
     defaults: { _controller: "EAMBundle:Cita:Visita" }
 
-Nueva_Visita:
+Visita_Nueva:
     path:  /visita/nueva/
     defaults: { _controller: "EAMBundle:Visita:Nueva" }
