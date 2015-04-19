@@ -134,7 +134,7 @@ class CitaController extends Controller
       return $this->render('EAMBundle:Cita:mostrarcita.html.twig',array('nombre' => $this->getUser()->getnombreUsuario(),'citas'=>$citas));
     }
 
-    /*Esta funcion es para saber en la tabla de mostrar citas si desean eliminar o editar la cita*/
+    /*Esta funcion elimina una cita*/
     public function EliminarCitaAction($id)
     {
         /*Validar si esta logeado*/
@@ -226,18 +226,18 @@ class CitaController extends Controller
         {
           throw $this->createNotFoundException('Cita no existe.');
         }
-        
       }
+      return $this->redirect($this->generateUrl('Mostrar_citas'));
     }
     /*esta funcion agrega una nueva visita que tenga una cita anteriormente*/
     public function VisitaAction($id)
     {
       /*Validar si esta logeado*/
-        /**************************************************************/
-        if ( $this->getUser() === NULL ) 
-        {
-          return $this->redirect($this->generateUrl('login'));
-        }
+      /**************************************************************/
+      if ( $this->getUser() === NULL ) 
+      {
+        return $this->redirect($this->generateUrl('login'));
+      }
         /**************************************************************/
         $visita = new Visita();
         $visita_ = new Visita();
@@ -246,7 +246,7 @@ class CitaController extends Controller
         $empleado = new Empleado();
         $em = $this->getDoctrine()->getManager();
         $cita = $em->getRepository('EAMBundle:Cita')->find($id);
-        $error = "";
+        $tipo = "";
         if (!$cita) {
             throw $this->createNotFoundException('No se encontro la cita.');
         }
@@ -269,6 +269,9 @@ class CitaController extends Controller
               $visita->setPaciente($paciente);
               $visita->setFecha($cita->getFecha());
               $visita->setHora($cita->getHora());
+              $visita->setSegurosocial($cita->getSegurosocial());
+              $tipo = "Visita Programada";
+              $visita->setTipo($tipo);
               $cita->setVisita($visita);
               $_visita = $this->getDoctrine()->getManager();
               $_visita->persist($visita);
