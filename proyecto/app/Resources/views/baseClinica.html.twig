@@ -314,7 +314,7 @@
         </script>
 
         <script>
-                $(function() {
+                (function() {
                     $('#eambundle_cita_hora').timepicker({
                         'disableTimeRanges': [
                         ['12am', '7am'],
@@ -332,14 +332,14 @@
         </script> 
 
         <script>
-                $(function() {
-                    $('#eambundle_visita_hora').timepicker({
-                        'disableTimeRanges': [
-                        ['12am', '7am'],
-                        ['9pm', '11pm']
-                        ]
+            (function() {
+                $('#eambundle_visita_hora').timepicker({
+                    'disableTimeRanges': [
+                    ['12am', '7am'],
+                    ['9pm', '11pm']
+                    ]
                 });
-                })(jQuery);
+            })(jQuery);
         </script>    
 
         <script>
