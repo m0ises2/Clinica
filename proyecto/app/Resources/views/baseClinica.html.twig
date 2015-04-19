@@ -116,7 +116,7 @@
 
                             <li>
                                 <a href="#">
-                                    <i class="fa fa-fw"></i> Paciente <span class="fa arrow"></span>
+                                    <i class="fa fa-user-md fa-fw"></i> Paciente <span class="fa arrow"></span>
                                 </a>
                                 <ul class="nav nav-second-level">
                                     <li>
@@ -146,9 +146,20 @@
                                 <!-- /.nav-second-level -->
                             </li>
                         
-                        <li>
-                            <a href="forms.html"> !#"$/()=?" </a>
-                        </li>
+                        {# La gestion de visitas no necesita condicionarse ya que todo el personal puede gestionar citas #}
+                            <li>
+                                <a href="#">
+                                    <i class="fa fa-hospital-o"></i></i> Visitas <span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li>
+                                        <a href="{{ path('Nueva_Visita') }}"><i class="fa fa-plus-square"></i> Añadir </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ path('Mostrar_citas') }}"><i class="fa fa-list"></i> Mostrar </a>
+                                    </li>
+                                </ul>
+                                <!-- /.nav-second-level -->
+                            </li>
                         
                         <li>
                             <a href="#"> =)(/%$#" <span class="fa arrow"></span></a>
@@ -302,6 +313,34 @@
             })(jQuery);
         </script>
 
+        <script>
+                $(function() {
+                    $('#eambundle_cita_hora').timepicker({
+                        'disableTimeRanges': [
+                        ['12am', '7am'],
+                        ['9pm', '11pm']
+                        ]
+                });
+                })(jQuery);
+        </script>
+
+        <script>
+            (function(){
+                $('#eambundle_visita_fecha').datepicker({ format: "dd-mm-yyyy" });
+            })(jQuery);
+
+        </script> 
+
+        <script>
+                $(function() {
+                    $('#eambundle_visita_hora').timepicker({
+                        'disableTimeRanges': [
+                        ['12am', '7am'],
+                        ['9pm', '11pm']
+                        ]
+                });
+                })(jQuery);
+        </script>    
 
         <script>
             (function(){
@@ -314,16 +353,7 @@
                 $('#eambundle_paciente_emergencias_0_fechaAnhadido').datepicker({ format: 'dd-mm-yyyy' });
             })(jQuery);
         </script> 
-        <script>
-                $(function() {
-                    $('#eambundle_cita_hora').timepicker({
-                        'disableTimeRanges': [
-                        ['12am', '7am'],
-                        ['9pm', '11pm']
-                        ]
-                });
-                })(jQuery);
-        </script> 
+
     {% endblock %}
 
 </body>

@@ -7,11 +7,12 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use EAMBundle\Entity\Cita;
 use EAMBundle\Entity\Empleado;
-use EAMBundle\Entity\EmpleadoRole;
 use EAMBundle\Entity\Bitacora;
 use EAMBundle\Entity\Paciente;
+use EAMBundle\Entity\Visita;
 
 use EAMBundle\Form\CitaType;
+use EAMBundle\Form\VisitaType;
 
 class CitaController extends Controller
 {
@@ -134,38 +135,35 @@ class CitaController extends Controller
     }
 
     /*Esta funcion es para saber en la tabla de mostrar citas si desean eliminar o editar la cita*/
-    public function ElegirAction()
+    public function EliminarCitaAction($id)
     {
+        /*Validar si esta logeado*/
         /**************************************************************/
         if ( $this->getUser() === NULL ) 
         {
           return $this->redirect($this->generateUrl('login'));
         }
-        /**************************************************************/       
+        /**************************************************************/
         $request = $this->getRequest();
-        if ($request->request->has('editar') )
+        $em = $this->getDoctrine()->getManager();
+        $cita = $em->getRepository('EAMBundle:Cita')->find($id);
+
+        if (!$cita) 
         {
-          $_cita_id = $request->get('id');
-          return $this->redirect($this->generateUrl('Cita_editar', array('nombre' => $this->getUser()->getnombreUsuario(),'id' => $_cita_id)));
-        }  
-        if ($request->request->has('eliminar') )
+          throw $this->createNotFoundException('No se encontro la cita');
+        }
+        else
         {
-            if ($request->getMethod() == "POST") 
-            {
-              $_cita_id = $request->get('id');
-              $em = $this->getDoctrine()->getManager();
-              $cita = $em->getRepository('EAMBundle:Cita')->find($_cita_id);
-              if (!$cita) 
-              {
-                  throw $this->createNotFoundException('No se encontro la cita');
-              }
-              $em->remove($cita);
-              $em->flush();
-              $this->addLog( $this->getUser()->getnombreUsuario(), $this->getUser()->getId(), 'Eliminada Cita: '.$_cita_id);
-              $request->getSession()->getFlashBag()->add('Eliminada', 'La cita ha sido eliminada exitosamente.');
-              return $this->redirect($this->generateUrl('Mostrar_citas'));
-            }
-        } 
+             $em->remove($cita);
+             $em->flush();
+             $this->addLog( $this->getUser()->getnombreUsuario(), $this->getUser()->getId(), 'Eliminada Cita: '.$id);
+             $request->getSession()->getFlashBag()->add('Eliminada', 'La cita ha sido eliminada exitosamente.');
+            return $this->redirect($this->generateUrl('Mostrar_citas'));
+
+        }
+        $citas = $this->getDoctrine()->getManager()->getRepository('EAMBundle:Cita')->findAll();
+        return $this->render('EAMBundle:Cita:mostrarcita.html.twig',array('nombre' => $this->getUser()->getnombreUsuario(),'citas'=>$citas));
+
     }
     /*editar cita*/
     public function EditarCitaAction($id)
@@ -231,8 +229,59 @@ class CitaController extends Controller
         
       }
     }
-    /*Funciones para guardar la bitácora:*/
-    /*array('entidades' => $entities, 'nombre' => $this->getUser()->getnombreUsuario())
+    /*esta funcion agrega una nueva visita que tenga una cita anteriormente*/
+    public function VisitaAction($id)
+    {
+      /*Validar si esta logeado*/
+        /**************************************************************/
+        if ( $this->getUser() === NULL ) 
+        {
+          return $this->redirect($this->generateUrl('login'));
+        }
+        /**************************************************************/
+        $visita = new Visita();
+        $visita_ = new Visita();
+        $cita = new Cita();
+        $paciente = new Paciente();
+        $empleado = new Empleado();
+        $em = $this->getDoctrine()->getManager();
+        $cita = $em->getRepository('EAMBundle:Cita')->find($id);
+        $error = "";
+        if (!$cita) {
+            throw $this->createNotFoundException('No se encontro la cita.');
+        }
+        $_cita_id = $cita->getId();
+        $form = $this->createForm(new VisitaType(), $visita);
+        $request = $this->getRequest();
+        $visita_ =$cita->getVisita();
+        if ($visita_) 
+        {
+          $request->getSession()->getFlashBag()->add('citaV', 'Esta cita ya tiene una visita registrada.');
+          return $this->redirect($this->generateUrl('Mostrar_citas'));
+        }
+        if ($request->getMethod() == "POST") 
+        {
+              $form->handleRequest($request);
+              $repo = $this->getDoctrine()->getManager()->getRepository('EAMBundle:Paciente')->findByNumSeguroSocial($cita->getSegurosocial());
+              foreach ($repo as $key => $value) {
+                $paciente = $value;
+              }
+              $visita->setPaciente($paciente);
+              $visita->setFecha($cita->getFecha());
+              $visita->setHora($cita->getHora());
+              $cita->setVisita($visita);
+              $_visita = $this->getDoctrine()->getManager();
+              $_visita->persist($visita);
+              $_visita->flush();
+              $request->getSession()->getFlashBag()->add('AñadidaV', 'La visita ha sido añadida exitosamente.');
+              /*Entrada en la bitacora*/
+              $this->addLog( $this->getUser()->getnombreUsuario(), $this->getUser()->getId(), 'Agregada Visita: '. $paciente->getNombre().' '. $paciente->getApellido());
+              return $this->redirect($this->generateUrl('Mostrar_citas'));
+        }
+        return $this->render('EAMBundle:Cita:nuevacitavisita.html.twig', array('nombre' => $this->getUser()->getnombreUsuario(),'id' => $_cita_id,'cita'=> $cita,'form' => $form->createView()));
+    }
+
+    /*Funciones para guardar la bitácora:
     * Esta función agrega una nueva entrada a la tabla bitácora.
     */
     private function addLog( $nombreUsuario, $user_id, $mensaje )

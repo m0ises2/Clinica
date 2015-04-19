@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class CitaType extends AbstractType
+class VisitaType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -16,15 +16,13 @@ class CitaType extends AbstractType
     {
         $builder
             ->add('segurosocial','text')
-            ->add('fecha','date', array('widget' => 'single_text', 'format' => 'dd-MM-yyyy','label' => 'Fecha de Cita'))
+            ->add('fecha','date', array('widget' => 'single_text', 'format' => 'dd-MM-yyyy','label' => 'Fecha de Visita'))
             ->add('hora','text',array('attr'=> array('class' => 'time')))
-            ->add('motivo','textarea')
+            ->add('medico','text')
             ->add('paciente','entity',array(
               'class' => 'EAMBundle:Paciente','attr'=> array('class' => 'hidden'), 'label'=>false))
-            ->add('visita','hidden')
             ->add('Guardar','submit')
             ->add('Cancelar','submit')
-
         ;
     }
     
@@ -34,7 +32,7 @@ class CitaType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'EAMBundle\Entity\Cita'
+            'data_class' => 'EAMBundle\Entity\Visita'
         ));
     }
 
@@ -43,6 +41,6 @@ class CitaType extends AbstractType
      */
     public function getName()
     {
-        return 'eambundle_cita';
+        return 'eambundle_visita';
     }
 }

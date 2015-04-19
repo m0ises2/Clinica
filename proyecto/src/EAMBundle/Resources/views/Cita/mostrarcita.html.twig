@@ -27,6 +27,19 @@
 					{{ flashMessage }}
 				</div>
 			{% endfor %}
+			{% for flashMessage in app.session.flashbag.get('citaV') %}
+				<div class="alert alert-danger alert-dismissable">
+					<button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>
+					{{ flashMessage }}
+				</div>
+			{% endfor %}
+
+			{% for flashMessage in app.session.flashbag.get('AñadidaV') %}
+				<div class="alert alert-success alert-dismissable">
+					<button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>
+					{{ flashMessage }}
+				</div>
+			{% endfor %}
 
 			{% for flashMessage in app.session.flashbag.get('error') %}
     				<div class = "alert alert-danger alert-dismissable">
@@ -74,14 +87,34 @@
 										<td> {{ cita.motivo }} </td>									
 										<td>
 											<div>
-												<form method="POST" action="{{ path('Cita_elegir', { 'id': cita.id }) }}">	
-													<button name="editar" class="btn btn-outline btn-primary btn-sm" type="submit">Editar</button>
-													<button type="submit" name="eliminar" class="btn btn-outline btn-danger btn-sm">Eliminar</button>
-												</form>												
-											</div>
-											
+												<a href="{{path('Cita_editar', {'id': cita.id} )}}" class="btn btn-outline btn-primary btn-sm"> Editar</a>
+												<button class="btn btn-outline btn-danger btn-sm" data-toggle="modal" data-target="#{{cita.id}}" >	
+					                                Eliminar
+					                            </button>
+					                            <a href="{{path('Cita_Visita', {'id': cita.id})}}" class="btn btn-outline btn-success btn-sm"> Registrar Visita</a>
+
+											</div>	
 										</td>										
 									</tr>
+									<div class="modal fade" id="{{cita.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+								        <div class="modal-dialog">
+								            <div class="modal-content">
+								                <div class="modal-header">
+								                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+								                    <h4 class="modal-title" id="myModalLabel">Eliminar Cita</h4>
+								                </div>
+								                <div class="modal-body">
+								                 	¿Esta seguro que desea eliminar la cita?
+								                </div>
+								                <div class="modal-footer">
+								                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+								                    <a href="{{path('Cita_eliminar', {'id': cita.id} )}}" class="btn btn-primary btn-danger "> Eliminar</a>
+								                </div>
+								            </div>
+								            <!-- /.modal-content -->
+								        </div>
+								        <!-- /.modal-dialog -->
+								    </div>
 								{% endfor %}
 							</tbody>
 						</table>
