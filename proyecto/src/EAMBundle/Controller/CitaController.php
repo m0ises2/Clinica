@@ -81,6 +81,7 @@ class CitaController extends Controller
                         $paciente = $value;
                       }
                       $cita->setPaciente($paciente);
+                      $cita->setVisita(NULL); //se le asigna null porque no estamos añadiendo visita sino cita
                       $_cita = $this->getDoctrine()->getManager();
                       $_cita->persist($cita);
                       $_cita->flush();
@@ -96,6 +97,7 @@ class CitaController extends Controller
                         $paciente = $value;
                       }
                       $cita->setPaciente($paciente);
+                      $cita->setVisita(NULL);//se le asigna null porque no estamos añadiendo visita sino cita
                       $_cita = $this->getDoctrine()->getManager();
                       $_cita->persist($cita);
                       $_cita->flush();
@@ -272,14 +274,14 @@ class CitaController extends Controller
               $visita->setSegurosocial($cita->getSegurosocial());
               $tipo = "Visita Programada";
               $visita->setTipo($tipo);
-              $cita->setVisita($visita);
+              $cita->setVisita($visita); //se guarda la visita en la cita
               $_visita = $this->getDoctrine()->getManager();
               $_visita->persist($visita);
               $_visita->flush();
               $request->getSession()->getFlashBag()->add('AñadidaV', 'La visita ha sido añadida exitosamente.');
               /*Entrada en la bitacora*/
               $this->addLog( $this->getUser()->getnombreUsuario(), $this->getUser()->getId(), 'Agregada Visita: '. $paciente->getNombre().' '. $paciente->getApellido());
-              return $this->redirect($this->generateUrl('Mostrar_citas'));
+              return $this->redirect($this->generateUrl('Visita_Mostrar'));
         }
         return $this->render('EAMBundle:Cita:nuevacitavisita.html.twig', array('nombre' => $this->getUser()->getnombreUsuario(),'id' => $_cita_id,'cita'=> $cita,'form' => $form->createView()));
     }
