@@ -99,6 +99,22 @@ Cita_Visita:
     path:  /visita/nueva/{id}
     defaults: { _controller: "EAMBundle:Cita:Visita" }
 
-Nueva_Visita:
+Visita_Nueva:
     path:  /visita/nueva/
     defaults: { _controller: "EAMBundle:Visita:Nueva" }
+
+Visita_Mostrar:
+    path:  /visita/ver/
+    defaults: { _controller: "EAMBundle:Visita:MostrarVisitas" }
+
+Visita_editar:
+    path: /visita/editar/{id}/
+    defaults: { _controller: EAMBundle:Visita:EditarVisita}
+
+Visita_actualizar:
+    path:  /visita/actualizar/{id}
+    defaults: { _controller: "EAMBundle:Visita:ActualizarVisita" }
+
+Visita_eliminar:
+    path: /visita/eliminar/{id}
+    defaults: { _controller: EAMBundle:Visita:EliminarVisita }

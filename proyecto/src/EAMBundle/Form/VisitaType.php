@@ -19,6 +19,7 @@ class VisitaType extends AbstractType
             ->add('fecha','date', array('widget' => 'single_text', 'format' => 'dd-MM-yyyy','label' => 'Fecha de Visita'))
             ->add('hora','text',array('attr'=> array('class' => 'time')))
             ->add('medico','text')
+            ->add('tipo','hidden')
             ->add('paciente','entity',array(
               'class' => 'EAMBundle:Paciente','attr'=> array('class' => 'hidden'), 'label'=>false))
             ->add('Guardar','submit')

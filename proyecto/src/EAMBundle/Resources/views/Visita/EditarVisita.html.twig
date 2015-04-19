@@ -1,19 +1,20 @@
 {% extends "::baseClinica.html.twig" %}
 
-{% block title %} Visita de Emergencia {% endblock %}
+{% block title %} Editar Visita {% endblock %}
 
 {% block content %}
-
-	<div class="row">
-	    <div class="col-lg-12">
-	        <h2 class="page-header">Visita de Emergencia </h2>
-	    </div>
-	</div>
+<div class="row">
+        <div class="col-lg-12">
+            <h2 class="page-header"> Editar Visita </h2>
+        </div>
+        <!-- /.col-lg-12 -->   
+</div>
 
 	<div class = "row" >
 		<div class = "col-lg-3 col-lg-offset-4">
 			
-			<form method="POST" action = "{{ path('Visita_Nueva')}}" >
+			<form method="POST" action = "{{ path('Visita_actualizar', {'id': id}) }}" >
+				
 				{% for flashMessage in app.session.flashbag.get('error') %}
     				<div class = "alert alert-danger alert-dismissable">
 	    				<button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>
@@ -22,7 +23,7 @@
 				{% endfor %}
 				
 				{{ form_label(form.segurosocial,'Número de seguro social') }}
-	    		{{ form_widget(form.segurosocial, {'attr':{'class':'form-control' , 'data-toggle':'tooltip', 'data-placement':'right', 'title':'Solo números', 'data-container':'body'}}) }}
+	    		{{ form_widget(form.segurosocial, {'attr':{'class':'form-control' , 'data-toggle':'tooltip', 'data-placement':'right', 'title':'Solo números', 'data-container':'body','readonly':''}}) }}
 	    		{% if form_errors(form.segurosocial) %}
 	    			<div class = "alert alert-danger alert-dismissable">
 	    				<button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>
@@ -30,15 +31,15 @@
 	    			</div>
 				{% endif %}
 
-				{{ form_label(form.fecha, 'Fecha de Visita') }}
+				{{ form_label(form.fecha, 'Fecha de visita') }}
 		    	{{ form_widget(form.fecha, {'attr':{'id':'datepicker', 'class':'form-control', 'placeholder':'dia-mes-año','id':'datepicker'}}) }}
 		    	{% if form_errors(form.fecha) %}
 		    		<div class = "alert alert-danger alert-dismissable">
 		    			<button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>
 		    			{{ form_errors(form.fecha) }}
 		    		</div>
-				{% endif %}
-				
+				{% endif %}	
+
 				{{ form_label(form.hora) }}
 				{{ form_widget(form.hora, {'attr':{'class':'form-control' , 'data-toggle':'tooltip'}}) }}
 	    		{% if form_errors(form.hora) %}
@@ -59,23 +60,15 @@
 
 				<div style= "padding-top: 20px;">
 	    		{{form_widget(form.Guardar ,{'attr':{'class':'btn btn-outline btn-primary'}})}}
-	    		<a href="{{ path('Mostrar_citas') }}" ><button class="btn btn-outline btn-danger" type="button">Cancelar</button></a>
+	    		<a href="{{ path('Visita_Mostrar') }}" ><button class="btn btn-outline btn-danger" type="button">Cancelar</button></a>
 	    	</div>
 	    		<div class = "row" >
 	    	    {% do form.Cancelar.setRendered %}
-	    		{{ form_rest(form) }}	 
-	    		{{ form_widget(form._token) }}    		
+	    		{{ form_rest(form) }}	    		
 	    	</div>
-
 	    	
 	    	</form>
 		</div>
 	</div>
-	<!-- /.row -->
-
-{% endblock %}
-
-{% block javascript %}
-	{{ parent() }}
 
 {% endblock %}

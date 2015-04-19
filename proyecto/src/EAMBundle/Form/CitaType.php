@@ -21,7 +21,8 @@ class CitaType extends AbstractType
             ->add('motivo','textarea')
             ->add('paciente','entity',array(
               'class' => 'EAMBundle:Paciente','attr'=> array('class' => 'hidden'), 'label'=>false))
-            ->add('visita','hidden')
+            ->add('visita','entity',array(
+              'class' => 'EAMBundle:Visita','attr'=> array('class' => 'hidden'), 'label'=>false))
             ->add('Guardar','submit')
             ->add('Cancelar','submit')
 

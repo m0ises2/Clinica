@@ -53,6 +53,13 @@ class Visita
     private $medico;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="tipo", type="string",length=80)
+     */
+    private $tipo;
+
+    /**
      * @var integer
      *
      * @ORM\Column(name="id", type="integer")
@@ -61,6 +68,9 @@ class Visita
      */
     private $id;
 
+    public function  __toString(){
+        return (string) $this->segurosocial;
+    }
 
 
     /**
@@ -186,5 +196,28 @@ class Visita
     public function getSegurosocial()
     {
         return $this->segurosocial;
+    }
+
+    /**
+     * Set tipo
+     *
+     * @param string $tipo
+     * @return Visita
+     */
+    public function setTipo($tipo)
+    {
+        $this->tipo = $tipo;
+    
+        return $this;
+    }
+
+    /**
+     * Get tipo
+     *
+     * @return string 
+     */
+    public function getTipo()
+    {
+        return $this->tipo;
     }
 }
