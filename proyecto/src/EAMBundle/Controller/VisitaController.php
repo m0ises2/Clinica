@@ -25,6 +25,7 @@ class VisitaController extends Controller
 	    $visita = new Visita();
 	    $form = $this->createForm(new VisitaType(), $visita);
 	    $request = $this->getRequest();
+	    $error = "";
         $tipo = "Visita de Emergencia";
         if ( $request->getMethod() == "POST")
         {          
