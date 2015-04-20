@@ -356,14 +356,11 @@ table.dataTable thead .sorting:after {
 
 .principio
 {
-    background-color:  #EFEFEF;
     margin-top: 63px;
-
+    margin-left: 120px;
 
     padding-top: 15px;
-    padding-bottom: 30px;
-
-    margin-left: 120px;
+    padding-bottom: 30px;    
 
     border-radius: 10px;
 }

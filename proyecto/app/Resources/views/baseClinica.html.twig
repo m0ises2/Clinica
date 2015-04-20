@@ -196,7 +196,10 @@
                             <a href="#"><i class="fa fa-shield fa-fw"></i> Avanzado <span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="{{ path('Bitacora') }}"> <i class="fa fa-book"></i> Bitácora </a>
+                                    <a href="{{ path('Bitacora') }}"> <i class="fa fa-book fa-fw"></i> Bitácora </a>
+                                </li>
+                                 <li>
+                                    <a href="{{ path('Donut') }}"> <i class="fa fa-info fa-fw"></i> Reportes </a>
                                 </li>
                             </ul>
                         </li>
@@ -220,7 +223,7 @@
             {#Aqui dentro es donde se colocará el bloque correspondiente a cada acción.#}
             {% block content %}
                 <div class="row" >
-                    <div class="col-lg-10 principio">
+                    <div class="col-lg-10 principio well well-lg">
                     
                         <h1>Bienvenido/a, {{ nombre }}.</h1>
                         <div class = "mensaje" > <h4> ¿Que le gustaría hacer hoy? </h4> </div>
@@ -408,36 +411,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
-
-                    {% if is_granted('ROLE_ADMIN') %}
-                        <div class="row cant_reporte">
-                            <div class="col-lg-3 ">
-                                <h4><b>Cant. Empleados</b></h4>
-                                <div class = "numeros">
-                                        {{ cantidad_empleados }}
-                                </div>
-                            </div>
-                            <div class="col-lg-3 ">
-                                <h4><b>Cant. Médicos/as</b></h4>
-                                <div class = "numeros">
-                                            {{ cantidad_medicos }}
-                                    </div>
-                            </div>
-                            <div class="col-lg-3 ">
-                                <h4><b>Cant. Enfermeras/os</b></h4>
-                                <div class = "numeros">
-                                            {{ cantidad_enfermeras }}
-                                </div>
-                            </div>
-                            <div class="col-lg-3 ">
-                                <h4><b>Cant. Administrativos</b></h4>
-                                <div class = "numeros">
-                                            {{ cantidad_administrativos }}
-                                </div>
-                            </div>
-                        </div>
-                    {% endif %}
+                </div>                    
             {% endblock %}
         </div>
         <!-- /.container-fluid -->

@@ -44,6 +44,10 @@ Ayuda:
     path: /Ayuda
     defaults: {_controller: EAMBundle:Ayuda:Mostrar }
 
+Donut:
+    path: /donut/report
+    defaults: { _controller: EAMBundle:Bitacora:Donut }
+
 Bitacora:
     path: /registros
     defaults: { _controller: EAMBundle:Bitacora:Mostrar }
