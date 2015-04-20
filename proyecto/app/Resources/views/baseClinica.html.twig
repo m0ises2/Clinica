@@ -149,7 +149,7 @@
                         {# La gestion de visitas no necesita condicionarse ya que todo el personal puede gestionar citas #}
                             <li>
                                 <a href="#">
-                                    <i class="fa fa-hospital-o"></i></i> Visitas <span class="fa arrow"></span></a>
+                                    <i class="fa fa-hospital-o fa-fw"></i></i> Visitas <span class="fa arrow"></span></a>
                                 <ul class="nav nav-second-level">
                                     <li>
                                         <a href="{{ path('Visita_Nueva') }}"><i class="fa fa-plus-square"></i> Añadir </a>
@@ -193,7 +193,7 @@
                         </li>
                         {% if is_granted('ROLE_ADMIN') %}
                         <li>
-                            <a href="#"><i class="fa fa-shield"></i> Avanzado <span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-shield fa-fw"></i> Avanzado <span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
                                     <a href="{{ path('Bitacora') }}"> <i class="fa fa-book"></i> Bitácora </a>
@@ -220,47 +220,224 @@
             {#Aqui dentro es donde se colocará el bloque correspondiente a cada acción.#}
             {% block content %}
                 <div class="row" >
-                    <div class="col-lg-8 col-lg-offset-1 principio">
+                    <div class="col-lg-10 principio">
                     
                         <h1>Bienvenido/a, {{ nombre }}.</h1>
                         <div class = "mensaje" > <h4> ¿Que le gustaría hacer hoy? </h4> </div>
-                        {% if is_granted('ROLE_ADMIN') %}
-                            <a href="{{ path('Ver_empleados') }}"> <button class="btn btn-primary" type="button"> Gestionar Empleados </button> </a>
-                        {% endif %}
-                        <a href="{{ path('Mostrar_citas') }}"> <button class="btn btn-primary boton" type="button"> Ver citas </button> </a>
-                        <a href="#"> <button class="btn btn-primary boton" type="button"> Ver pacientes </button> </a>
-                        <a href="#"> <button class="btn btn-primary boton" type="button"> Ver Historias Clínicas </button> </a>
+
+                        <div class = "row" >
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <div class="col-lg-3 col-md-6 ">
+                                    <div class="panel panel-primary">
+                                        <div class="panel-heading">
+                                            <div class="row">
+                                                <div class="col-xs-2">
+                                                    <i class="fa fa-users fa-3x"></i>
+                                                </div>
+                                                <div class="col-xs-10 text-right">
+                                                    <h5>Gestión de Empleados</h5>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <a href="{{ path('Ver_empleados') }}">
+                                            <div class="panel-footer">
+                                                <span class="pull-left">Ir</span>
+                                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            {% endif %}
+
+                            <div class="col-lg-3 col-md-6">
+                                <div class="panel panel-primary">
+                                    <div class="panel-heading">
+                                        <div class="row">
+                                            <div class="col-xs-2">
+                                                <i class="fa fa-calendar fa-3x"></i>
+                                            </div>
+                                            <div class="col-xs-10 text-right">
+                                                <h5>Gestión de Citas</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <a href="{{ path('Mostrar_citas') }}">
+                                        <div class="panel-footer">
+                                            <span class="pull-left">Ir</span>
+                                            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+ 
+                            <div class="col-lg-3 col-md-6">
+                                <div class="panel panel-primary">
+                                    <div class="panel-heading">
+                                        <div class="row">
+                                            <div class="col-xs-2">
+                                                <i class="fa fa-user-md fa-3x"></i>
+                                            </div>
+                                            <div class="col-xs-10 text-right">
+                                                <h5>Gestión de Pacientes</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <a href="{{ path('Buscar_Pacientes') }}">
+                                        <div class="panel-footer">
+                                            <span class="pull-left">Ir</span>
+                                            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-3 col-md-6">
+                                <div class="panel panel-primary">
+                                    <div class="panel-heading">
+                                        <div class="row">
+                                            <div class="col-xs-2">
+                                                <i class="fa fa-book fa-3x"></i>
+                                            </div>
+                                            <div class="col-xs-10 text-right">
+                                                <h5>Gestión de XXXXXXXX</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <a href="#">
+                                        <div class="panel-footer">
+                                            <span class="pull-left">Ir</span>
+                                            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+
+                        </div>
                         
+                        <div class = "row" >
+                             <div class="col-lg-3 col-md-6">
+                                <div class="panel panel-primary">
+                                    <div class="panel-heading">
+                                        <div class="row">
+                                            <div class="col-xs-2">
+                                                <i class="fa fa-user-md fa-3x"></i>
+                                            </div>
+                                            <div class="col-xs-10 text-right">
+                                                <h5>Gestión de Historias</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <a href="#">
+                                        <div class="panel-footer">
+                                            <span class="pull-left">Ir</span>
+                                            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-3 col-md-6">
+                                <div class="panel panel-primary">
+                                    <div class="panel-heading">
+                                        <div class="row">
+                                            <div class="col-xs-2">
+                                                <i class="fa fa-hospital-o fa-3x"></i>
+                                            </div>
+                                            <div class="col-xs-10 text-right">
+                                                <h5>Gestión de Visitas</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <a href="{{ path('Visita_Mostrar') }}">
+                                        <div class="panel-footer">
+                                            <span class="pull-left">Ir</span>
+                                            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                         
+                            <div class="col-lg-3 col-md-6">
+                                <div class="panel panel-primary">
+                                    <div class="panel-heading">
+                                        <div class="row">
+                                            <div class="col-xs-2">
+                                                <i class="fa fa-book fa-3x"></i>
+                                            </div>
+                                            <div class="col-xs-10 text-right">
+                                                <h5>Gestión de Bitácora</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <a href="{{ path('Bitacora') }}">
+                                        <div class="panel-footer">
+                                            <span class="pull-left">Ir</span>
+                                            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-3 col-md-6">
+                                <div class="panel panel-primary">
+                                    <div class="panel-heading">
+                                        <div class="row">
+                                            <div class="col-xs-2">
+                                                <i class="fa fa-book fa-3x"></i>
+                                            </div>
+                                            <div class="col-xs-10 text-right">
+                                                <h5>Gestión de XXXXXXXX</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <a href="#">
+                                        <div class="panel-footer">
+                                            <span class="pull-left">Ir</span>
+                                            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                {% if is_granted('ROLE_ADMIN') %}
-                    <div class="row cant_reporte">
-                        <div class="col-lg-2 ">
-                            <h4><b>Cant. Empleados</b></h4>
-                            <div class = "numeros">
-                                    {{ cantidad_empleados }}
-                            </div>
-                        </div>
-                        <div class="col-lg-2 ">
-                            <h4><b>Cant. Médicos/as</b></h4>
-                            <div class = "numeros">
-                                        {{ cantidad_medicos }}
+
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <div class="row cant_reporte">
+                            <div class="col-lg-3 ">
+                                <h4><b>Cant. Empleados</b></h4>
+                                <div class = "numeros">
+                                        {{ cantidad_empleados }}
                                 </div>
-                        </div>
-                        <div class="col-lg-2 ">
-                            <h4><b>Cant. Enfermeras/os</b></h4>
-                            <div class = "numeros">
-                                        {{ cantidad_enfermeras }}
+                            </div>
+                            <div class="col-lg-3 ">
+                                <h4><b>Cant. Médicos/as</b></h4>
+                                <div class = "numeros">
+                                            {{ cantidad_medicos }}
+                                    </div>
+                            </div>
+                            <div class="col-lg-3 ">
+                                <h4><b>Cant. Enfermeras/os</b></h4>
+                                <div class = "numeros">
+                                            {{ cantidad_enfermeras }}
+                                </div>
+                            </div>
+                            <div class="col-lg-3 ">
+                                <h4><b>Cant. Administrativos</b></h4>
+                                <div class = "numeros">
+                                            {{ cantidad_administrativos }}
+                                </div>
                             </div>
                         </div>
-                        <div class="col-lg-2 ">
-                            <h4><b>Cant. Administrativos</b></h4>
-                            <div class = "numeros">
-                                        {{ cantidad_administrativos }}
-                            </div>
-                        </div>
-                    </div>
-                {% endif %}
+                    {% endif %}
             {% endblock %}
         </div>
         <!-- /.container-fluid -->

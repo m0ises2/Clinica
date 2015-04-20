@@ -362,7 +362,8 @@ table.dataTable thead .sorting:after {
 
     padding-top: 15px;
     padding-bottom: 30px;
-    padding-left: 100px;
+
+    margin-left: 120px;
 
     border-radius: 10px;
 }
