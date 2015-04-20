@@ -59,13 +59,16 @@ class EmpleadoController extends Controller
       	  		/*Verificar validez del formulario*/
               if ( $form->isValid() )
       	  		{                
-      	  			/*verificamos que no exista en la base de datos.
+      	  			/*verificamos por seguro social que no exista en la base de datos.
                   La consulta se realiza basandose en el número de seguro social, que es único.
                 */
                 $em = $this->getDoctrine()->getRepository('EAMBundle:Empleado')->findBySeguroSocial( $user->getseguroSocial() );
                
+                /*Verificamos que no exista el nombre de usuario elegido*/
+                $em2 = $this->getDoctrine()->getRepository('EAMBundle:Empleado')->findByNombreUsuario( $user->getnombreUsuario() );
+
                 /*¿Existe el empleado?*/
-                if( !$em ) //¿No existe? -> No, entonces Procedo a agregarlo a la BD.
+                if( !$em  && !$em2 ) //¿No existe? -> No, entonces Procedo a agregarlo a la BD.
                 {
                   /*Se busca en la tabla role el id del role que eligieron:*/
                   $repositorio = $this->getDoctrine()->getRepository('EAMBundle:Role');
@@ -434,13 +437,7 @@ class EmpleadoController extends Controller
 
     }
 
-    private function getLog()
-    {
-
-    }
-
     /*Fin de funciones para guardar la bitácora*/
-
     public function disponibleAction()
     {
       /*Solicito el request*/
