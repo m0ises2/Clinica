@@ -1,6 +1,6 @@
 {% extends "::baseClinica.html.twig" %}
 
-{% block title %}  Nuevo {% endblock %}
+{% block title %}  Nueva Historia{% endblock %}
 
 {% block content %}
 
@@ -9,7 +9,7 @@
 
 <div class="row">
     <div class="col-lg-12">
-        <h2 class="page-header"> Nuevo Paciente</h2>
+        <h2 class="page-header"> Nueva Historia</h2>
     </div>
     <!-- /.col-lg-12 -->
 </div>
@@ -17,22 +17,17 @@
 <div class = "row" >
 	<div class = "col-lg-4 col-lg-offset-4">
 
-		{% if error == "duplicado" %}
-			<div class = "alert alert-danger alert-dismissable">
+		{% for flashMessage in app.session.flashbag.get('Duplicado') %}
+			<div class="alert alert-danger alert-dismissable">
 				<button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>
-				Ya existe un paciente registrado con ese numero de seguro social
+				{{ flashMessage }}
 			</div>
-		{% endif %}
+		{% endfor %}
 
-		{% if error == "guardado" %}
-			<div class="alert alert-success alert-dismissable">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                Paciente Guardado con exito
-            </div>
 
-		{% endif %}
+		
 
-		<form method="POST" action = "{{ path('NuevoPaciente') }}" novalidate>
+		<form method="POST" action = "{{ path('Nueva_Historia') }}" novalidate>
 
 			<div class = "row" >
 				<h3> Datos Personales </h3>
@@ -104,6 +99,53 @@
 
 				    {% endfor %}
 				</ul>
+
+
+				<div class="col-lg-12">
+			        <h2 class="page-header"> Historia CLinica</h2>
+			    </div>
+
+				
+				{{ form_label(form.historiaClinica.alcohol,'¿Consume Alcohol?') }}
+			    {{ form_widget(form.historiaClinica.alcohol, {'attr':{'class':'form-control', 'data-toggle':'tooltip', 'data-placement':'right', 'title':'Lóngitud máxima 2 carácteres', 'data-container':'body'}}) }}
+
+			    {{ form_label(form.historiaClinica.tabaco,'¿Fuma?') }}
+			    {{ form_widget(form.historiaClinica.tabaco, {'attr':{'class':'form-control', 'data-toggle':'tooltip', 'data-placement':'right', 'title':'Lóngitud máxima 2 carácteres', 'data-container':'body'}}) }}
+
+			    <div class = "row" >
+					<h3> Alergias </h3>
+				</div>
+
+				<ul class="tags3" data-prototype="{{ form_widget(form.historiaClinica.alergias.vars.prototype)|e }}">
+			    
+				    {% for h in form.historiaClinica.alergias %}
+					        
+				        	{{ form_label(h.descripcion) }}
+			    			{{ form_widget(h.descripcion, {'attr':{'class':'form-control' , 'data-toggle':'tooltip', 'data-placement':'right', 'data-container':'body'}}) }}
+
+			    			{{ form_label(h.fecha) }}
+			    			{{ form_widget(h.fecha, {'attr':{'class':'form-control' , 'data-toggle':'tooltip', 'data-placement':'right', 'data-container':'body', 'readonly':''}}) }}
+					{% endfor %}
+
+				</ul>
+
+				<div class = "row" >
+					<h3> Medicamentos </h3>
+				</div>
+
+				<ul class="tags4" >
+
+					{% for m in form.historiaClinica.medicamentosUsados %}
+						        
+				        	{{ form_label(m.descripcion) }}
+			    			{{ form_widget(m.descripcion, {'attr':{'class':'form-control' , 'data-toggle':'tooltip', 'data-placement':'right', 'data-container':'body'}}) }}
+
+			    			{{ form_label(m.fecha) }}
+			    			{{ form_widget(m.fecha, {'attr':{'class':'form-control' , 'data-toggle':'tooltip', 'data-placement':'right', 'data-container':'body', 'readonly':''}}) }}
+					{% endfor %}
+				
+				</ul>
+
 
 
 			</div>
@@ -298,23 +340,104 @@
 
 
 
+
+
+	//----------------------------------------
+
+	function addTagForm3($collectionHolder3, $newLinkLi3) {
+	    // Get the data-prototype explained earlier
+	    var prototype3 = $collectionHolder3.data('prototype');
+
+	    // get the new index
+	    var index3 = $collectionHolder3.data('index');
+
+	    indexAnhadido = index3;
+
+	    // Replace '__name__' in the prototype's HTML to
+	    // instead be a number based on how many items we have
+	    var newForm3 = prototype3.replace(/__name__/g, index3);
+
+	    // increase the index with one for the next item
+	    $collectionHolder3.data('index', index3 + 1);
+
+	    // Display the form in the page in an li, before the "Add a tag" link li
+
+	    var $a = newForm3;
+
+	    var $newFormLi3 = $("<br><div id='"+index3+"' class='panel panel-primary'></div>").append(newForm3);
+	    $newLinkLi3.before($newFormLi3);
+
+	    addTagFormDeleteLink2($newFormLi3);
+
+
+
+	   
+
+	  
+	    /*$('#'+index2+" :input").each(function(){
+	    	$(this).addClass('form-control');
+	    });*/
+
+	}
+
+
+	function addTagFormDeleteLink3($tagFormLi3) {
+	    var $removeFormA3 = $('<div class="panel-footer"><a href="#" class="fa fa-times">Eliminar</a></div>');
+	    $tagFormLi3.append($removeFormA3);
+
+	    $removeFormA3.on('click', function(e) {
+	        // prevent the link from creating a "#" on the URL
+	        e.preventDefault();
+
+	        // remove the li for the tag form
+	        $tagFormLi3.remove();
+	    });
+	}
+
+
+
+
+
+
+
+	var $collectionHolder3;
+
+	var $addTagLink3 = $('<br><a href="#" class="fa fa-plus">Agregar una Alergia</a>');
+	var $newLinkLi3 = $('<div></div>').append($addTagLink3);
+
+	jQuery(document).ready(function() {
+	    // Get the ul that holds the collection of tags
+	    $collectionHolder3 = $('ul.tags3');
+
+	     // add a delete link to all of the existing tag form li elements
+	    $collectionHolder3.find('div').each(function() {
+	        addTagFormDeleteLink3($(this));
+	    });
+
+	    // add the "add a tag" anchor and li to the tags ul
+	    $collectionHolder3.append($newLinkLi3);
+
+	   
+
+	    // count the current form inputs we have (e.g. 2), use that as the new
+	    // index when inserting a new item (e.g. 2)
+	    $collectionHolder3.data('index', $collectionHolder3.find(':input').length);
+
+	    $addTagLink3.on('click', function(e) {
+	        // prevent the link from creating a "#" on the URL
+	        e.preventDefault();
+
+	        // add a new tag form (see next code block)
+	        addTagForm3($collectionHolder3, $newLinkLi3);
+	    });
+	});
+
+
+
 </script>
 
 
-<script src="chosen.jquery.js" type="text/javascript"></script>
-  <script src="docsupport/prism.js" type="text/javascript" charset="utf-8"></script>
-  <script type="text/javascript">
-    var config = {
-      '.chosen-select'           : {},
-      '.chosen-select-deselect'  : {allow_single_deselect:true},
-      '.chosen-select-no-single' : {disable_search_threshold:10},
-      '.chosen-select-no-results': {no_results_text:'Oops, nothing found!'},
-      '.chosen-select-width'     : {width:"95%"}
-    }
-    for (var selector in config) {
-      $(selector).chosen(config[selector]);
-    }
-  </script>
+
 
 {% endblock %}
 

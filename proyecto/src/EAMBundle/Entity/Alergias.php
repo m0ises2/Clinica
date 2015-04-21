@@ -35,6 +35,14 @@ class Alergias
      */
     private $id;
 
+     /**
+     * @var integer
+     *
+     * @ORM\ManyToOne(targetEntity="HCInicial", inversedBy="alergias")
+     * @ORM\JoinColumn(name="id_historia", referencedColumnName="id", onDelete="CASCADE")
+     */
+    private $idHistoria;
+
 
 
     /**
@@ -91,5 +99,21 @@ class Alergias
     public function getId()
     {
         return $this->id;
+    }
+
+    public function setIdHistoria($id){
+        $this->idHistoria = $id;
+        return $this;
+    }
+
+    public function getIdHistoria(){
+        return $this->idHistoria;
+    }
+
+
+    public function addPaciente(Paciente $paciente){
+        if(!$this->alergias->contains($paciente)){
+            $this->alergias->add($paciente);
+        }
     }
 }

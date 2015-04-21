@@ -81,6 +81,7 @@ class PacienteController extends Controller{
 
 					$error = "guardado";
 
+					$this->addLog( $this->getUser()->getnombreUsuario(), $this->getUser()->getId(), 'Agregado Paciente: '. $paciente->getNombre().' '. $paciente->getApellido() );
 
 
 
@@ -127,10 +128,14 @@ class PacienteController extends Controller{
       	$repo = $this->getDoctrine()->getManager();
 
       	$paciente = $repo->getRepository('EAMBundle:Paciente')->find($id);
+      	if($paciente){
 
-      	$form = $this->createForm(new PacienteType(), $paciente);
+	      	$form = $this->createForm(new PacienteType(), $paciente);
 
-      	return $this->render('EAMBundle:Paciente:editar.html.twig', array('form' => $form->createView(),'paciente' => $paciente, 'nombre' => $this->getUser()->getnombreUsuario(), 'error' => "error"));
+	      	return $this->render('EAMBundle:Paciente:editar.html.twig', array('form' => $form->createView(),'paciente' => $paciente, 'nombre' => $this->getUser()->getnombreUsuario(), 'error' => "error"));
+      	}else{
+      		throw $this->createNotFoundException('Paciente no existe.');
+      	}
 	}
 
 	public function ActualizarAction($id){
@@ -156,6 +161,14 @@ class PacienteController extends Controller{
 
 
               	if ( $form->isValid() ){
+
+              		$tel = $paciente->getTelefonos();
+					$paciente->setTelefonos($tel);
+
+					$emer  = $paciente->getEmergencias();
+					$paciente->setEmergencias($emer);
+					
+              		$this->addLog( $this->getUser()->getnombreUsuario(), $this->getUser()->getId(), 'Editado Paciente: '. $paciente->getNombre().' '. $paciente->getApellido() );
               		$repo->flush();              	
               	}
 
@@ -186,16 +199,20 @@ class PacienteController extends Controller{
 		$paciente = $repo->getRepository('EAMBundle:Paciente')->find($id);
 
 		if($paciente){
-			 $repo->remove($paciente);
-             $repo->flush();
+
+			$this->addLog( $this->getUser()->getnombreUsuario(), $this->getUser()->getId(), 'Eliminado Paciente: '. $paciente->getNombre().' '. $paciente->getApellido() );
+
+			$repo->remove($paciente);
+            $repo->flush();
 
 			$repo = $this->getDoctrine()->getManager();
 			$pacientes = $repo->getRepository('EAMBundle:Paciente')->findAll();
 
-             return $this->render('EAMBundle:Paciente:buscarPaciente.html.twig', array('pacientes'=>$pacientes, 'error' => 'eliminado', 'nombre' => $this->getUser()->getnombreUsuario()));
+            return $this->render('EAMBundle:Paciente:buscarPaciente.html.twig', array('pacientes'=>$pacientes, 'error' => 'eliminado', 'nombre' => $this->getUser()->getnombreUsuario()));
+
 		}else{
 
-			 throw $this->createNotFoundException('Empleado no existe.');
+			 throw $this->createNotFoundException('Paciente no existe.');
 		}
 
 
@@ -204,6 +221,32 @@ class PacienteController extends Controller{
 
         return $this->render('EAMBundle:Paciente:buscarPaciente.html.twig', array('pacientes'=>$pacientes, 'nombre' => $this->getUser()->getnombreUsuario()));
 	}
+
+
+
+	private function addLog( $nombreUsuario, $user_id, $mensaje ){
+        /* Se obtiene la hora del evento:*/
+        
+        $time = new \DateTime();
+        /*Se establece la zona horaria correctamente.*/
+        $zone = $this->container->getParameter('time_zone');
+        $time->setTimezone( new \DateTimeZone($zone));
+        
+
+        /*Se crea el objeto bitacora para almacenarlo posteriormente*/
+        $log = new Bitacora();
+        $log->setIdEmpleado( $user_id )
+            ->setEmpleado($nombreUsuario)
+            ->setFecha( $time )
+            ->setMensaje( $mensaje );
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($log);
+        $em->flush();
+
+        return $this;
+
+    }
 
 	
 

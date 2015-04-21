@@ -35,6 +35,14 @@ class MedicamentosUsados
      */
     private $id;
 
+    /**
+     * @var integer
+     *
+     * @ORM\ManyToOne(targetEntity="HCInicial", inversedBy="medicamentosUsados")
+     * @ORM\JoinColumn(name="id_historia", referencedColumnName="id", onDelete="CASCADE")
+     */
+    private $idHistoria;
+
 
 
     /**
@@ -91,5 +99,20 @@ class MedicamentosUsados
     public function getId()
     {
         return $this->id;
+    }
+
+    public function setIdHistoria($id){
+        $this->idHistoria = $id;
+        return $this;
+    }
+
+    public function getIdHistoria(){
+        return $this->idHistoria;
+    }
+
+    public function addPaciente(Paciente $paciente){
+        if(!$this->medicamentosUsados->contains($paciente)){
+            $this->medicamentosUsados->add($paciente);
+        }
     }
 }

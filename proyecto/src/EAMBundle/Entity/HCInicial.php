@@ -3,6 +3,7 @@
 namespace EAMBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * HCInicial
@@ -15,7 +16,9 @@ class HCInicial
     /**
      * @var integer
      *
-     * @ORM\Column(name="id_paciente", type="integer", nullable=false)
+     * 
+     * @ORM\OneToOne(targetEntity="Paciente", inversedBy="historiaClinica")
+     * @ORM\JoinColumn(name="id_paciente", referencedColumnName="id", onDelete="CASCADE")
      */
     private $idPaciente;
 
@@ -42,6 +45,28 @@ class HCInicial
      */
     private $id;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Alergias", mappedBy="idHistoria", cascade={"persist","remove"})
+     */
+    private $alergias;
+
+
+    /**
+     * @ORM\OneToMany(targetEntity="MedicamentosUsados", mappedBy="idHistoria", cascade={"persist","remove"})
+     */
+    private $medicamentosUsados;
+
+
+
+
+    public function  __toString(){
+        return (string) $this->id;
+    }
+
+    public function __construct(){
+        $this->alergias = new ArrayCollection();
+        $this->medicamentosUsados = new ArrayCollection();
+    }
 
 
     /**
@@ -122,4 +147,40 @@ class HCInicial
     {
         return $this->id;
     }
+
+
+    public function getAlergias(){
+        return $this->alergias;
+    }
+
+
+    public function setAlergias($Alergias){
+        $this->alergias = $Alergias;
+        foreach ($Alergias as $aler) {
+            $aler->setIdHistoria($this);
+        }
+    }
+
+    public function addAlergia(Alergias $alg){
+        $alg->addPaciente($this);
+        $this->alergias->add($alg);
+    }
+
+    public function getMedicamentosUsados(){
+        return $this->medicamentosUsados;
+    }
+
+    public function setMedicamentosUsados($medicamentos){
+        $this->medicamentosUsados = $medicamentos;
+        foreach ($medicamentos as $medi) {
+            $medi->setIdHistoria($this);
+        }
+    }
+
+    public function addMedicamentosUsados(MedicamentosUsados $med){
+        $med->addPaciente($this);
+        $this->medicamentosUsados->add($med);
+    }
+    
+
 }

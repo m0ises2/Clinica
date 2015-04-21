@@ -72,6 +72,27 @@ Eliminar_Paciente:
     path: /paciente/elimiar/{id}
     defaults: { _controller: EAMBundle:Paciente:Eliminar}
 
+Nueva_Historia:
+   path: /historia/nueva
+   defaults: { _controller: EAMBundle:HCInicial:Nueva}
+
+Buscar_Historia:
+   path: /historia/buscar
+   defaults: { _controller: EAMBundle:HCInicial:Buscar}
+
+Ver_Historia:
+    path: /historia/ver/{id}
+    defaults: { _controller: EAMBundle:HCInicial:Ver}
+
+Editar_historia:
+    path: /historia/editar/{id}
+    defaults: { _controller: EAMBundle:HCInicial:Editar}
+
+Actualizar_Historia:
+    path: /historia/actualizar/{id}
+    defaults: { _controller: EAMBundle:HCInicial:Actualizar}
+
+
 logout:
    path: /logout
 

@@ -86,6 +86,11 @@ class Paciente
 
     private $emergencia;
 
+    /**
+    *@ORM\oneToOne(targetEntity="HCInicial", mappedBy="idPaciente", cascade={"persist","remove"})
+    */
+    private $historiaClinica;
+
 
     public function  __toString(){
         return (string) $this->numSeguroSocial;
@@ -353,5 +358,13 @@ class Paciente
         return $this->visitas;
     }
 
+    public function setHistoriaClinica($historia){
+        $this->historiaClinica = $historia;
+        $historia->setIdPaciente($this);
+    }
+
+    public function getHistoriaClinica(){
+        return $this->historiaClinica;
+    }
 
 }

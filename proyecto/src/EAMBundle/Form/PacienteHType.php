@@ -11,7 +11,7 @@ use EAMBundle\Entity\Paciente;
 
 use EAMBundle\Controller;
 
-class PacienteType extends AbstractType
+class PacienteHType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -47,6 +47,7 @@ class PacienteType extends AbstractType
                 'allow_add'=>'true','by_reference'=>'false',
                 'allow_delete' =>'true'
                 ))
+            ->add('historiaClinica',new HCInicialType())
             ->add('Guardar','submit')
             ->add('Cancelar','submit')
         ;
@@ -72,3 +73,4 @@ class PacienteType extends AbstractType
 
     
 }
+

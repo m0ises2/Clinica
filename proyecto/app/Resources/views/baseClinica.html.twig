@@ -160,6 +160,22 @@
                                 </ul>
                                 <!-- /.nav-second-level -->
                             </li>
+
+
+                           	<li>
+                                <a href="#">
+                                    <i class="fa fa-clipboard fa-fw"></i> Historia Clinica <span class="fa arrow"></span>
+                                </a>
+                                <ul class="nav nav-second-level">
+                                    <li>
+                                        <a href="{{ path('Nueva_Historia') }}"><i class="fa fa-plus-square"></i> Nueva </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ path('Buscar_Historia') }}"><i class="fa fa-list-ul"></i> Buscar </a>
+                                    </li>                                    
+                                </ul>
+                                <!-- /.nav-second-level -->
+                            </li>
                         
                         <li>
                             <a href="#"> =)(/%$#" <span class="fa arrow"></span></a>
@@ -228,7 +244,7 @@
                             <a href="{{ path('Ver_empleados') }}"> <button class="btn btn-primary" type="button"> Gestionar Empleados </button> </a>
                         {% endif %}
                         <a href="{{ path('Mostrar_citas') }}"> <button class="btn btn-primary boton" type="button"> Ver citas </button> </a>
-                        <a href="#"> <button class="btn btn-primary boton" type="button"> Ver pacientes </button> </a>
+                        <a href="{{path('Buscar_Pacientes')}}"> <button class="btn btn-primary boton" type="button"> Ver pacientes </button> </a>
                         <a href="#"> <button class="btn btn-primary boton" type="button"> Ver Historias Clínicas </button> </a>
                         
                     </div>
@@ -350,6 +366,22 @@
                 $('#eambundle_paciente_emergencias_0_fechaAnhadido').datepicker({ format: 'dd-mm-yyyy' });
             })(jQuery);
         </script> 
+
+        <script>
+            (function(){
+                $('#eambundle_paciente_historiaClinica_alergias_0_fecha').datepicker({ format: 'dd-mm-yyyy' });
+            })(jQuery);
+        </script> 
+
+        <script>
+            (function(){
+                $('#eambundle_paciente_historiaClinica_medicamentosUsados_0_fecha').datepicker({ format: 'dd-mm-yyyy' });
+            })(jQuery);
+        </script> 
+
+        
+
+        
     {% endblock %}
 
 </body>

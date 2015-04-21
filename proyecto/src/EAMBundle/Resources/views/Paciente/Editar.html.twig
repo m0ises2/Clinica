@@ -29,7 +29,7 @@
 
 		{% endif %}
 
-		<form method="POST" action = "{{ path('Actualizar_Paciente',{'id': paciente.id}) }}" >
+		<form method="POST" action = "{{ path('Actualizar_Paciente',{'id': paciente.id}) }}" novalidate>
 
 			<div class = "row" >
 				<h3> Datos Personales </h3>

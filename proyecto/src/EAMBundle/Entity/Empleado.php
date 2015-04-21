@@ -119,6 +119,10 @@ class Empleado implements UserInterface, \Serializable
         $this->roles = new ArrayCollection();
     }
 
+    public function  __toString(){
+        return $this->nombre;
+    }
+
 ////////////////////////////////////////////////////////////////////
     /**
     * @inheritDoc

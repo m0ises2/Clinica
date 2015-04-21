@@ -1,0 +1,184 @@
+{% extends "::baseClinica.html.twig" %}
+
+{% block title %}  Mostrar {% endblock %}
+
+{% block content %} 
+    <div class="row">
+        <div class="col-lg-12">
+            <h2 class="page-header"> Paciente {{paciente.nombre }} {{ paciente.apellido }}</h2>
+        </div>
+    </div>
+
+    
+
+       <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Historia Clinica 
+                            &nbsp&nbsp<a type="button" href="{{ path('Editar_historia', {'id': paciente.id} ) }}" class="btn btn-outline btn-primary">Editar</a>
+                        </div>
+
+                        <!-- .panel-heading -->
+                        <div class="panel-body">
+                            <div class="panel-group" id="accordion">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" class="" >Datos Personales</a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseOne" class="panel-collapse collapse in" aria-expanded="true">
+                                        <div class="panel-body">
+                                        <div class="col-lg-6">
+                                        <div class = "panel panel-info">
+                                            <div class = "panel-body">
+                                                <div class = "table-responsive">
+                                                    <table class = "table">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td> <b> Nombre:</b> </td>
+                                                                <td> {{paciente.nombre}} </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td> <b> Apellido:</b> </td>
+                                                                <td> {{paciente.apellido}} </td>
+                                                            </tr> 
+                                                            <tr>
+                                                                <td> <b> Apellido:</b> </td>
+                                                                <td> {{paciente.apellido}} </td>
+                                                            </tr> 
+
+                                                            <tr>
+                                                                <td> <b> Fecha de Nacimiento: </b> </td>
+                                                                <td> {{ paciente.fechasNac|date('d/m/y') }} </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td> <b> Dirección: </b> </td>
+                                                                <td> {{ paciente.direccion }} </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td> <b> Numero de Seguro social </b> </td>
+                                                                <td> {{ paciente.numSeguroSocial }} </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td> <b> Doctro de preferencia: </b> </td>
+                                                                <td> {{ paciente.drPreferido }} </td>
+                                                            </tr> 
+                                                            <tr>
+                                                                <td> <b> Numero de telefono: </b> </td>
+                                                                <td><br>
+                                                                    {% for telefono in paciente.telefonos%}
+                                                                        <div>
+                                                                            {{telefono.tipo}} : {{ telefono.codigo }} {{telefono.numero}}  
+                                                                        </div>
+                                                                    {% endfor %}
+                                                                </td>
+                                                            </tr> 
+                                                            <tr>
+                                                                <td> <b> Contacto de Emegencia: </b> </td>
+                                                                <td><br>
+                                                                    {% for emergencia in paciente.emergencias%}
+                                                                        <div>
+                                                                            {{emergencia.relacionPaciente}} : {{ emergencia.nombre }} {{emergencia.apellido}} {{emergencia.numero}}  
+                                                                        </div>
+                                                                    {% endfor %}
+                                                                </td>
+                                                            </tr>                                                         
+
+                                                        </body>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" class="collapsed" aria-expanded="false">Antecedentes</a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseTwo" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+                                        <div class="panel-body">
+                                            <div class="col-lg-6">
+                                                <div class = "panel panel-info">
+                                                    <div class = "panel-body">
+                                                        <div class = "table-responsive">
+                                                            <table class = "table">
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td> <b> ¿Consume Alcohol? :</b> </td>
+                                                                        <td> {{ HCI.alcohol }} </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td> <b> ¿Fuma? :</b> </td>
+                                                                        <td> {{ HCI.tabaco }} </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td> <b> Alergias: </b> </td>
+                                                                        <td><br>
+                                                                            {% for alergias in HCI.alergias%}
+                                                                                <div>
+                                                                                    {{alergias.descripcion}}
+                                                                                </div>
+                                                                                <div>
+                                                                                    Actualizado el: {{alergias.fecha|date('d/m/y')}}
+                                                                                </div>
+                                                                            {% endfor %}
+                                                                        </td>
+                                                                    </tr>
+
+                                                                    <tr>
+                                                                        <td> <b> Medicamentos Usados: </b> </td>
+                                                                        <td><br>
+                                                                            {% for medicamentos in HCI.medicamentosUsados%}
+                                                                                <div>
+                                                                                    {{medicamentos.descripcion}}
+                                                                                </div>
+                                                                                <div>
+                                                                                    Actualizado el: {{medicamentos.fecha|date('d/m/y')}}
+                                                                                </div>
+                                                                            {% endfor %}
+                                                                        </td>
+                                                                    </tr>
+
+                                                                </body>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" class="collapsed" aria-expanded="false">Collapsible Group Item #3</a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseThree" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+                                        <div class="panel-body">
+                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- .panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+
+    </div>
+
+
+    
+
+    
+{% endblock %}
