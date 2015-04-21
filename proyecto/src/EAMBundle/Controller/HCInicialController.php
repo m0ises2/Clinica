@@ -91,7 +91,7 @@ class HCInicialController extends Controller
 
                     $error = "duplicado";
 
-                    $request->getSession()->getFlashBag()->add('Duplicado', 'Ya existe un empleado asociado a ese numero de seguro social.');
+                    $request->getSession()->getFlashBag()->add('Duplicado', 'Ya existe un paciente asociado a ese numero de seguro social.');
 
                     return $this->redirect($this->generateUrl('Nueva_Historia'));
 
