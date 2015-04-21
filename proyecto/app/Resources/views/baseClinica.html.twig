@@ -199,14 +199,14 @@
                                     <a href="{{ path('Bitacora') }}"> <i class="fa fa-book fa-fw"></i> Bitácora </a>
                                 </li>
                                  <li>
-                                    <a href="{{ path('Donut') }}"> <i class="fa fa-info fa-fw"></i> Reportes </a>
+                                    <a href="{{ path('Donut') }}" > <i class="fa fa-info fa-fw"></i> Reportes </a>
                                 </li>
                             </ul>
                         </li>
                         {% endif %}
 
                         <li>
-                             <a href="{{ path('logout') }}"> <i class="fa fa-sign-out"></i> Cerrar Sesión  </a>
+                             <a href="#" data-toggle="modal" data-target="#myModal"> <i class="fa fa-sign-out"></i> Cerrar Sesión  </a>
                         </li>
                     </ul>
                 </div>
@@ -215,6 +215,25 @@
             <!-- /.navbar-static-side -->
         </nav>
      </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Salir</h4>
+              </div>
+              <div class="modal-body">
+                <h4>¿Desea salir de la sesión?</h4>
+              </div>
+              <div class="modal-footer">
+                <a href="{{ path('logout') }}"><button type="button" class="btn btn-outline btn-success">Si</button></a>
+                <button type="button" class="btn btn-outline btn-primary" data-dismiss="modal">No</button>
+              </div>
+            </div>
+          </div>
+        </div>
     <!-- /#wrapper -->
 
     <!-- Page Content -->

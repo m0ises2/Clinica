@@ -2,11 +2,13 @@
 
 {% block styles %}
 	{{ parent() }}
+
+    <!-- DataTables CSS -->
+    <link href="{{ asset('bundles/eam/css/datatablesplugins/integration/bootstrap/3/dataTables.bootstrap.css') }}" rel="stylesheet" type="text/css" />
+
 	<!-- DataTables Responsive CSS -->
     <link href="{{ asset('bundles/eam/css/datatablesresponsive/css/dataTables.responsive.css') }}" rel="stylesheet" type="text/css" />
     
-    <!-- DataTables CSS -->
-    <link href="{{ asset('bundles/eam/css/datatablesplugins/integration/bootstrap/3/dataTables.bootstrap.css') }}" rel="stylesheet" type="text/css" />
 {% endblock %}
 
 {% block title %}  Mostrar {% endblock %}
@@ -58,7 +60,7 @@
 							</thead>
 							<tbody>
 								{% for usuario in entidades %}
-									<tr class="even gradeA">
+									<tr class="odd gradeX">
 										
 										<td> {{ usuario.nombre }} </td>
 										<td> {{ usuario.apellido }} </td>
