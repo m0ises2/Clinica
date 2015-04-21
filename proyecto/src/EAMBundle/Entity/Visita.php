@@ -41,6 +41,7 @@ class Visita
 
     /**
      * @ORM\ManyToOne(targetEntity="Paciente", inversedBy="visitas")
+     * @ORM\JoinColumn(name="paciente_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $paciente;
 

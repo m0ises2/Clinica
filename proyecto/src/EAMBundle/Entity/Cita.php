@@ -18,7 +18,7 @@ class Cita
      * @var integer
      * 
      * @ORM\Column(name="segurosocial", type="integer", nullable=false)
-     * @Assert\NotBlank(message="Debe escribir el Numero de Seguro Social")
+     * @Assert\NotBlank()
      */
     private $segurosocial;
 
@@ -26,7 +26,7 @@ class Cita
      * @var \Date
      *
      * @ORM\Column(name="fecha", type="date", nullable=false)
-     * @Assert\NotBlank(message="Debe escribir la fecha de la cita")
+     * @Assert\NotBlank()
      * @Assert\Date()
      */
     private $fecha;
@@ -35,7 +35,7 @@ class Cita
      * @var \string
      *
      * @ORM\Column(name="hora", type="string", length=15, nullable=false)
-     * @Assert\NotBlank(message="Debe escribir la hora de la cita")
+     * @Assert\NotBlank()
      * 
      */
     private $hora;
@@ -44,7 +44,7 @@ class Cita
      * @var string
      *
      * @ORM\Column(name="motivo", type="string", length=250, nullable=false)
-     * @Assert\NotBlank(message="Debe escribir el motivo de la cita")
+     * @Assert\NotBlank()
      */
     private $motivo;
 
@@ -59,6 +59,7 @@ class Cita
 
     /**
      * @ORM\ManyToOne(targetEntity="Paciente", inversedBy="citas")
+     * @ORM\JoinColumn(name="paciente_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $paciente;
 
