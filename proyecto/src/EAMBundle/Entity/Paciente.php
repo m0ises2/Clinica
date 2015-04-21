@@ -66,12 +66,12 @@ class Paciente
     private $id;
 
     /**
-     * @ORM\OneToMany(targetEntity="Cita", mappedBy="paciente")
+     * @ORM\OneToMany(targetEntity="Cita", mappedBy="paciente",cascade={"persist","remove"})
      */
     private $citas;
 
     /**
-     * @ORM\OneToMany(targetEntity="Visita", mappedBy="paciente")
+     * @ORM\OneToMany(targetEntity="Visita", mappedBy="paciente",cascade={"persist","remove"})
      */
     private $visitas;
 
