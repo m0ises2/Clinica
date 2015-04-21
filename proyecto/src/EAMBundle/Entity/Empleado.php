@@ -40,6 +40,7 @@ class Empleado implements UserInterface, \Serializable
      *
      * @ORM\Column(name="nombre", type="string", length=15, nullable=false)
      * @Assert\Length(max=15)
+     * @Assert\NotBlank()
      */
     private $nombre;
 
@@ -48,6 +49,7 @@ class Empleado implements UserInterface, \Serializable
      *
      * @ORM\Column(name="apellido", type="string", length=15, nullable=false)
      * @Assert\Length(max=15)
+     * @Assert\NotBlank()
      */
     private $apellido;
 
@@ -56,6 +58,7 @@ class Empleado implements UserInterface, \Serializable
      *
      * @ORM\Column(name="fecha_nac", type="date", nullable=false)
      * @Assert\Date()
+     * @Assert\NotBlank()
      */
     private $fechaNac;
 
@@ -64,6 +67,7 @@ class Empleado implements UserInterface, \Serializable
      *
      * @ORM\Column(name="seguro_social", type="integer", nullable=false)
      * @Assert\type(type="numeric", message="El valor debe ser entero.")
+     * @Assert\NotBlank()
      */
     private $seguroSocial;
 
@@ -73,6 +77,7 @@ class Empleado implements UserInterface, \Serializable
      * @ORM\Column(name="direccion", type="string", length=120, nullable=false)
      * @Assert\Length(max=120)
      * @Assert\Length(min=1)
+     * @Assert\NotBlank()
      */
     private $direccion;
 
@@ -88,6 +93,7 @@ class Empleado implements UserInterface, \Serializable
      *
      * @ORM\Column(name="fecha_inicio", type="date", nullable=false)
      * @Assert\Date()
+     * @Assert\NotBlank()
      */
     private $fechaInicio;
 
@@ -111,6 +117,7 @@ class Empleado implements UserInterface, \Serializable
     /**
     * @var string
     * @ORM\Column(name="tipo", type="string")
+    * @Assert\NotBlank()
     */
     private $tipo;
 

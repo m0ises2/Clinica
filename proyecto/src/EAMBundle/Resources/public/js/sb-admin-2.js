@@ -37,30 +37,48 @@ $(function() {
 
 //Función que hice para verificar el nombre de usuario vía AJAX:
 $(document).ready(function() {
-    $("#eambundle_empleado_nombreUsuario").change(function (e){
+    $("#eambundle_empleado_nombreUsuario").keyup(function (e){
         
         var user = $(this).val();
         
-        if( user != "" )
+        if ( !(/\s/g.test(user)) && user.length != 0 )//Validación para saber que el campo input tenga valores diferentes de espacios en blanco.
         {
-            $.post('ajax_', {'user':user}, function(data){                  
-                                                
-                if( data.responseCode != 200 ) //No disponible el usuario
+            $("#result").empty();            
+            $("#result").html('<i class="fa fa-clock-o"> <span> Validando...</span> </li>');
+
+            $.post('ajax_', {'user':user}, function(data){                                                        
+                if( data.responseCode == 400 ) //No disponible el usuario
                 {
-                    $("#result").html('<i class="fa fa-times"></i>');
+                    
+                    $("#result").html('<i class="fa fa-times"> <span class="label label-danger">No Disponible</span></i>');
                     $("#eambundle_empleado_Guardar").removeClass("btn btn-outline btn-primary").addClass("btn btn-primary disabled");
                     $("#eambundle_empleado_Guardar_otro").removeClass("btn btn-outline btn-success").addClass("btn btn-success disabled");
                 }
                 else //Disponible el usuario
                 {
-                    $("#result").html('<i class="fa fa-check"></i>');
-                    $("#eambundle_empleado_Guardar").removeClass("btn btn-primary disabled").addClass("btn btn-outline btn-primary");
-                    $("#eambundle_empleado_Guardar_otro").removeClass("btn btn-success disabled").addClass("btn btn-outline btn-success");
+                    if( data.responseCode == 200 ) 
+                    {
+                        
+                        $("#result").html('<i class="fa fa-check"> <span class="label label-success">Disponible </style></i>');
+                        $("#eambundle_empleado_Guardar").removeClass("btn btn-primary disabled").addClass("btn btn-outline btn-primary");
+                        $("#eambundle_empleado_Guardar_otro").removeClass("btn btn-success disabled").addClass("btn btn-outline btn-success");
+                    }
                 }                   
             });
-        }else
+        }
+        else
         {
-            $("#result").empty();
+            if ( user === "" )
+            {
+                $("#result").empty();
+            }
+            else
+            {
+              $("#result").empty();
+              $("#result").html('<i class="fa fa-exclamation-triangle"> <span class="label label-warning"> Inválido </style></li>');
+              $("#eambundle_empleado_Guardar").removeClass("btn btn-outline btn-primary").addClass("btn btn-primary disabled");
+              $("#eambundle_empleado_Guardar_otro").removeClass("btn btn-outline btn-success").addClass("btn btn-success disabled");      
+            }
         }
     });
 
