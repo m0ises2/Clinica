@@ -1,8 +1,12 @@
 <?php
 
 namespace EAMBundle\Controller;
-
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+
+use EAMBundle\Entity\Bitacora;
+use EAMBundle\Entity\HistoriaClinica;
+
+use EAMBundle\Form\ExamenType;
 
 class ExamenController extends Controller
 {
