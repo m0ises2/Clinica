@@ -59,13 +59,16 @@ class EmpleadoController extends Controller
       	  		/*Verificar validez del formulario*/
               if ( $form->isValid() )
       	  		{                
-      	  			/*verificamos que no exista en la base de datos.
+      	  			/*verificamos por seguro social que no exista en la base de datos.
                   La consulta se realiza basandose en el número de seguro social, que es único.
                 */
                 $em = $this->getDoctrine()->getRepository('EAMBundle:Empleado')->findBySeguroSocial( $user->getseguroSocial() );
                
+                /*Verificamos que no exista el nombre de usuario elegido*/
+                $em2 = $this->getDoctrine()->getRepository('EAMBundle:Empleado')->findByNombreUsuario( $user->getnombreUsuario() );
+
                 /*¿Existe el empleado?*/
-                if( !$em ) //¿No existe? -> No, entonces Procedo a agregarlo a la BD.
+                if( !$em  && !$em2 ) //¿No existe? -> No, entonces Procedo a agregarlo a la BD.
                 {
                   /*Se busca en la tabla role el id del role que eligieron:*/
                   $repositorio = $this->getDoctrine()->getRepository('EAMBundle:Role');
@@ -434,33 +437,35 @@ class EmpleadoController extends Controller
 
     }
 
-    private function getLog()
-    {
-
-    }
-
     /*Fin de funciones para guardar la bitácora*/
-
     public function disponibleAction()
     {
       /*Solicito el request*/
       $request = $this->getRequest();
       /*Obtengo del request el nombre de usuario a validar*/
-      $_check = $request->get('user');
+      $_check = preg_replace('/\s+/', '', $request->get('user'));
+      $return = array("responseCode" => $_check); 
+      
+      if( !empty($_check) )
+      {  
+        /*Busco en la BD el nombre de usuario que estoy recibiendo.*/
+        $em = $this->getDoctrine()->getManager();
+        $em = $em->getRepository('EAMBundle:Empleado')->findByNombreUsuario($_check);
+         
+        /*Creo el json para los datos de vuelta:*/
 
-      /*Busco en la BD el nombre de usuario que estoy recibiendo.*/
-      $em = $this->getDoctrine()->getManager();
-      $em = $em->getRepository('EAMBundle:Empleado')->findByNombreUsuario($_check);
-
-      /*Creo el json para los datos de vuelta:*/
-
-      if ( !$em )
-      {
-        $return = array("responseCode" => 200);        
+        if ( !$em )/*No existe, es decir, está disponible*/
+        {
+          $return = array("responseCode" => 200);        
+        }
+        else/*Existe, es decir, NO está disponible.*/
+        {
+          $return = array("responseCode" => 400);
+        }
       }
       else
-      {
-        $return = array("responseCode" => 400);
+      { /*Se notifica que se recibió una cadena vacia.*/
+        $return = array("responseCode" => 300);
       }
 
       /*se codifica el array al  tipo JSON*/

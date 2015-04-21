@@ -59,51 +59,6 @@ class InicioController extends Controller
 		}
 		/**************************************************************/
 		
-		/*Acá se deben obtener las cantidades que serán mostradas en el home:*/
-		if ( $this->getUser()->getTipo() == "Administrador")
-		{
-			/*Cantidad de empleados*/
-			$em = $this->getDoctrine()->getManager();
-			$query = $em->createQuery(
-					'select count(e) from EAMBundle:Empleado e'
-				);
-			$cantidad_empleados = $query->getSingleScalarResult() - 1;
-
-			/*Cantidad de medicos*/
-			$em = $this->getDoctrine()->getManager();
-			$query = $em->createQueryBuilder();
-			$query->select('count(e)');
-			$query->from('EAMBundle:Empleado', 'e');
-			$query->where('e.tipo = :tipo');
-			$query->setParameter('tipo',"Medico");
-
-			$cantidad_medicos = $query->getQuery()->getSingleScalarResult();
-
-			/*Cantidad de enfermeras*/
-			$em = $this->getDoctrine()->getManager();
-			$query = $em->createQueryBuilder();
-			$query->select('count(e)');
-			$query->from('EAMBundle:Empleado', 'e');
-			$query->where('e.tipo = :tipo');
-			$query->setParameter('tipo',"Enfermera");
-
-			$cantidad_enfemeras = $query->getQuery()->getSingleScalarResult();
-			
-			/*Cantidad de administrativos*/
-			$em = $this->getDoctrine()->getManager();
-			$query = $em->createQueryBuilder();
-			$query->select('count(e)');
-			$query->from('EAMBundle:Empleado', 'e');
-			$query->where('e.tipo = :tipo');
-			$query->setParameter('tipo',"Administrativo");
-
-			$cantidad_administrativos = $query->getQuery()->getSingleScalarResult();
-
-			return $this->render('::baseClinica.html.twig',array('nombre' => $this->getUser()->getUsername(),'cantidad_empleados' => $cantidad_empleados,
-							 'cantidad_medicos' => $cantidad_medicos, 'cantidad_enfermeras' => $cantidad_enfemeras, 'cantidad_administrativos' => $cantidad_administrativos));
-			
-		}
-
 		return $this->render('::baseClinica.html.twig',array('nombre' => $this->getUser()->getUsername()));
 	}
 }

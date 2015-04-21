@@ -3,6 +3,7 @@
 namespace EAMBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * HistoriaClinica
@@ -41,6 +42,11 @@ class HistoriaClinica
     private $presionArterial;
 
     /**
+     * @ORM\OneToMany(targetEntity="Examen", mappedBy="historiaclinica",cascade={"persist","remove"})
+     */
+    private $examenes;
+
+    /**
      * @var integer
      *
      * @ORM\Column(name="frecuencia_card", type="integer", nullable=false)
@@ -70,6 +76,9 @@ class HistoriaClinica
      */
     private $id;
 
+    public function __construct(){
+        $this->examenes = new ArrayCollection();
+    }
 
 
     /**
@@ -241,5 +250,38 @@ class HistoriaClinica
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Add examenes
+     *
+     * @param \EAMBundle\Entity\Examen $examenes
+     * @return HistoriaClinica
+     */
+    public function addExamene(\EAMBundle\Entity\Examen $examenes)
+    {
+        $this->examenes[] = $examenes;
+    
+        return $this;
+    }
+
+    /**
+     * Remove examenes
+     *
+     * @param \EAMBundle\Entity\Examen $examenes
+     */
+    public function removeExamene(\EAMBundle\Entity\Examen $examenes)
+    {
+        $this->examenes->removeElement($examenes);
+    }
+
+    /**
+     * Get examenes
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getExamenes()
+    {
+        return $this->examenes;
     }
 }

@@ -11,6 +11,5 @@ parameters:
     mailer_user: null
     mailer_password: null
     locale: en
-    time_zone: "Europe/Berlin"
     secret: 76d6c5cda1dbba5f05023b825da087ae0214b5e7
     time_zone: "America/Caracas"
