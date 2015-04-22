@@ -100,6 +100,10 @@ Nueva_HC:
     path: /historiaC/Nuevo/{id}
     defaults: { _controller: EAMBundle:HistoriaClinica:Nuevo}
 
+Editar_HistoriaC:
+    path: /historiaC/editar/{id}
+    defaults: { _controller: EAMBundle:HistoriaClinica:Editar}
+
 
 logout:
    path: /logout

@@ -1,0 +1,373 @@
+{% extends "::baseClinica.html.twig" %}
+
+{% block title %}  Mostrar {% endblock %}
+
+{% block content %} 
+    <div class="row">
+        <div class="col-lg-12">
+            <h2 class="page-header"> Paciente {{paciente.nombre }} {{ paciente.apellido }}</h2>
+        </div>
+    </div>
+
+    
+
+       <div class="row">
+                <div class="col-lg-12">
+                    
+                <div class="row">
+
+                        <div class = "col-lg-4 col-lg-offset-4">  
+                        <h3>Editar Visita</h3>                                                  
+                        <form method="POST" action = "" novalidate>
+                                <div class = "form-group" >
+                                    {{ form_label(form.altura) }}
+                                    {{ form_widget(form.altura, {'attr':{'class':'form-control', 'data-toggle':'tooltip', 'data-placement':'right', 'title':'Lóngitud máxima 15 carácteres', 'data-container':'body'}}) }}
+
+                                    {{ form_label(form.peso) }}
+                                    {{ form_widget(form.peso, {'attr':{'class':'form-control', 'data-toggle':'tooltip', 'data-placement':'right', 'title':'Lóngitud máxima 15 carácteres', 'data-container':'body'}}) }}
+
+                                    <input type="hidden" value="{{ id_medico }}" name="id_medico" >
+
+                                    {{ form_label(form.presionArterial) }}
+                                    {{ form_widget(form.presionArterial, {'attr':{'class':'form-control', 'data-toggle':'tooltip', 'data-placement':'right', 'title':'Lóngitud máxima 15 carácteres', 'data-container':'body'}}) }}
+
+                                    {{ form_label(form.frecuenciaCard) }}
+                                    {{ form_widget(form.frecuenciaCard, {'attr':{'class':'form-control', 'data-toggle':'tooltip', 'data-placement':'right', 'title':'Lóngitud máxima 15 carácteres', 'data-container':'body'}}) }}
+
+                                    {{ form_label(form.temperatura) }}
+                                    {{ form_widget(form.temperatura, {'attr':{'class':'form-control', 'data-toggle':'tooltip', 'data-placement':'right', 'title':'Lóngitud máxima 15 carácteres', 'data-container':'body'}}) }}
+
+                                    {{ form_label(form.fechaVisita,'Fecha de Visita') }}
+                                    {{ form_widget(form.fechaVisita, {'attr':{'id':'datepicker', 'class':'form-control', 'placeholder':'dia-mes-año', 'id':'datepicker', 'readonly':''}}) }}
+
+                                    {{ form_label(form.fechaVisita,' Diagnostico ') }}
+
+                                    
+                                    <ul class="tags" data-prototype="{{ form_widget(form.diagnosticos.vars.prototype)|e }}>
+                                        
+
+                                    </ul>
+                                    {% do form.diagnosticos.setRendered %}
+                                    {% do form.referencias.setRendered %}
+                                    {% do form.prescripciones.setRendered %}
+                                    
+                                    {{ form_label(form.fechaVisita,' ') }}
+
+
+                                    {{ form_label(form.fechaVisita,' Prescripciones ') }}
+
+                                    <ul class="tags2" data-prototype="{{ form_widget(form.prescripciones.vars.prototype)|e }}>
+                                        
+                                    </ul>
+                                    
+                                    {{ form_label(form.fechaVisita,' ') }}
+
+                                    {{ form_label(form.fechaVisita,' Referencia ') }}
+
+                                    <ul class="tags3" data-prototype="{{ form_widget(form.referencias.vars.prototype)|e }}>
+                                        
+                                    </ul>
+                                    
+                                    {{ form_label(form.fechaVisita,' ') }}
+
+
+
+
+                                </div>
+                                
+                                <div style= "padding-bottom: 20px;">
+                                    {{form_widget(form.Guardar ,{'attr':{'class':'btn btn-outline btn-primary'}})}}
+                                    <a href="{{ path('Home') }}" ><button class="btn btn-outline btn-danger" type="button">Cancelar</button></a>
+                                </div>
+                                <div class = "row" >
+                                    {% do form.Cancelar.setRendered %}
+                                    {{ form_rest(form) }}               
+                                </div>
+
+
+                            </form>
+                        </div>
+                    </div>
+                   
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+
+    </div>
+
+
+
+    
+
+
+    <script>
+        var $collectionHolder;
+
+
+
+
+
+
+        function addTagForm($collectionHolder, $newLinkLi) {
+            // Get the data-prototype explained earlier
+            var prototype = $collectionHolder.data('prototype');
+
+            // get the new index
+            var index = $collectionHolder.data('index');
+
+            // Replace '__name__' in the prototype's HTML to
+            // instead be a number based on how many items we have
+            var newForm = prototype.replace(/__name__/g, index);
+
+            // increase the index with one for the next item
+            $collectionHolder.data('index', index + 1);
+
+            // Display the form in the page in an li, before the "Add a tag" link li
+
+            var $a = newForm;       
+
+            var $newFormLi = $("<br><div id='"+index+"' class='panel panel-primary'></div>").append(newForm);
+            $newLinkLi.before($newFormLi);
+
+            addTagFormDeleteLink($newFormLi);
+
+          
+            $('#'+index+" :input").each(function(){
+                $(this).addClass('form-control');
+            });
+
+        }
+
+
+
+        function addTagFormDeleteLink($tagFormLi) {
+            var $removeFormA = $('<div class="panel-footer"><a href="#" class="fa fa-times">Eliminar</a></div>');
+            $tagFormLi.append($removeFormA);
+
+            $removeFormA.on('click', function(e) {
+                // prevent the link from creating a "#" on the URL
+                e.preventDefault();
+
+                // remove the li for the tag form
+                $tagFormLi.remove();
+            });
+        }
+
+
+
+        // setup an "add a tag" link
+        var $addTagLink = $('<br><a href="#" class="fa fa-plus">Agregar Diagnostico</a>');
+        var $newLinkLi = $('<div></div>').append($addTagLink);
+
+        jQuery(document).ready(function() {
+            // Get the ul that holds the collection of tags
+            $collectionHolder = $('ul.tags');
+
+            $collectionHolder.find('div').each(function() {
+                addTagFormDeleteLink($(this));
+            });
+
+            // add the "add a tag" anchor and li to the tags ul
+            $collectionHolder.append($newLinkLi);
+
+            // count the current form inputs we have (e.g. 2), use that as the new
+            // index when inserting a new item (e.g. 2)
+            $collectionHolder.data('index', $collectionHolder.find(':input').length);
+
+            $addTagLink.on('click', function(e) {
+                // prevent the link from creating a "#" on the URL
+                e.preventDefault();
+
+                // add a new tag form (see next code block)
+                addTagForm($collectionHolder, $newLinkLi);
+            });
+        });
+
+
+        function addTagForm2($collectionHolder2, $newLinkLi2) {
+        // Get the data-prototype explained earlier
+        var prototype2 = $collectionHolder2.data('prototype');
+
+        // get the new index
+        var index2 = $collectionHolder2.data('index');
+
+        indexAnhadido = index2;
+
+        // Replace '__name__' in the prototype's HTML to
+        // instead be a number based on how many items we have
+        var newForm2 = prototype2.replace(/__name__/g, index2);
+
+        // increase the index with one for the next item
+        $collectionHolder2.data('index', index2 + 1);
+
+        // Display the form in the page in an li, before the "Add a tag" link li
+
+        var $a = newForm2;
+
+        var $newFormLi2 = $("<br><div id='"+index2+"' class='panel panel-primary'></div>").append(newForm2);
+        $newLinkLi2.before($newFormLi2);
+
+        addTagFormDeleteLink2($newFormLi2);
+
+
+
+       
+
+      
+        /*$('#'+index2+" :input").each(function(){
+            $(this).addClass('form-control');
+        });*/
+
+    }
+
+
+    function addTagFormDeleteLink2($tagFormLi2) {
+        var $removeFormA2 = $('<div class="panel-footer"><a href="#" class="fa fa-times">Eliminar</a></div>');
+        $tagFormLi2.append($removeFormA2);
+
+        $removeFormA2.on('click', function(e) {
+            // prevent the link from creating a "#" on the URL
+            e.preventDefault();
+
+            // remove the li for the tag form
+            $tagFormLi2.remove();
+        });
+    }
+
+
+
+
+
+
+
+    var $collectionHolder2;
+
+    var $addTagLink2 = $('<br><a href="#" class="fa fa-plus">Agregar otra Prescripcion</a>');
+    var $newLinkLi2 = $('<div></div>').append($addTagLink2);
+
+    jQuery(document).ready(function() {
+        // Get the ul that holds the collection of tags
+        $collectionHolder2 = $('ul.tags2');
+
+         // add a delete link to all of the existing tag form li elements
+        $collectionHolder2.find('div').each(function() {
+            addTagFormDeleteLink2($(this));
+        });
+
+        // add the "add a tag" anchor and li to the tags ul
+        $collectionHolder2.append($newLinkLi2);
+
+       
+
+        // count the current form inputs we have (e.g. 2), use that as the new
+        // index when inserting a new item (e.g. 2)
+        $collectionHolder2.data('index', $collectionHolder2.find(':input').length);
+
+        $addTagLink2.on('click', function(e) {
+            // prevent the link from creating a "#" on the URL
+            e.preventDefault();
+
+            // add a new tag form (see next code block)
+            addTagForm2($collectionHolder2, $newLinkLi2);
+        });
+    });
+
+
+
+    function addTagForm3($collectionHolder3, $newLinkLi3) {
+        // Get the data-prototype explained earlier
+        var prototype3 = $collectionHolder3.data('prototype');
+
+        // get the new index
+        var index3 = $collectionHolder3.data('index');
+
+        indexAnhadido = index3;
+
+        // Replace '__name__' in the prototype's HTML to
+        // instead be a number based on how many items we have
+        var newForm3 = prototype3.replace(/__name__/g, index3);
+
+        // increase the index with one for the next item
+        $collectionHolder3.data('index', index3 + 1);
+
+        // Display the form in the page in an li, before the "Add a tag" link li
+
+        var $a = newForm3;
+
+        var $newFormLi3 = $("<br><div id='"+index3+"' class='panel panel-primary'></div>").append(newForm3);
+        $newLinkLi3.before($newFormLi3);
+
+        addTagFormDeleteLink2($newFormLi3);
+
+
+
+       
+
+      
+        /*$('#'+index2+" :input").each(function(){
+            $(this).addClass('form-control');
+        });*/
+
+    }
+
+
+    function addTagFormDeleteLink3($tagFormLi3) {
+        var $removeFormA3 = $('<div class="panel-footer"><a href="#" class="fa fa-times">Eliminar</a></div>');
+        $tagFormLi3.append($removeFormA3);
+
+        $removeFormA3.on('click', function(e) {
+            // prevent the link from creating a "#" on the URL
+            e.preventDefault();
+
+            // remove the li for the tag form
+            $tagFormLi3.remove();
+        });
+    }
+
+
+
+
+
+
+
+    var $collectionHolder3;
+
+    var $addTagLink3 = $('<br><a href="#" class="fa fa-plus">Agregar una Referencia</a>');
+    var $newLinkLi3 = $('<div></div>').append($addTagLink3);
+
+    jQuery(document).ready(function() {
+        // Get the ul that holds the collection of tags
+        $collectionHolder3 = $('ul.tags3');
+
+         // add a delete link to all of the existing tag form li elements
+        $collectionHolder3.find('div').each(function() {
+            addTagFormDeleteLink3($(this));
+        });
+
+        // add the "add a tag" anchor and li to the tags ul
+        $collectionHolder3.append($newLinkLi3);
+
+       
+
+        // count the current form inputs we have (e.g. 2), use that as the new
+        // index when inserting a new item (e.g. 2)
+        $collectionHolder3.data('index', $collectionHolder3.find(':input').length);
+
+        $addTagLink3.on('click', function(e) {
+            // prevent the link from creating a "#" on the URL
+            e.preventDefault();
+
+            // add a new tag form (see next code block)
+            addTagForm3($collectionHolder3, $newLinkLi3);
+        });
+    });
+
+
+
+    </script>
+
+
+    
+
+    
+{% endblock %}

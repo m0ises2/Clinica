@@ -57,6 +57,8 @@ class HistoriaClinicaController extends Controller{
 
         	if($form->isValid()){
 
+                $HC->setIdMedico($request->get('id_medico'));
+
         		$HC->setIdPaciente($id);
 
                 $dia = $HC->getDiagnosticos();
@@ -111,6 +113,35 @@ class HistoriaClinicaController extends Controller{
 
 		return $this->render('EAMBundle:HCInicial:buscarHC.html.twig', array('pacientes' => $pacientes,'form' => $form->createView() , 'nombre' => $this->getUser()->getnombreUsuario(), 'error' => $error)); 
 	}
+
+
+    public function EditarAction($id){
+
+        if ( $this->getUser() === NULL ){
+            return $this->redirect($this->generateUrl('login'));
+        }
+
+
+
+        $error ="";
+
+        $repo = $this->getDoctrine()->getManager();
+        $Historial = $repo->getRepository('EAMBundle:HistoriaClinica')->find($id);
+
+        $form = $this ->createForm(new HistoriaClinicaType(), $Historial);
+
+        $repo = $this->getDoctrine()->getManager();
+        $HCI = $repo->getRepository('EAMBundle:HCInicial')->findOneByIdPaciente($Historial->getIdPaciente());
+
+
+
+        $repo = $this->getDoctrine()->getManager();
+        $paciente = $repo->getRepository('EAMBundle:Paciente')->find($Historial->getIdPaciente());
+
+
+        return $this->render('EAMBundle:HistoriaClinica:editar.html.twig', array('historial'=>$Historial,'id_medico' => $this->getUser()->getId(),'error' => '','form' => $form->createView(),'paciente' => $paciente, 'HCI' => $HCI,'nombre' => $this->getUser()->getnombreUsuario()));
+
+    }
 
 
 	private function addLog( $nombreUsuario, $user_id, $mensaje ){

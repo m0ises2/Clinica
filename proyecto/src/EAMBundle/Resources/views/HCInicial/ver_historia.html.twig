@@ -24,6 +24,8 @@
                         <div class="panel-heading">
                             Historia Clinica 
                             &nbsp&nbsp<a type="button" href="{{ path('Editar_historia', {'id': paciente.id} ) }}" class="btn btn-outline btn-primary">Editar</a>
+
+                            
                         </div>
 
                         <!-- .panel-heading -->
@@ -58,7 +60,7 @@
 
                                                             <tr>
                                                                 <td> <b> Fecha de Nacimiento: </b> </td>
-                                                                <td> {{ paciente.fechasNac|date('d/m/y') }} </td>
+                                                                <td> {{ paciente.fechasNac|date('d/m/y')}} </td>
                                                             </tr>
                                                             <tr>
                                                                 <td> <b> Dirección: </b> </td>
@@ -108,57 +110,66 @@
                                         </h4>
                                     </div>
                                     <div id="collapseTwo" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
-                                        <div class="panel-body">
-                                            <div class="col-lg-6">
-                                                <div class = "panel panel-info">
-                                                    <div class = "panel-body">
-                                                        <div class = "table-responsive">
-                                                            <table class = "table">
-                                                                <tbody>
-                                                                    <tr>
-                                                                        <td> <b> ¿Consume Alcohol? :</b> </td>
-                                                                        <td> {{ HCI.alcohol }} </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td> <b> ¿Fuma? :</b> </td>
-                                                                        <td> {{ HCI.tabaco }} </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td> <b> Alergias: </b> </td>
-                                                                        <td><br>
-                                                                            {% for alergias in HCI.alergias%}
-                                                                                <div>
-                                                                                    {{alergias.descripcion}}
-                                                                                </div>
-                                                                                <div>
-                                                                                    Actualizado el: {{alergias.fecha|date('d/m/y')}}
-                                                                                </div>
-                                                                            {% endfor %}
-                                                                        </td>
-                                                                    </tr>
 
-                                                                    <tr>
-                                                                        <td> <b> Medicamentos Usados: </b> </td>
-                                                                        <td><br>
-                                                                            {% for medicamentos in HCI.medicamentosUsados%}
-                                                                                <div>
-                                                                                    {{medicamentos.descripcion}}
-                                                                                </div>
-                                                                                <div>
-                                                                                    Actualizado el: {{medicamentos.fecha|date('d/m/y')}}
-                                                                                </div>
-                                                                            {% endfor %}
-                                                                        </td>
-                                                                    </tr>
 
-                                                                </body>
-                                                            </table>
+                                        {% if HCI.alcohol is not defined %}
+                                            <div class="panel-body">
+                                           </div>
+                                        {% else %}
+                                           
+
+                                           <div class="panel-body">
+                                                <div class="col-lg-6">
+                                                    <div class = "panel panel-info">
+                                                        <div class = "panel-body">
+                                                            <div class = "table-responsive">
+                                                                <table class = "table">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td> <b> ¿Consume Alcohol? :</b> </td>
+                                                                            <td> {{ HCI.alcohol }} </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td> <b> ¿Fuma? :</b> </td>
+                                                                            <td> {{ HCI.tabaco }} </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td> <b> Alergias: </b> </td>
+                                                                            <td><br>
+                                                                                {% for alergias in HCI.alergias%}
+                                                                                    <div>
+                                                                                        {{alergias.descripcion}}
+                                                                                    </div>
+                                                                                    <div>
+                                                                                        Actualizado el: {{alergias.fecha|date('d/m/y')}}
+                                                                                    </div>
+                                                                                {% endfor %}
+                                                                            </td>
+                                                                        </tr>
+
+                                                                        <tr>
+                                                                            <td> <b> Medicamentos Usados: </b> </td>
+                                                                            <td><br>
+                                                                                {% for medicamentos in HCI.medicamentosUsados%}
+                                                                                    <div>
+                                                                                        {{medicamentos.descripcion}}
+                                                                                    </div>
+                                                                                    <div>
+                                                                                        Actualizado el: {{medicamentos.fecha|date('d/m/y')}}
+                                                                                    </div>
+                                                                                {% endfor %}
+                                                                            </td>
+                                                                        </tr>
+
+                                                                    </body>
+                                                                </table>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                
-                                        </div>
-                                        </div>
+                                                    
+                                            </div>
+                                            </div>
+                                        {% endif %}
                                     </div>
                                 </div>
                                 <div class="panel panel-default">
@@ -179,7 +190,10 @@
                                                     
                                                         <div class = "table-responsive">
 
+                                                                {% if historia.idMedico == id_medico%}
+                                                                    <a type="button" href="{{path('Editar_HistoriaC', {'id': historia.id} )}}" class="btn btn-outline btn-primary">Editar</a>
 
+                                                                {% endif %}
                                                             <table class = "table">
                                                                 <tbody>
                                                                     <tr>
@@ -327,6 +341,9 @@
                                     <ul class="tags" data-prototype="{{ form_widget(form.diagnosticos.vars.prototype)|e }}>
                                         
                                     </ul>
+                                    {% do form.diagnosticos.setRendered %}
+                                    {% do form.referencias.setRendered %}
+                                    {% do form.prescripciones.setRendered %}
                                     
                                     {{ form_label(form.fechaVisita,' ') }}
 
@@ -346,6 +363,8 @@
                                     </ul>
                                     
                                     {{ form_label(form.fechaVisita,' ') }}
+
+
 
 
                                 </div>
@@ -368,6 +387,10 @@
             </div>
 
     </div>
+
+
+
+    
 
 
     <script>

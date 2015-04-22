@@ -177,22 +177,21 @@ class HCInicialController extends Controller
         $repo = $this->getDoctrine()->getManager();
         $HCI = $repo->getRepository('EAMBundle:HCInicial')->findOneByIdPaciente($id);
 
+        if(!$HCI){
+            $HCI = null;
+        }
+
+
         $repo = $this->getDoctrine()->getManager();
         $paciente = $repo->getRepository('EAMBundle:Paciente')->find($id);        
 
         $HC = new HistoriaClinica();
         $form = $this ->createForm(new HistoriaClinicaType(), $HC);
 
-        /*$repositorio = $this->getDoctrine()->getRepository('EAMBundle:HistoriaClinica');
-          $query = $repositorio->createQueryBuilder('r')
-                               ->Where('r.id = :id')
-                               ->setParameter('id', $paciente->getId())
-                               ->orderBy('r.fechaVisita', 'ASC')
-                               ->getQuery();
-
-        $Historial = $query->getResult();*/
+        
 
         $Historial = $repo->getRepository('EAMBundle:HistoriaClinica')->findByIdPaciente($id);
+
 
         return $this->render('EAMBundle:HCInicial:ver_historia.html.twig', array('historial'=>$Historial,'id_medico' => $this->getUser()->getId(),'error' => '','form' => $form->createView(),'paciente' => $paciente, 'HCI' => $HCI,'nombre' => $this->getUser()->getnombreUsuario()));
 

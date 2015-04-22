@@ -70,6 +70,13 @@ class HistoriaClinica
     /**
      * @var integer
      *
+     * @ORM\Column(name="id_medico", type="integer", nullable=false)
+     */
+    private $idMedico;    
+
+    /**
+     * @var integer
+     *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
@@ -298,6 +305,17 @@ class HistoriaClinica
     public function removeExamene(\EAMBundle\Entity\Examen $examenes)
     {
         $this->examenes->removeElement($examenes);
+    }
+
+
+    public function setIdMedico($idmedico){
+        $this->idMedico = $idmedico;
+
+        return $this;
+    }
+
+    public function getIdMedico(){
+        return $this->idMedico;
     }
 
     /**
