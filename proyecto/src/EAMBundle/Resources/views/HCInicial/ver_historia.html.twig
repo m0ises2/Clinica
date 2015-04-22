@@ -252,6 +252,27 @@
                                                                     </tr>
 
                                                                     <tr>
+                                                                        <td> <b> Examenes: </b> </td>
+                                                                        <td><br>
+
+                                                                            {% for examenes in historia.examenes %}
+                                                                                <div class="panel panel-primary">
+                                                                                    <div>Examenes </div>
+                                                                                    <div>
+                                                                                        Fecha: {{examenes.fechas|date('d/m/y')}}
+                                                                                    </div>
+                                                                                    <div>
+                                                                                        {{examenes.perfil}}
+                                                                                    </div>
+                                                                                    <div>
+                                                                                        {{examenes.descripcion}}
+                                                                                    </div>
+                                                                                </div>                                 
+                                                                            {% endfor %}
+                                                                        </td>
+                                                                    </tr>
+
+                                                                    <tr>
                                                                         <td> <b> Referencias: </b> </td>
                                                                         <td><br>
 
@@ -324,16 +345,22 @@
 
                                     {{ form_label(form.fechaVisita,' Diagnostico ') }}
 
-                                    <ul class="tags" data-prototype="{{ form_widget(form.diagnosticos.vars.prototype)|e }}>
+                                    <ul class="tags" data-prototype="{{ form_widget(form.diagnosticos.vars.prototype)|e }}">
                                         
                                     </ul>
-                                    
+
                                     {{ form_label(form.fechaVisita,' ') }}
 
 
                                     {{ form_label(form.fechaVisita,' Prescripciones ') }}
 
-                                    <ul class="tags2" data-prototype="{{ form_widget(form.prescripciones.vars.prototype)|e }}>
+                                    <ul class="tags2" data-prototype="{{ form_widget(form.prescripciones.vars.prototype)|e }}">
+                                        
+                                    </ul>
+
+                                    {{form_label(form.examenes,'Examenes')}}
+
+                                    <ul class="tags4" data-prototype="{{ form_widget(form.examenes.vars.prototype)|e }}">
                                         
                                     </ul>
                                     
@@ -341,7 +368,7 @@
 
                                     {{ form_label(form.fechaVisita,' Referencia ') }}
 
-                                    <ul class="tags3" data-prototype="{{ form_widget(form.referencias.vars.prototype)|e }}>
+                                    <ul class="tags3" data-prototype="{{ form_widget(form.referencias.vars.prototype)|e }}">
                                         
                                     </ul>
                                     
@@ -356,6 +383,10 @@
                                 </div>
                                 <div class = "row" >
                                     {% do form.Cancelar.setRendered %}
+                                    {% do form.diagnosticos.setRendered %}
+                                    {% do form.prescripciones.setRendered %}
+                                    {% do form.examenes.setRendered %}
+                                    {% do form.referencias.setRendered %}
                                     {{ form_rest(form) }}               
                                 </div>
 
@@ -631,10 +662,81 @@
             addTagForm3($collectionHolder3, $newLinkLi3);
         });
     });
+////////////////////////// mi Parte de examenes//////////////////////////
+// Obtiene la ul que contiene la colección de etiquetas
+var collectionHolder4 = $('ul.tags4');
+
+// configura una enlace "Agregar una etiqueta"
+var $addTagLink4 = $('<br><a href="#" class="fa fa-plus">Agregar Examenes</a>');
+var $newLinkLi4 = $('<div></div>').append($addTagLink4);
+
+jQuery(document).ready(function() {
+    // Añade el ancla "Agregar una etiqueta" y las etiquetas li y ul
+    collectionHolder4.append($newLinkLi4);
+    // cuenta las entradas actuales en el formulario (p. ej. 2),
+    // la usa como índice al insertar un nuevo elemento (p. ej. 2)
+    collectionHolder4.data('index', collectionHolder4.find(':input').length);
+
+    $addTagLink4.on('click', function(e) {
+        // evita crear el enlace con una "#" en la URL
+        e.preventDefault();
+
+        // añade una nueva etiqueta form (ve el siguiente bloque de código)
+        addTagForm(collectionHolder4, $newLinkLi4);
+    });
+});
+
+function addTagForm4($collectionHolder4, $newLinkLi4) {
+        // Get the data-prototype explained earlier
+        var prototype4 = $collectionHolder4.data('prototype');
+
+        // get the new index
+        var index4 = $collectionHolder4.data('index');
+
+        indexAnhadido = index4;
+
+        // Replace '__name__' in the prototype's HTML to
+        // instead be a number based on how many items we have
+        var newForm4 = prototype4.replace(/__name__/g, index4);
+
+        // increase the index with one for the next item
+        $collectionHolder4.data('index', index4 + 1);
+
+        // Display the form in the page in an li, before the "Add a tag" link li
+
+        var $a = newForm4;
+
+        var $newFormLi4 = $("<br><div id='"+index4+"' class='panel panel-primary'></div>").append(newForm4);
+        $newLinkLi4.before($newFormLi4);
+
+        addTagFormDeleteLink2($newFormLi4);
 
 
 
-    </script>
+       
+
+      
+        /*$('#'+index2+" :input").each(function(){
+            $(this).addClass('form-control');
+        });*/
+
+    }
+
+
+    function addTagFormDeleteLink3($tagFormLi3) {
+        var $removeFormA3 = $('<div class="panel-footer"><a href="#" class="fa fa-times">Eliminar</a></div>');
+        $tagFormLi3.append($removeFormA3);
+
+        $removeFormA3.on('click', function(e) {
+            // prevent the link from creating a "#" on the URL
+            e.preventDefault();
+
+            // remove the li for the tag form
+            $tagFormLi3.remove();
+        });
+    }
+
+</script>
 
 
     

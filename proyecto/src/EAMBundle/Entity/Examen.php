@@ -154,4 +154,9 @@ class Examen
     {
         return $this->historiaclinica;
     }
+    public function addHistoriaClinica(HistoriaClinica $historia){
+        if(!$this->examenes->contains($historia)){
+            $this->examenes->add($historia);
+        }
+    }
 }
