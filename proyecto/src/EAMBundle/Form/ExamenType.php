@@ -21,7 +21,7 @@ class ExamenType extends AbstractType
             ->add('perfil', 'choice',array('label'=> 'Perfil de Examen',
                             'choices' => array('Hematologia' => 'Hematologia', 'Orina' => 'Orina', 'Heces' => 'Heces','Glicemia' => 'Glicemia'),
                             'multiple' => true,
-                            'expanded' => true,'attr' => array('class' =>'checkbox-inline'),))
+                            'expanded' => true))
             ->add('descripcion','textarea');
     }
 
