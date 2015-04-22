@@ -14,13 +14,15 @@ class ExamenType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $perfiles = array("Hematologia Completa","Orina","Heces","Cardiologico","Lipidico","Glicemia",
+            "Colesterol","Insulina","Urea","Creatinina");
         $builder
             ->add('fecha','date', array('widget' => 'single_text', 'format' => 'dd-MM-yyyy','label' => 'Fecha de Cita'))
-            ->add('perfil', 'text',array('label'=> 'Perfil'))
-            ->add('descripcion','textarea')
-            //->add('historiaclinica','entity',array(
-              //'class' => 'EAMBundle:HistoriaClinica','attr'=> array('class' => 'hidden'), 'label'=>false))
-        ;
+            ->add('perfil', 'choice',array('label'=> 'Perfil de Examen',
+                            'choices' => $perfiles,
+                            'multiple' => true,
+                            'expanded' => true,))
+            ->add('descripcion','textarea');
     }
     
     /**

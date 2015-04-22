@@ -48,7 +48,7 @@
 	    			</div>
 				{% endif %}
 
-				{{ form_label(form.medico,'Medico') }}
+				{{ form_label(form.medico) }}
 	    		{{ form_widget(form.medico, {'attr':{'class':'form-control' , 'data-toggle':'tooltip', 'data-placement':'right','title':'Medico que atendio la visita', 'data-container':'body'}}) }}
 	    		{% if form_errors(form.medico) %}
 	    			<div class = "alert alert-danger alert-dismissable">
