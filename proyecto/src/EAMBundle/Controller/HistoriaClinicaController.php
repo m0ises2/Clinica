@@ -20,6 +20,7 @@ use EAMBundle\Entity\Diagnostico;
 use EAMBundle\Entity\Prescripciones;
 
 use EAMBundle\Entity\Referencia;
+use EAMBundle\Entity\Examen;
 
 
 use EAMBundle\Form\HistoriaClinicaType;
@@ -36,7 +37,7 @@ class HistoriaClinicaController extends Controller{
         $error ="";
 
         $HC = new HistoriaClinica();
-
+       // $examenes = new Examen();
         $diagnostico = new Diagnostico();
         $prescripciones = new Prescripciones();
 
@@ -46,6 +47,7 @@ class HistoriaClinicaController extends Controller{
         $HC->getDiagnosticos()->add($diagnostico);
         $HC->getPrescripciones()->add($prescripciones);
         $HC->getReferencias()->add($referencia);
+        $HC->getExamenes()->add($examenes);
 
         $form = $this ->createForm(new HistoriaClinicaType(), $HC);
 
@@ -88,6 +90,16 @@ class HistoriaClinicaController extends Controller{
                 }
 
                 $HC->setReferencias($ref);
+
+                //$exa = $HC->getExamenes();
+
+
+                /*foreach ($exa as $re) {
+                    $exa->setHistoriaclinica($HC->getId());
+
+                }*/
+
+                //$HC->setReferencias($exa);
 
 
         		$em = $this->getDoctrine()->getManager();

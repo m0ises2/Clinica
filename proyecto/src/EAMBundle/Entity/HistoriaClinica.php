@@ -283,7 +283,7 @@ class HistoriaClinica
      * @param \EAMBundle\Entity\Examen $examenes
      * @return HistoriaClinica
      */
-    public function addExamene(\EAMBundle\Entity\Examen $examenes)
+    public function addExamenes(\EAMBundle\Entity\Examen $examenes)
     {
         $this->examenes[] = $examenes;
     
@@ -295,7 +295,7 @@ class HistoriaClinica
      *
      * @param \EAMBundle\Entity\Examen $examenes
      */
-    public function removeExamene(\EAMBundle\Entity\Examen $examenes)
+    public function removeExamenes(\EAMBundle\Entity\Examen $examenes)
     {
         $this->examenes->removeElement($examenes);
     }

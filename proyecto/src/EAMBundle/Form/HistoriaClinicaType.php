@@ -31,6 +31,11 @@ class HistoriaClinicaType extends AbstractType
                 'allow_add'=>'true','by_reference'=>'false',
                 'allow_delete' =>'true'
                 ))
+            ->add('examenes','collection',array(
+                'type'=> new ExamenType(), 
+                'allow_add'=>'true','by_reference'=>'false',
+                'allow_delete' =>'true'
+                ))
             ->add('referencias','collection',array(
                 'type'=> new ReferenciaType(), 
                 'allow_add'=>'true','by_reference'=>'false',
