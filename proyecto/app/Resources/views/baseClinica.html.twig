@@ -145,8 +145,8 @@
                                 </ul>
                                 <!-- /.nav-second-level -->
                             </li>
-                        
-                        {# La gestion de visitas no necesita condicionarse ya que todo el personal puede gestionar citas #}
+
+                        {% if is_granted('ROLE_MEDICO') or is_granted('ROLE_ENFERMERA') %}                       
                             <li>
                                 <a href="#">
                                     <i class="fa fa-hospital-o fa-fw"></i></i> Visitas <span class="fa arrow"></span></a>
@@ -173,37 +173,8 @@
                                 </ul>
                                 <!-- /.nav-second-level -->
                             </li>
+                        {% endif %}
                         
-                        <li>
-                            <a href="#"> =)(/%$#" <span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="#">Second Level Item</a>
-                                </li>
-                                <li>
-                                    <a href="#">Second Level Item</a>
-                                </li>
-                                <li>
-                                    <a href="#">Third Level <span class="fa arrow"></span></a>
-                                    <ul class="nav nav-third-level">
-                                        <li>
-                                            <a href="#">Third Level Item</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Third Level Item</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Third Level Item</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Third Level Item</a>
-                                        </li>
-                                    </ul>
-                                    <!-- /.nav-third-level -->
-                                </li>
-                            </ul>
-                            <!-- /.nav-second-level -->
-                        </li>
                         {% if is_granted('ROLE_ADMIN') %}
                         <li>
                             <a href="#"><i class="fa fa-shield fa-fw"></i> Avanzado <span class="fa arrow"></span></a>
@@ -263,7 +234,7 @@
 
                         <div class = "row" >
                             {% if is_granted('ROLE_ADMIN') %}
-                                <div class="col-lg-3 col-md-6 ">
+                                <div class="col-lg-3 col-md-6">
                                     <div class="panel panel-primary">
                                         <div class="panel-heading">
                                             <div class="row">
@@ -286,164 +257,234 @@
                                 </div>
                             {% endif %}
 
-                            <div class="col-lg-3 col-md-6">
-                                <div class="panel panel-primary">
-                                    <div class="panel-heading">
-                                        <div class="row">
-                                            <div class="col-xs-2">
-                                                <i class="fa fa-calendar fa-3x"></i>
-                                            </div>
-                                            <div class="col-xs-10 text-right">
-                                                <h5>Gestión de Citas</h5>
+
+                            {% if is_granted('ROLE_ADMINISTRATIVO') and not (is_granted('ROLE_ADMIN')) %}
+                                <div class="col-lg-3 col-md-6 col-lg-offset-2">
+                                    <div class="panel panel-primary">
+                                        <div class="panel-heading">
+                                            <div class="row">
+                                                <div class="col-xs-2">
+                                                    <i class="fa fa-calendar fa-3x"></i>
+                                                </div>
+                                                <div class="col-xs-10 text-right">
+                                                    <h5>Gestión de Citas</h5>
+                                                </div>
                                             </div>
                                         </div>
+                                        <a href="{{ path('Mostrar_citas') }}">
+                                            <div class="panel-footer">
+                                                <span class="pull-left">Ir</span>
+                                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </a>
                                     </div>
-                                    <a href="{{ path('Mostrar_citas') }}">
-                                        <div class="panel-footer">
-                                            <span class="pull-left">Ir</span>
-                                            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                            <div class="clearfix"></div>
+                                </div>
+     
+                                <div class="col-lg-3 col-md-6 col-lg-offset-2">
+                                    <div class="panel panel-primary">
+                                        <div class="panel-heading">
+                                            <div class="row">
+                                                <div class="col-xs-2">
+                                                    <i class="fa fa-user-md fa-3x"></i>
+                                                </div>
+                                                <div class="col-xs-10 text-right">
+                                                    <h5>Gestión de Pacientes</h5>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </a>
+                                        <a href="{{ path('Buscar_Pacientes') }}">
+                                            <div class="panel-footer">
+                                                <span class="pull-left">Ir</span>
+                                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            {% endif %}
+
+                            {% if is_granted('ROLE_MEDICO') or is_granted('ROLE_ENFERMERA') %}
+                                <div class="col-lg-3 col-md-6">
+                                    <div class="panel panel-primary">
+                                        <div class="panel-heading">
+                                            <div class="row">
+                                                <div class="col-xs-2">
+                                                    <i class="fa fa-calendar fa-3x"></i>
+                                                </div>
+                                                <div class="col-xs-10 text-right">
+                                                    <h5>Gestión de Citas</h5>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <a href="{{ path('Mostrar_citas') }}">
+                                            <div class="panel-footer">
+                                                <span class="pull-left">Ir</span>
+                                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </a>
+                                    </div>
+
                                 </div>
 
-                            </div>
- 
-                            <div class="col-lg-3 col-md-6">
-                                <div class="panel panel-primary">
-                                    <div class="panel-heading">
-                                        <div class="row">
-                                            <div class="col-xs-2">
-                                                <i class="fa fa-user-md fa-3x"></i>
-                                            </div>
-                                            <div class="col-xs-10 text-right">
-                                                <h5>Gestión de Pacientes</h5>
+                                {% if (is_granted('ROLE_MEDICO') or is_granted('ROLE_ENFERMERA')) and not (is_granted('ROLE_ADMIN')) %}
+                                    <div class="col-lg-3 col-md-6 col-lg-offset-1">
+                                {% else %}
+                                    <div class="col-lg-3 col-md-6">
+                                {% endif %}
+                                    <div class="panel panel-primary">
+                                        <div class="panel-heading">
+                                            <div class="row">
+                                                <div class="col-xs-2">
+                                                    <i class="fa fa-user-md fa-3x"></i>
+                                                </div>
+                                                <div class="col-xs-10 text-right">
+                                                    <h5>Gestión de Pacientes</h5>
+                                                </div>
                                             </div>
                                         </div>
+                                        <a href="{{ path('Buscar_Pacientes') }}">
+                                            <div class="panel-footer">
+                                                <span class="pull-left">Ir</span>
+                                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </a>
                                     </div>
-                                    <a href="{{ path('Buscar_Pacientes') }}">
-                                        <div class="panel-footer">
-                                            <span class="pull-left">Ir</span>
-                                            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                            <div class="clearfix"></div>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-3 col-md-6">
-                                <div class="panel panel-primary">
-                                    <div class="panel-heading">
-                                        <div class="row">
-                                            <div class="col-xs-2">
-                                                <i class="fa fa-book fa-3x"></i>
-                                            </div>
-                                            <div class="col-xs-10 text-right">
-                                                <h5>Gestión de XXXXXXXX</h5>
+                              </div>
+                          
+                                {% if (is_granted('ROLE_MEDICO') or is_granted('ROLE_ENFERMERA')) and not (is_granted('ROLE_ADMIN')) %}
+                                    <div class="col-lg-3 col-md-6 col-lg-offset-1">
+                                {% else %}
+                                    <div class="col-lg-3 col-md-6">
+                                {% endif %}
+                                    <div class="panel panel-primary">
+                                        <div class="panel-heading">
+                                            <div class="row">
+                                                <div class="col-xs-2">
+                                                    <i class="fa fa-book fa-3x"></i>
+                                                </div>
+                                                <div class="col-xs-10 text-right">
+                                                    <h5>Gestión de UNDEFINED</h5>
+                                                </div>
                                             </div>
                                         </div>
+                                        <a href="#">
+                                            <div class="panel-footer">
+                                                <span class="pull-left">Ir</span>
+                                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </a>
                                     </div>
-                                    <a href="#">
-                                        <div class="panel-footer">
-                                            <span class="pull-left">Ir</span>
-                                            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                            <div class="clearfix"></div>
-                                        </div>
-                                    </a>
                                 </div>
-                            </div>
-
+                            {% endif %}
                         </div>
                         
-                        <div class = "row" >
-                             <div class="col-lg-3 col-md-6">
-                                <div class="panel panel-primary">
-                                    <div class="panel-heading">
-                                        <div class="row">
-                                            <div class="col-xs-2">
-                                                <i class="fa fa-user-md fa-3x"></i>
-                                            </div>
-                                            <div class="col-xs-10 text-right">
-                                                <h5>Gestión de Historias</h5>
+                        {% if is_granted('ROLE_MEDICO') or is_granted('ROLE_ENFERMERA') %}
+                            <div class = "row" >
+                                 <div class="col-lg-3 col-md-6">
+                                    <div class="panel panel-primary">
+                                        <div class="panel-heading">
+                                            <div class="row">
+                                                <div class="col-xs-2">
+                                                    <i class="fa fa-user-md fa-3x"></i>
+                                                </div>
+                                                <div class="col-xs-10 text-right">
+                                                    <h5>Gestión de Historias</h5>
+                                                </div>
                                             </div>
                                         </div>
+                                        <a href="#">
+                                            <div class="panel-footer">
+                                                <span class="pull-left">Ir</span>
+                                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </a>
                                     </div>
-                                    <a href="#">
-                                        <div class="panel-footer">
-                                            <span class="pull-left">Ir</span>
-                                            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                            <div class="clearfix"></div>
-                                        </div>
-                                    </a>
                                 </div>
-                            </div>
 
-                            <div class="col-lg-3 col-md-6">
-                                <div class="panel panel-primary">
-                                    <div class="panel-heading">
-                                        <div class="row">
-                                            <div class="col-xs-2">
-                                                <i class="fa fa-hospital-o fa-3x"></i>
-                                            </div>
-                                            <div class="col-xs-10 text-right">
-                                                <h5>Gestión de Visitas</h5>
+                                 {% if (is_granted('ROLE_MEDICO') or is_granted('ROLE_ENFERMERA')) and not (is_granted('ROLE_ADMIN'))%}
+                                    <div class="col-lg-3 col-md-6 col-lg-offset-1">
+                                {% else %}
+                                    <div class="col-lg-3 col-md-6">
+                                {% endif %}
+                                    <div class="panel panel-primary">
+                                        <div class="panel-heading">
+                                            <div class="row">
+                                                <div class="col-xs-2">
+                                                    <i class="fa fa-hospital-o fa-3x"></i>
+                                                </div>
+                                                <div class="col-xs-10 text-right">
+                                                    <h5>Gestión de Visitas</h5>
+                                                </div>
                                             </div>
                                         </div>
+                                        <a href="{{ path('Visita_Mostrar') }}">
+                                            <div class="panel-footer">
+                                                <span class="pull-left">Ir</span>
+                                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </a>
                                     </div>
-                                    <a href="{{ path('Visita_Mostrar') }}">
-                                        <div class="panel-footer">
-                                            <span class="pull-left">Ir</span>
-                                            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                            <div class="clearfix"></div>
-                                        </div>
-                                    </a>
                                 </div>
-                            </div>
-                         
-                            <div class="col-lg-3 col-md-6">
-                                <div class="panel panel-primary">
-                                    <div class="panel-heading">
-                                        <div class="row">
-                                            <div class="col-xs-2">
-                                                <i class="fa fa-book fa-3x"></i>
-                                            </div>
-                                            <div class="col-xs-10 text-right">
-                                                <h5>Ver Bitácora</h5>
+                            {% endif %}
+                            
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <div class="col-lg-3 col-md-6">
+                                    <div class="panel panel-primary">
+                                        <div class="panel-heading">
+                                            <div class="row">
+                                                <div class="col-xs-2">
+                                                    <i class="fa fa-book fa-3x"></i>
+                                                </div>
+                                                <div class="col-xs-10 text-right">
+                                                    <h5>Ver Bitácora</h5>
+                                                </div>
                                             </div>
                                         </div>
+                                        <a href="{{ path('Bitacora') }}">
+                                            <div class="panel-footer">
+                                                <span class="pull-left">Ir</span>
+                                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </a>
                                     </div>
-                                    <a href="{{ path('Bitacora') }}">
-                                        <div class="panel-footer">
-                                            <span class="pull-left">Ir</span>
-                                            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                            <div class="clearfix"></div>
-                                        </div>
-                                    </a>
                                 </div>
-                            </div>
+                            {% endif %}
 
-                            <div class="col-lg-3 col-md-6">
-                                <div class="panel panel-primary">
-                                    <div class="panel-heading">
-                                        <div class="row">
-                                            <div class="col-xs-2">
-                                                <i class="fa fa-book fa-3x"></i>
-                                            </div>
-                                            <div class="col-xs-10 text-right">
-                                                <h5>Gestión de XXXXXXXX</h5>
+                            {% if is_granted('ROLE_MEDICO') or is_granted('ROLE_ENFERMERA') %}
+                                {% if (is_granted('ROLE_MEDICO') or is_granted('ROLE_ENFERMERA')) and not (is_granted('ROLE_ADMIN'))%}
+                                    <div class="col-lg-3 col-md-6 col-lg-offset-1">
+                                {% else %}
+                                    <div class="col-lg-3 col-md-6">
+                                {% endif %}
+                                    <div class="panel panel-primary">
+                                        <div class="panel-heading">
+                                            <div class="row">
+                                                <div class="col-xs-2">
+                                                    <i class="fa fa-book fa-3x"></i>
+                                                </div>
+                                                <div class="col-xs-10 text-right">
+                                                    <h5>Gestión de UNDEFINED</h5>
+                                                </div>
                                             </div>
                                         </div>
+                                        <a href="#">
+                                            <div class="panel-footer">
+                                                <span class="pull-left">Ir</span>
+                                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </a>
                                     </div>
-                                    <a href="#">
-                                        <div class="panel-footer">
-                                            <span class="pull-left">Ir</span>
-                                            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                            <div class="clearfix"></div>
-                                        </div>
-                                    </a>
                                 </div>
-                            </div>
-                        </div>
+                            {% endif %}
+                        </div>                       
                     </div>
                 </div>                    
             {% endblock %}
@@ -539,7 +580,6 @@
             })(jQuery);
         </script> 
 
-<<<<<<< HEAD
         <script>
             (function(){
                 $('#eambundle_paciente_historiaClinica_alergias_0_fecha').datepicker({ format: 'dd-mm-yyyy' });
@@ -559,11 +599,6 @@
         </script> 
         
 
-        
-
-        
-=======
->>>>>>> d08f93e8e5fb64f3c2fb0d87ec5933e6937840db
     {% endblock %}
 
 </body>

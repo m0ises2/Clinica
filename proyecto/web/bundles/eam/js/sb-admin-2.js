@@ -37,7 +37,7 @@ $(function() {
 
 //Función que hice para verificar el nombre de usuario vía AJAX:
 $(document).ready(function() {
-    $("#eambundle_empleado_nombreUsuario").keyup(function (e){
+    $("#eambundle_empleado_nombreUsuario").change(function (e){
         
         var user = $(this).val();
         
