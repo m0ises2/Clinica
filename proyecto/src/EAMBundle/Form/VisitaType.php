@@ -18,7 +18,17 @@ class VisitaType extends AbstractType
             ->add('segurosocial','text')
             ->add('fecha','date', array('widget' => 'single_text', 'format' => 'dd-MM-yyyy','label' => 'Fecha de Visita'))
             ->add('hora','text',array('attr'=> array('class' => 'time')))
-            ->add('medico','text')
+            ->add('medico','entity',
+                array(
+                        'class'=>'EAMBundle:Empleado',
+                        "label"=>"Medico",
+                        'query_builder' => function(\Doctrine\ORM\EntityRepository  $er) {
+                                        return $er->createQueryBuilder('u')
+                                        ->where("u.tipo = 'Medico'");
+                                        },
+
+                    )
+                )
             ->add('tipo','hidden')
             ->add('paciente','entity',array(
               'class' => 'EAMBundle:Paciente','attr'=> array('class' => 'hidden'), 'label'=>false))
