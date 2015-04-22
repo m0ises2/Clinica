@@ -14,18 +14,21 @@ class ExamenController extends Controller
     {
         return $this->render('EAMBundle:Examen:Nuevo.html.twig', array(
                 // ...
-            ));    }
+            ));    
+    }
 
     public function EditarAction()
     {
         return $this->render('EAMBundle:Examen:Editar.html.twig', array(
                 // ...
-            ));    }
+            ));    
+    }
 
     public function EliminarAction()
     {
         return $this->render('EAMBundle:Examen:Eliminar.html.twig', array(
                 // ...
-            ));    }
+            ));    
+    }
 
 }
