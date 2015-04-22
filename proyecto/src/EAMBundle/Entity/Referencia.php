@@ -43,7 +43,8 @@ class Referencia
     /**
      * @var integer
      *
-     * @ORM\Column(name="id_historia_clinica", type="integer", nullable=false)
+     * @ORM\ManyToOne(targetEntity="HistoriaClinica", inversedBy="referencias")
+     * @ORM\JoinColumn(name="id_historia_clinica", referencedColumnName="id", onDelete="CASCADE")
      */
     private $idHistoriaClinica;
 
@@ -181,5 +182,11 @@ class Referencia
     public function getId()
     {
         return $this->id;
+    }
+
+    public function addHistoriaClinica(HistoriaClinica $historia){
+        if(!$this->referencias->contains($historia)){
+            $this->referencias->add($historia);
+        }
     }
 }

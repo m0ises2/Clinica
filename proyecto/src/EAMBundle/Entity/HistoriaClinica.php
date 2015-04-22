@@ -76,8 +76,33 @@ class HistoriaClinica
      */
     private $id;
 
+
+    /**
+    *@ORM\oneToMany(targetEntity="Diagnostico", mappedBy="idHistoriaClinica", cascade={"persist","remove"})
+    */
+    private $diagnosticos;
+
+    /**
+    *@ORM\oneToMany(targetEntity="Prescripciones", mappedBy="idHistoriaClinica", cascade={"persist","remove"})
+    */
+    private $prescripciones;   
+
+    /**
+    *@ORM\oneToMany(targetEntity="Referencia", mappedBy="idHistoriaClinica", cascade={"persist","remove"})
+    */
+    private $referencias; 
+
+
+
+    public function  __toString(){
+        return (string) $this->id;
+    }
+
     public function __construct(){
         $this->examenes = new ArrayCollection();
+        $this->diagnosticos = new ArrayCollection();
+        $this->prescripciones = new ArrayCollection();
+        $this->referencias = new ArrayCollection();
     }
 
 
@@ -283,5 +308,56 @@ class HistoriaClinica
     public function getExamenes()
     {
         return $this->examenes;
+    }
+
+    public function setDiagnosticos($diagnosticos){
+        $this->diagnosticos = $diagnosticos;
+        foreach ($diagnosticos as $dia) {
+            $dia->setIdHistoriaClinica($this);
+        }
+    }
+
+    public function getDiagnosticos()
+    {
+        return $this->diagnosticos;
+    }
+
+    public function addDiagnostico(Diagnostico $dia){
+        $dia->addHistoriaClinica($this);
+        $this->diagnosticos->add($dia);
+    }
+
+    public function setPrescripciones($prescripciones){
+        $this->prescripciones = $prescripciones;
+        foreach ($prescripciones as $pre) {
+            $pre->setIdHistoriaClinica($this);
+        }
+    }
+
+    public function getPrescripciones()
+    {
+        return $this->prescripciones;
+    }
+
+    public function addPrescipciones(Prescripciones $pre){
+        $pre->addHistoriaClinica($this);
+        $this->prescripciones->add($pre);
+    }
+
+    public function setReferencias($referencias){
+        $this->referencias = $referencias;
+        foreach ($referencias as $ref) {
+            $ref->setIdHistoriaClinica($this);
+        }
+    }
+
+    public function getReferencias()
+    {
+        return $this->referencias;
+    }
+
+    public function addReferencias(Referencias $ref){
+        $ref->addHistoriaClinica($this);
+        $this->referencias->add($ref);
     }
 }

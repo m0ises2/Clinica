@@ -5,14 +5,20 @@ namespace EAMBundle\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
+
+
 use EAMBundle\Entity\HCInicial;
+use EAMBundle\Entity\HistoriaClinica;
 use EAMBundle\Form\HCInicialType;
+
+use EAMBundle\Form\HistoriaClinicaType;
 
 use Symfony\Component\HttpFoundation\Response;
 
 use EAMBundle\Entity\Paciente;
 
 use EAMBundle\Entity\NumerosTelefonicos;
+
 
 use EAMBundle\Entity\Bitacora;
 
@@ -131,10 +137,11 @@ class HCInicialController extends Controller
                     $this->addLog( $this->getUser()->getnombreUsuario(), $this->getUser()->getId(), 'Agregado Paciente: '. $paciente->getNombre().' '. $paciente->getApellido() );
                     $this->addLog( $this->getUser()->getnombreUsuario(), $this->getUser()->getId(), 'Agregado Historia Medica: N°'. $paciente->getHistoriaClinica()->getId());                    
 
+                    $paciente = new Paciente();
+                    $form = $this ->createForm(new PacienteHType(), $paciente);
 
-
-                    return $this->render('EAMBundle:HCInicial:nuevo.html.twig', array('error'=>$error,'nombre' => $this->getUser()->getnombreUsuario()));
-                    
+                    //return $this->render('EAMBundle:HCInicial:nuevo.html.twig', array('form'=>$form->createView(),'error'=>$error,'nombre' => $this->getUser()->getnombreUsuario()));
+                    return $this->redirect($this->generateUrl('Buscar_Historia'));
                     
                 }
             }
@@ -173,7 +180,22 @@ class HCInicialController extends Controller
         $repo = $this->getDoctrine()->getManager();
         $paciente = $repo->getRepository('EAMBundle:Paciente')->find($id);        
 
-        return $this->render('EAMBundle:HCInicial:ver_historia.html.twig', array('paciente' => $paciente, 'HCI' => $HCI,'nombre' => $this->getUser()->getnombreUsuario()));
+        $HC = new HistoriaClinica();
+        $form = $this ->createForm(new HistoriaClinicaType(), $HC);
+
+        /*$repositorio = $this->getDoctrine()->getRepository('EAMBundle:HistoriaClinica');
+          $query = $repositorio->createQueryBuilder('r')
+                               ->Where('r.id = :id')
+                               ->setParameter('id', $paciente->getId())
+                               ->orderBy('r.fechaVisita', 'ASC')
+                               ->getQuery();
+
+        $Historial = $query->getResult();*/
+
+        $Historial = $repo->getRepository('EAMBundle:HistoriaClinica')->findByIdPaciente($id);
+
+        return $this->render('EAMBundle:HCInicial:ver_historia.html.twig', array('historial'=>$Historial,'id_medico' => $this->getUser()->getId(),'error' => '','form' => $form->createView(),'paciente' => $paciente, 'HCI' => $HCI,'nombre' => $this->getUser()->getnombreUsuario()));
+
 
 
     }

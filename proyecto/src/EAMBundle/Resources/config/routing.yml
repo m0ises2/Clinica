@@ -96,6 +96,10 @@ Actualizar_Historia:
     path: /historia/actualizar/{id}
     defaults: { _controller: EAMBundle:HCInicial:Actualizar}
 
+Nueva_HC:
+    path: /historiaC/Nuevo/{id}
+    defaults: { _controller: EAMBundle:HistoriaClinica:Nuevo}
+
 
 logout:
    path: /logout
