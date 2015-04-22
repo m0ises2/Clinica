@@ -36,7 +36,8 @@ class Diagnostico
     /**
      * @var integer
      *
-     * @ORM\Column(name="id_historia_clinica", type="integer", nullable=false)
+     * @ORM\ManyToOne(targetEntity="HistoriaClinica", inversedBy="diagnosticos")
+     * @ORM\JoinColumn(name="id_historia_clinica", referencedColumnName="id", onDelete="CASCADE")
      */
     private $idHistoriaClinica;
 
@@ -151,5 +152,11 @@ class Diagnostico
     public function getId()
     {
         return $this->id;
+    }
+
+    public function addHistoriaClinica(HistoriaClinica $historia){
+        if(!$this->diagnosticos->contains($historia)){
+            $this->diagnosticos->add($historia);
+        }
     }
 }
