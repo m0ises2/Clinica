@@ -16,6 +16,16 @@ ajax_request:
     requirements:
           _method: POST
 
+ajax_:
+    path:  /Empleado/edit_ajax_
+    defaults: { _controller: EAMBundle:Empleado:load }
+    requirements:
+          _method: POST
+
+Editar_ajax:
+    path:  /Empleado/edit_ajax
+    defaults: { _controller: EAMBundle:Empleado:editar_ajax }
+
 Nuevo_empleado:
     path:  /Empleado/nuevo
     defaults: { _controller: EAMBundle:Empleado:Nuevo }

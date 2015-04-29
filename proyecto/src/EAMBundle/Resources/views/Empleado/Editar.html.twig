@@ -1,0 +1,26 @@
+{% extends "::baseClinica.html.twig" %}
+
+{% block title %} Editar {% endblock %}
+
+{% block content %}
+	<div class="row">
+        <div class="col-lg-12">
+            <h2 class="page-header"> Editar Empleado usando AJAX para cargar el formulario </h2>
+        </div>
+        <!-- /.col-lg-12 -->
+
+        <div class="row">
+        	<div class="col-lg-4 col-lg-offset-1">
+        		<label> Nombre de Usuario </label> 
+        		<input id="user" type="text" name="user" class="form-control">
+        	</div>
+        </div>
+        <div class="row">
+        	<div class="col-lg-4 col-lg-offset-1">	
+        		<button id="boton" class="btn btn-outline btn-primary" type="button">Encontrar</button>
+        	</div>
+       	</div>
+       	<p id="a1"> Esto se oculta si existe el usuario </p>
+       	<p id="a2" hidden> esto se muestra si existe el usuario</p>      
+   </div>
+{% endblock %}

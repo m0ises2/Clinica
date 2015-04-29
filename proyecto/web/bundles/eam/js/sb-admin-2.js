@@ -83,3 +83,23 @@ $(document).ready(function() {
     });
 
 });
+
+
+$(document).ready(function() {
+    $("#boton").click(function(){
+        var user = $("#user").val();
+        //Se hace la llamada AJAX:
+        $.post('edit_ajax_',{'user':user}, function(data){
+            if (data.responseCode == "200")
+            {
+                //alert("Todo OK");
+                $("#a1").hide();
+                $("#a2").show();
+                $("#user").hide();
+            }else
+            {
+                alert("Something went wrong")
+            }
+        });
+    });
+});

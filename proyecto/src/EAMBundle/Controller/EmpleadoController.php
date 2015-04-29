@@ -475,4 +475,37 @@ class EmpleadoController extends Controller
       return new Response( $return, 200, array('Content-Type'=>'application/json') );
     }
 
+    public function loadAction()
+    {
+      $_user = $this->getRequest()->get('user');
+
+      $em = $this->getDoctrine()->getManager()->getRepository("EAMBundle:Empleado")->findByNombreUsuario($_user);
+
+      if ($em)//Si lo encontró
+      {
+        $return = array("responseCode" => 200 );
+      }else//Si no lo encontró
+      {
+        $return = array("responseCode" => 300 );
+      }
+
+      $return = json_encode($return);
+
+      return new Response($return, 200, array('Content-Type'=>'application/json'));
+    }
+
+    public function editar_ajaxAction()
+    {
+       /*¿Iniciada la sesión?*/
+      /*Validar si esta logeado*/
+      /**************************************************************/
+      if ( $this->getUser() === NULL ) 
+      {
+        return $this->redirect($this->generateUrl('login'));
+      }
+      /**************************************************************/
+
+      return $this->render('EAMBundle:Empleado:Editar.html.twig', array( 'nombre' => $this->getUser()->getnombreUsuario()));
+    }
+
 }

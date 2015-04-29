@@ -81,5 +81,11 @@ $(document).ready(function() {
             }
         }
     });
+});
 
+
+$(document).ready(function() {
+    $("#boton").click(function(){
+        alert("Yeah");
+    });
 });
