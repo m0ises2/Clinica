@@ -87,15 +87,44 @@ $(document).ready(function() {
 
 $(document).ready(function() {
     $("#boton").click(function(){
+
+        $("#n_user").slideToggle(850);
+
         var user = $("#user").val();
         //Se hace la llamada AJAX:
         $.post('edit_ajax_',{'user':user}, function(data){
             if (data.responseCode == "200")
             {
-                //alert("Todo OK");
-                $("#a1").hide();
-                $("#a2").show();
-                $("#user").hide();
+                $("#test").fadeIn(350);
+                //Se cargan los datos a cada input del formulario.
+                $("#eambundle_empleado_nombreUsuario").val(data.nombreUsuario);
+                $("#eambundle_empleado_contrasenha").val(data.contrasena);
+                $("#eambundle_empleado_nombre").val(data.Nombre);
+                $("#eambundle_empleado_apellido").val(data.Apellido);
+                $("#eambundle_empleado_fechaNac").val(data.Fecha_nac);
+                $("#eambundle_empleado_seguroSocial").val(data.Seguro_social);
+                $("#eambundle_empleado_direccion").val(data.Direccion);
+                $("#eambundle_empleado_fechaInicio").val(data.Fecha_inicio);
+                $("#eambundle_empleado_telefono").val(data.Telefono);
+
+                if ( data.Role != "Administrador")
+                {
+                    if (data.Role == "Administrativo")
+                    {
+                         $("#eambundle_empleado_tipo_0").prop('checked', true);
+                    }else if ( data.Role == "Medico")
+                    {
+                        $("#eambundle_empleado_tipo_1").prop('checked', true);
+                    }else if( data.Role == "Enfermera" )
+                    {
+                        $("#eambundle_empleado_tipo_2").prop('checked', true);
+                    }
+                }else
+                {
+                    $("#eambundle_empleado_tipo_0").prop('checked', false);
+                    $("#eambundle_empleado_tipo_1").prop('checked', false);
+                    $("#eambundle_empleado_tipo_2").prop('checked', false);
+                }
             }else
             {
                 alert("Something went wrong")

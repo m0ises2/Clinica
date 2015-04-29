@@ -483,13 +483,28 @@ class EmpleadoController extends Controller
 
       if ($em)//Si lo encontró
       {
-        $return = array("responseCode" => 200 );
+        foreach ($em as $key => $value)
+        {
+          $return = array("responseCode" => 200,//Todo salió bien.
+                          "nombreUsuario"=>$value->getnombreUsuario(), 
+                          "contrasena"=>$value->getContrasenha(),
+                          "Nombre"=>$value->getNombre(),
+                          "Apellido"=>$value->getApellido(),
+                          "Fecha_nac"=>$value->getFechaNac()->format('d-m-y'),//Importante formatear la fecha, para así evitar que se envíe el objeto completo de tipo Date/Datetime al HTML.
+                          "Seguro_social"=>$value->getseguroSocial(),
+                          "Direccion"=>$value->getDireccion(),
+                          "Fecha_inicio"=>$value->getFechaInicio()->format('d-m-y'),//Importante formatear la fecha, para así evitar que se envíe el objeto completo de tipo Date/Datetime al HTML.
+                          "Telefono"=>$value->getTelefono(),
+                          "Role"=>$value->getTipo()                        
+            );
+        }
+        //$return = array("responseCode" => 200 );
       }else//Si no lo encontró
       {
-        $return = array("responseCode" => 300 );
+        $return = array("responseCode" => 300 );//Algo salió mal.
       }
 
-      $return = json_encode($return);
+      $return = json_encode($return);//Codificamos los datos a formato JSON.
 
       return new Response($return, 200, array('Content-Type'=>'application/json'));
     }
@@ -504,8 +519,8 @@ class EmpleadoController extends Controller
         return $this->redirect($this->generateUrl('login'));
       }
       /**************************************************************/
-
-      return $this->render('EAMBundle:Empleado:Editar.html.twig', array( 'nombre' => $this->getUser()->getnombreUsuario()));
+      $form = $this->createForm(new EmpleadoType());
+      return $this->render('EAMBundle:Empleado:Editar.html.twig', array('form' => $form->createView(), 'nombre' => $this->getUser()->getnombreUsuario()));               
     }
 
 }

@@ -10,17 +10,140 @@
         <!-- /.col-lg-12 -->
 
         <div class="row">
-        	<div class="col-lg-4 col-lg-offset-1">
-        		<label> Nombre de Usuario </label> 
+        	<div id="n_user" class="col-lg-4 col-lg-offset-3">
+        		<label > Nombre de Usuario a Editar</label> 
         		<input id="user" type="text" name="user" class="form-control">
         	</div>
         </div>
-        <div class="row">
-        	<div class="col-lg-4 col-lg-offset-1">	
+        <div class="row" style="margin-top:20px;">
+        	<div class="col-lg-4 col-lg-offset-3">	
         		<button id="boton" class="btn btn-outline btn-primary" type="button">Encontrar</button>
         	</div>
        	</div>
-       	<p id="a1"> Esto se oculta si existe el usuario </p>
-       	<p id="a2" hidden> esto se muestra si existe el usuario</p>      
+        <div id="test" class="row" style="display: none; margin-top:25px;">
+          <div class="col-lg-4 col-lg-offset-3">
+             <div class="" >
+                <form method="POST" action = "#" >
+                  <div class = "row" >
+                  <h3> Datos de cuenta </h3>
+                </div>
+                  <div class = "form-group" >
+                    {% if form_errors(form.nombreUsuario) %}
+                      <div class = "alert alert-danger alert-dismissable">
+                        <button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>
+                        {{ form_errors(form.nombreUsuario) }}
+                      </div>
+                  {% endif %}
+                    {{ form_label(form.nombreUsuario) }}
+                    {{ form_widget(form.nombreUsuario, {'attr':{'class':'form-control'}}) }}
+
+                    {% if form_errors(form.contrasenha) %}
+                      <div class = "alert alert-danger alert-dismissable">
+                        <button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>
+                        {{ form_errors(form.contrasenha) }}
+                      </div>
+                  {% endif %}
+                    {{ form_label(form.contrasenha,'Contraseña') }}
+                    {{ form_widget(form.contrasenha, {'attr':{'class':'form-control'}}) }}
+
+                    {% if form_errors(form.nombre) %}
+                      <div class = "alert alert-danger alert-dismissable">
+                        <button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>
+                        {{ form_errors(form.nombre) }}
+                      </div>
+                  {% endif %}
+
+                  <div class = "row" >
+                    <h3> Datos de personales </h3>
+                  </div>
+
+                    {{ form_label(form.nombre) }}
+                    {{ form_widget(form.nombre, {'attr':{'class':'form-control'}}) }}
+
+                    {% if form_errors(form.apellido) %}
+                      <div class = "alert alert-danger alert-dismissable">
+                        <button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>
+                        {{ form_errors(form.apellido) }}
+                      </div>
+                  {% endif %}
+                    {{ form_label(form.apellido) }}
+                    {{ form_widget(form.apellido, {'attr':{'class':'form-control'}}) }}
+
+                    {% if form_errors(form.fechaNac) %}
+                      <div class = "alert alert-danger alert-dismissable">
+                        <button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>
+                        {{ form_errors(form.fechaNac) }}
+                      </div>
+                  {% endif %}
+                    {{ form_label(form.fechaNac) }}
+                    {{ form_widget(form.fechaNac, {'attr':{'class':'form-control', 'placeholder':'dia-mes-año', 'readonly':''}}) }}
+
+                    {% if form_errors(form.seguroSocial) %}
+                      <div class = "alert alert-danger alert-dismissable">
+                        <button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>
+                          {{ form_errors(form.seguroSocial) }}
+                      </div>
+                  {% endif %}
+                    {{ form_label(form.seguroSocial,'Número de seguro social') }}
+                    {{ form_widget(form.seguroSocial, {'attr':{'class':'form-control'}}) }}
+
+                    {% if form_errors(form.direccion) %}
+                      <div class = "alert alert-danger alert-dismissable">
+                        <button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>
+                        {{ form_errors(form.direccion) }}
+                      </div>
+                  {% endif %}
+                    {{ form_label(form.direccion,'Dirección') }}
+                    {{ form_widget(form.direccion, {'attr':{'class':'form-control'}}) }}
+
+                    {% if form_errors(form.telefono) %}
+                      <div class = "alert alert-danger alert-dismissable">
+                        <button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>
+                        {{ form_errors(form.telefono) }}
+                      </div>
+                  {% endif %}
+                    {{ form_label(form.telefono,'Teléfono') }}
+                    {{ form_widget(form.telefono, {'attr':{'class':'form-control'}}) }}
+
+                    {% if form_errors(form.fechaInicio) %}
+                      <div class = "alert alert-danger alert-dismissable">
+                        <button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>
+                        {{ form_errors(form.fechaInicio) }}
+                      </div>
+                  {% endif %}
+
+                  <div class = "row" >
+                    <h3> Datos de empleo </h3>
+                  </div>
+
+                    {{ form_label(form.fechaInicio, 'Fecha de ingreso') }}
+                    {{ form_widget(form.fechaInicio, {'attr':{'class':'form-control', 'placeholder':'dia-mes-año', 'readonly':''}}) }}
+
+                    <label style = "padding-top:10px;"> Tipo de cargo </label>
+                    <div class="radio" style="padding-left:50px;">
+                       {% for type in form.tipo %}
+                        <div div class="row">
+                          {{ form_widget(type) }}
+                          {{ form_label(type) }}
+                        </div>
+                       {% endfor %}
+                  </div>
+                </div>
+
+                  <div class = "row" style= "padding-bottom: 20px;">
+                    <div class="col-lg-2 col-lg-offset-2"> 
+                      {{form_widget(form.Guardar ,{'attr':{'class':'btn btn-outline btn-primary'}})}} 
+                    </div>
+                    
+                    <div class="col-lg-2 col-lg-offset-1" > 
+                      {{form_widget(form.Cancelar ,{'attr':{'class':'btn btn-outline btn-danger'}})}} 
+                    </div>          
+                  </div>
+
+                  {{ form_rest(form) }} 
+                </form>
+            </div> 
+          </div>
+        </div>   
    </div>
 {% endblock %}
